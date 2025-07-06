@@ -1,41 +1,72 @@
 "use client";
 
 import { Ingredient } from "@prisma/client";
+import { useMutation } from "@tanstack/react-query";
+import { X } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface CauldronProps {
   selectedIngredients: Ingredient[];
-  onRemoveIngredient: (ingredient: Ingredient) => void;
+  onRemoveIngredient: (index: number) => void;
 }
 
-export function Cauldron({ selectedIngredients, onRemoveIngredient }: CauldronProps) {
+export function Cauldron({
+  selectedIngredients,
+  onRemoveIngredient,
+}: CauldronProps) {
+  const { mutate: brewPotion } = useMutation({
+    mutationFn: async (ingredientNames: Ingredient[]) => {
+      const response = await fetch("/api/recipes/check", {
+        method: "POST",
+        body: JSON.stringify({ ingredientNames }),
+      });
+      const data = await response.json();
+      console.log(" Cauldron.tsx:23 data:", data);
+      return data;
+    },
+  });
+
   return (
     <div className="bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-amber-500/30">
       <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-        <span>🧙‍♂️</span> Chaudron
+        <span>🔮</span> Cauldron
       </h2>
-      <div className="min-h-[30rem] min-w-[20rem] border-2 border-dashed border-amber-500/30 rounded-xl p-4">
-        {selectedIngredients.length === 0 ? (
-          <div className="h-full flex items-center justify-center text-amber-500/50">
-            Drop ingredients here
-          </div>
-        ) : (
-          <div className="space-y-2">
-            {selectedIngredients.map((ingredient) => (
-              <div
-                key={ingredient.id}
-                className="bg-amber-500/20 border border-amber-500/30 rounded-lg p-3 flex items-center justify-between"
+
+      {/* Selected Ingredients */}
+      <div className="mb-4">
+        <div className="flex flex-wrap gap-2 mb-4 min-h-[60px] p-3 bg-gray-800/50 rounded-lg border-2 border-dashed border-gray-600">
+          {selectedIngredients.map((ingredient, index) => (
+            <div
+              key={`${ingredient.id}-${index}`}
+              className="flex items-center gap-1 bg-amber-600/30 text-white px-2 py-1 rounded-full text-sm border border-amber-400/50"
+            >
+              <span>🔮</span>
+              <span>{ingredient.name}</span>
+              <button
+                onClick={() => onRemoveIngredient(index)}
+                className="ml-1 text-red-400 hover:text-red-300"
               >
-                <span className="text-white font-medium">{ingredient.name}</span>
-                <button
-                  onClick={() => onRemoveIngredient(ingredient)}
-                  className="text-red-400 hover:text-red-300 transition-colors"
-                >
-                  ✕
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
+                <X size={14} />
+              </button>
+            </div>
+          ))}
+          {selectedIngredients.length === 0 && (
+            <div className="text-gray-400 text-sm flex items-center justify-center w-full">
+              Select 3 ingredients
+            </div>
+          )}
+        </div>
+
+        <div className="text-center text-sm text-amber-200 mb-4">
+          {selectedIngredients.length}/3 ingredients selected
+        </div>
+
+        <Button
+          onClick={() => brewPotion(selectedIngredients)}
+          className="bg-amber-500 text-black px-4 py-2 rounded-lg"
+        >
+          Brew Potion
+        </Button>
       </div>
     </div>
   );

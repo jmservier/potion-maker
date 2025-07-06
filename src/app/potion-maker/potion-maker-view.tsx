@@ -22,15 +22,16 @@ export default function PotionMakerView({
       if (isAlreadySelected) {
         return prev.filter((selected) => selected.id !== ingredient.id);
       } else {
+        if (prev.length >= 3) {
+          return prev;
+        }
         return [...prev, ingredient];
       }
     });
   };
 
-  const handleRemoveIngredient = (ingredient: Ingredient) => {
-    setSelectedIngredients((prev) =>
-      prev.filter((selected) => selected.id !== ingredient.id),
-    );
+  const handleRemoveIngredient = (index: number) => {
+    setSelectedIngredients((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
