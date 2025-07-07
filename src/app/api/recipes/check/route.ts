@@ -15,10 +15,11 @@ export async function POST(request: Request) {
     const matchingRecipe = recipes.find((recipe) => {
       const recipeIngredients = recipe.ingredients as string[];
       const sortedRecipeIngredients = [...recipeIngredients].sort();
+
       return (
         sortedIngredients.length === sortedRecipeIngredients.length &&
         sortedIngredients.every(
-          (ing, idx) => ing === sortedRecipeIngredients[idx],
+          (ingredient, index) => ingredient === sortedRecipeIngredients[index],
         )
       );
     });

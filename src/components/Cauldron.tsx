@@ -8,21 +8,35 @@ import { Button } from "./ui/button";
 interface CauldronProps {
   selectedIngredients: Ingredient[];
   onRemoveIngredient: (index: number) => void;
+  onSuccess?: () => void;
+  onClear: () => void;
 }
 
 export function Cauldron({
   selectedIngredients,
   onRemoveIngredient,
+  onSuccess,
+  onClear,
 }: CauldronProps) {
   const { mutate: brewPotion } = useMutation({
-    mutationFn: async (ingredientNames: Ingredient[]) => {
+    mutationFn: async (ingredients: Ingredient[]) => {
+      const ingredientNames = ingredients.map((ingredient) => ingredient.name);
+
       const response = await fetch("/api/recipes/check", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ ingredientNames }),
       });
       const data = await response.json();
       console.log(" Cauldron.tsx:23 data:", data);
       return data;
+    },
+    onSuccess: (data) => {
+      if (data.success && onSuccess) {
+        onSuccess();
+      }
     },
   });
 
@@ -32,7 +46,6 @@ export function Cauldron({
         <span>🔮</span> Cauldron
       </h2>
 
-      {/* Selected Ingredients */}
       <div className="mb-4">
         <div className="flex flex-wrap gap-2 mb-4 min-h-[60px] p-3 bg-gray-800/50 rounded-lg border-2 border-dashed border-gray-600">
           {selectedIngredients.map((ingredient, index) => (
@@ -61,12 +74,24 @@ export function Cauldron({
           {selectedIngredients.length}/3 ingredients selected
         </div>
 
-        <Button
-          onClick={() => brewPotion(selectedIngredients)}
-          className="bg-amber-500 text-black px-4 py-2 rounded-lg"
-        >
-          Brew Potion
-        </Button>
+        <div className="space-y-2">
+          <Button
+            onClick={() => brewPotion(selectedIngredients)}
+            disabled={selectedIngredients.length !== 3}
+            className="w-full bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Brew Potion
+          </Button>
+
+          <Button
+            onClick={onClear}
+            disabled={selectedIngredients.length === 0}
+            variant="outline"
+            className="w-full border-amber-500/50 text-amber-200 hover:bg-amber-500/10"
+          >
+            Clear Selection
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -1,15 +1,50 @@
 "use client";
 
 import { useState } from "react";
-import { Ingredient } from "@prisma/client";
+import { Ingredient, Recipe } from "@prisma/client";
 import { IngredientsGrid } from "@/components/IngredientsGrid";
 import { Cauldron } from "@/components/Cauldron";
+import { FoundRecipes } from "@/components/FoundRecipes";
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+async function fetchRecipes(): Promise<Recipe[]> {
+  const response = await fetch("/api/recipes");
+  if (!response.ok) {
+    throw new Error("Failed to fetch recipes");
+  }
+  return response.json();
+}
+
+async function resetRecipes() {
+  const response = await fetch("/api/recipes/reset", {
+    method: "POST",
+  });
+  if (!response.ok) {
+    throw new Error("Failed to reset recipes");
+  }
+  return response.json();
+}
 
 export default function PotionMakerView({
   ingredients,
 }: {
   ingredients: Ingredient[];
 }) {
+  const { data: recipes = [], refetch: refetchRecipes } = useQuery({
+    queryKey: ["recipes"],
+    queryFn: fetchRecipes,
+  });
+
+  const { mutate: resetRecipesMutate } = useMutation({
+    mutationFn: resetRecipes,
+    onSuccess: () => {
+      refetchRecipes();
+    },
+    onError: (error) => {
+      console.error("Failed to reset recipes:", error);
+    },
+  });
+
   const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>(
     [],
   );
@@ -34,6 +69,19 @@ export default function PotionMakerView({
     setSelectedIngredients((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const handleSuccess = () => {
+    refetchRecipes();
+    setSelectedIngredients([]);
+  };
+
+  const handleClear = () => {
+    setSelectedIngredients([]);
+  };
+
+  const handleResetRecipes = () => {
+    resetRecipesMutate();
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-950 via-green-900 to-amber-950 p-4">
       <div className="max-w-7xl mx-auto">
@@ -54,7 +102,12 @@ export default function PotionMakerView({
             <Cauldron
               selectedIngredients={selectedIngredients}
               onRemoveIngredient={handleRemoveIngredient}
+              onSuccess={handleSuccess}
+              onClear={handleClear}
             />
+            <div className="mt-4">
+              <FoundRecipes recipes={recipes} onReset={handleResetRecipes} />
+            </div>
           </div>
         </div>
       </div>
