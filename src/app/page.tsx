@@ -1,5 +1,5 @@
-import PotionMaker from "./potion-maker/page";
+import Crafting from "./crafting/page";
 
 export default async function Home() {
-  return <PotionMaker />;
+  return <Crafting />;
 }

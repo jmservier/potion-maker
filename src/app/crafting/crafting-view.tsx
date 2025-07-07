@@ -27,7 +27,7 @@ async function resetRecipes() {
   return response.json();
 }
 
-export default function PotionMakerView({
+export default function CraftingView({
   ingredients: initialIngredients,
 }: {
   ingredients: Ingredient[];
@@ -90,7 +90,7 @@ export default function PotionMakerView({
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 text-center">
           <h1 className="mb-4 text-4xl font-bold text-white">
-            <span>✨</span> Potion Maker<span>✨</span>
+            <span>✨</span> Crafting Potions <span>✨</span>
           </h1>
         </div>
         <Navigation />

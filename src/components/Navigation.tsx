@@ -13,7 +13,7 @@ export function Navigation() {
       id: "laboratory",
       name: "Laboratory",
       icon: BeakerIcon,
-      path: "/potion-maker",
+      path: "/crafting",
     },
     { id: "inventory", name: "Inventory", icon: Package, path: "/inventory" },
     // { id: "grimoire", name: "Grimoire", icon: BookOpen, path: "/grimoire" },
