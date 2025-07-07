@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { Ingredient, Recipe } from "@prisma/client";
-import { IngredientsGrid } from "@/components/IngredientsGrid";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Cauldron } from "@/components/Cauldron";
 import { FoundRecipes } from "@/components/FoundRecipes";
+import { IngredientsGrid } from "@/components/IngredientsGrid";
 import { Navigation } from "@/components/Navigation";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { useIngredients } from "@/hooks/useIngredients";
 
 async function fetchRecipes(): Promise<Recipe[]> {
@@ -87,14 +87,14 @@ export default function PotionMakerView({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-950 via-green-900 to-amber-950 p-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-4">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-8 text-center">
+          <h1 className="mb-4 text-4xl font-bold text-white">
             <span>✨</span> Potion Maker<span>✨</span>
           </h1>
         </div>
         <Navigation />
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <IngredientsGrid
               ingredients={ingredients}

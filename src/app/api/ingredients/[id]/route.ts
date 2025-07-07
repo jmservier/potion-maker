@@ -1,5 +1,5 @@
-import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
 
 export async function GET(
   request: Request,
@@ -18,7 +18,8 @@ export async function GET(
     }
 
     return NextResponse.json(ingredient);
-  } catch {
+  } catch (error) {
+    console.error("Failed to fetch ingredient", error);
     return NextResponse.json(
       { error: "Failed to fetch ingredient" },
       { status: 500 },
@@ -44,6 +45,7 @@ export async function PUT(
 
     return NextResponse.json(ingredient);
   } catch (error) {
+    console.error("Failed to update ingredient", error);
     if (error instanceof Error && error.message.includes("P2025")) {
       return NextResponse.json(
         { error: "Ingredient not found" },
@@ -74,6 +76,7 @@ export async function DELETE(
 
     return NextResponse.json({ message: "Ingredient deleted successfully" });
   } catch (error) {
+    console.error("Failed to delete ingredient", error);
     if (error instanceof Error && error.message.includes("P2025")) {
       return NextResponse.json(
         { error: "Ingredient not found" },

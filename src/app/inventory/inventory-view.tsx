@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Ingredient } from "@prisma/client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Minus, Plus, RotateCcw } from "lucide-react";
+import { Navigation } from "@/components/Navigation";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,13 +15,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Plus, Minus, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   useIngredients,
   useResetInventory,
   useUpdateIngredient,
 } from "@/hooks/useIngredients";
-import { Navigation } from "@/components/Navigation";
 
 interface InventoryViewProps {
   initialIngredients: Ingredient[];
@@ -59,16 +59,16 @@ export default function InventoryView({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-950 via-green-900 to-amber-950 p-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-4">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-8 text-center">
+          <h1 className="mb-4 text-4xl font-bold text-white">
             <span>📦</span> Magical Inventory <span>📦</span>
           </h1>
         </div>
         <Navigation />
         <div className="space-y-6">
-          <div className="bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-amber-500/30">
-            <div className="flex justify-between items-center mb-4">
+          <div className="rounded-xl border border-amber-500/30 bg-black/30 p-6 backdrop-blur-sm">
+            <div className="mb-4 flex items-center justify-between">
               <h2 className="text-2xl font-bold text-white">
                 Inventory Overview
               </h2>
@@ -79,13 +79,13 @@ export default function InventoryView({
                 <AlertDialogTrigger asChild>
                   <Button
                     variant="outline"
-                    className="border-gray-600 text-gray-300 hover:bg-gray-700 bg-transparent"
+                    className="border-gray-600 bg-transparent text-gray-300 hover:bg-gray-700"
                   >
                     <RotateCcw size={16} className="mr-2" />
                     Restock All
                   </Button>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-gray-800 border-gray-600">
+                <AlertDialogContent className="border-gray-600 bg-gray-800">
                   <AlertDialogHeader>
                     <AlertDialogTitle className="text-white">
                       Restock Inventory
@@ -96,13 +96,13 @@ export default function InventoryView({
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                    <AlertDialogCancel className="border-gray-600 bg-gray-700 text-gray-300 hover:bg-gray-600">
                       Cancel
                     </AlertDialogCancel>
                     <AlertDialogAction
                       onClick={handleRestockAll}
                       disabled={resetMutation.isPending}
-                      className="bg-amber-600 hover:bg-amber-700 text-white"
+                      className="bg-amber-600 text-white hover:bg-amber-700"
                     >
                       {resetMutation.isPending
                         ? "Restocking..."
@@ -113,14 +113,14 @@ export default function InventoryView({
               </AlertDialog>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-              <div className="bg-gray-800/50 rounded-lg p-4">
+            <div className="grid grid-cols-1 gap-4 text-center md:grid-cols-2">
+              <div className="rounded-lg bg-gray-800/50 p-4">
                 <div className="text-2xl font-bold text-amber-400">
                   {totalItems}
                 </div>
                 <div className="text-sm text-gray-300">Total Items</div>
               </div>
-              <div className="bg-gray-800/50 rounded-lg p-4">
+              <div className="rounded-lg bg-gray-800/50 p-4">
                 <div className="text-2xl font-bold text-green-400">
                   {availableTypes}
                 </div>
@@ -128,21 +128,21 @@ export default function InventoryView({
               </div>
             </div>
           </div>
-          <div className="bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-amber-500/30">
-            <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+          <div className="rounded-xl border border-amber-500/30 bg-black/30 p-6 backdrop-blur-sm">
+            <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold text-white">
               <span>🧪</span> Ingredients
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {ingredients?.map((ingredient) => (
                 <Card
                   key={ingredient.id}
-                  className="bg-gray-800/50 border-gray-600/50"
+                  className="border-gray-600/50 bg-gray-800/50"
                 >
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
                       <div className="text-3xl">🔮</div>
                     </div>
-                    <CardTitle className="text-white text-lg">
+                    <CardTitle className="text-lg text-white">
                       {ingredient.name}
                     </CardTitle>
                   </CardHeader>
@@ -161,12 +161,12 @@ export default function InventoryView({
                           disabled={
                             ingredient.quantity <= 0 || updateMutation.isPending
                           }
-                          className="border-gray-600 text-gray-300 hover:bg-gray-700 bg-transparent h-8 w-8 p-0"
+                          className="h-8 w-8 border-gray-600 bg-transparent p-0 text-gray-300 hover:bg-gray-700"
                         >
                           <Minus size={14} />
                         </Button>
 
-                        <div className="bg-gray-700/50 px-3 py-1 rounded text-white font-bold min-w-[3rem] text-center">
+                        <div className="min-w-[3rem] rounded bg-gray-700/50 px-3 py-1 text-center font-bold text-white">
                           {ingredient.quantity}
                         </div>
                         <Button
@@ -179,7 +179,7 @@ export default function InventoryView({
                             )
                           }
                           disabled={updateMutation.isPending}
-                          className="border-gray-600 text-gray-300 hover:bg-gray-700 bg-transparent h-8 w-8 p-0"
+                          className="h-8 w-8 border-gray-600 bg-transparent p-0 text-gray-300 hover:bg-gray-700"
                         >
                           <Plus size={14} />
                         </Button>

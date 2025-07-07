@@ -1,5 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Ingredient } from "@prisma/client";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export function useIngredients(initialData?: Ingredient[]) {
   return useQuery({

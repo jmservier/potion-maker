@@ -1,8 +1,8 @@
 "use client";
 
+import { usePathname, useRouter } from "next/navigation";
+import { BeakerIcon, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Package, BeakerIcon } from "lucide-react";
-import { useRouter, usePathname } from "next/navigation";
 
 export function Navigation() {
   const router = useRouter();
@@ -32,8 +32,8 @@ export function Navigation() {
   const currentPage = getCurrentPage();
 
   return (
-    <div className="bg-black/30 backdrop-blur-sm rounded-xl p-4 border border-amber-500/30 mb-8">
-      <div className="flex flex-wrap gap-2 justify-center">
+    <div className="mb-8 rounded-xl border border-amber-500/30 bg-black/30 p-4 backdrop-blur-sm">
+      <div className="flex flex-wrap justify-center gap-2">
         {pages.map((page) => {
           const Icon = page.icon;
           const isActive = currentPage === page.id;
@@ -45,7 +45,7 @@ export function Navigation() {
               className={`flex items-center gap-2 ${
                 isActive
                   ? "bg-gradient-to-r from-amber-600 to-green-600 text-white"
-                  : "border-gray-600 text-gray-300 hover:bg-gray-700 bg-transparent"
+                  : "border-gray-600 bg-transparent text-gray-300 hover:bg-gray-700"
               }`}
             >
               <Icon size={16} />

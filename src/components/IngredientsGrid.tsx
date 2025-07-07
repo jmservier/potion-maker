@@ -15,11 +15,11 @@ export function IngredientsGrid({
   onIngredientSelect,
 }: IngredientsGridProps) {
   return (
-    <div className="bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-amber-500/30">
-      <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+    <div className="rounded-xl border border-amber-500/30 bg-black/30 p-6 backdrop-blur-sm">
+      <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold text-white">
         <span>🧙‍♂️</span> Ingredients
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
         {ingredients.map((ingredient) => (
           <IngredientCard
             key={ingredient.id}

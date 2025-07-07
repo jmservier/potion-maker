@@ -1,5 +1,5 @@
-import prisma from "@/lib/prisma";
 import { Ingredient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
 export async function getAllIngredients(): Promise<Ingredient[]> {
   try {
