@@ -1,7 +1,7 @@
 "use client";
 
-import { Ingredient } from "@prisma/client";
 import { Card, CardContent } from "@/components/ui/card";
+import { Ingredient } from "@/schemas";
 
 interface IngredientCardProps {
   ingredient: Ingredient;

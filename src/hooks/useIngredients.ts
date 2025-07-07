@@ -1,5 +1,9 @@
-import { Ingredient } from "@prisma/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  CreateIngredient,
+  Ingredient,
+  UpdateIngredientRequest,
+} from "@/schemas";
 
 export function useIngredients(initialData?: Ingredient[]) {
   return useQuery({
@@ -19,7 +23,7 @@ export function useCreateIngredient() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: { name: string; quantity: number }) => {
+    mutationFn: async (data: CreateIngredient) => {
       const response = await fetch("/api/ingredients", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -46,7 +50,7 @@ export function useUpdateIngredient() {
       data,
     }: {
       id: string;
-      data: { name?: string; quantity?: number };
+      data: UpdateIngredientRequest;
     }) => {
       const response = await fetch(`/api/ingredients/${id}`, {
         method: "PUT",

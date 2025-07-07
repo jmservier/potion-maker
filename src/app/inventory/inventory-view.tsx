@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Ingredient } from "@prisma/client";
 import { Minus, Plus, RotateCcw } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import {
@@ -22,6 +21,7 @@ import {
   useResetInventory,
   useUpdateIngredient,
 } from "@/hooks/useIngredients";
+import { Ingredient } from "@/schemas";
 
 interface InventoryViewProps {
   initialIngredients: Ingredient[];

@@ -1,13 +1,30 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import {
+  IngredientIdParamsSchema,
+  IngredientSchema,
+  UpdateIngredientRequestSchema,
+} from "@/schemas";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const resolvedParams = await params;
+    const parseResult = IngredientIdParamsSchema.safeParse(resolvedParams);
+
+    if (!parseResult.success) {
+      return NextResponse.json(
+        { error: parseResult.error.errors },
+        { status: 400 },
+      );
+    }
+
+    const { id } = parseResult.data;
+
     const ingredient = await prisma.ingredient.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!ingredient) {
@@ -17,7 +34,8 @@ export async function GET(
       );
     }
 
-    return NextResponse.json(ingredient);
+    const validatedIngredient = IngredientSchema.parse(ingredient);
+    return NextResponse.json(validatedIngredient);
   } catch (error) {
     console.error("Failed to fetch ingredient", error);
     return NextResponse.json(
@@ -29,21 +47,42 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const resolvedParams = await params;
+    const paramsResult = IngredientIdParamsSchema.safeParse(resolvedParams);
+
+    if (!paramsResult.success) {
+      return NextResponse.json(
+        { error: paramsResult.error.errors },
+        { status: 400 },
+      );
+    }
+
     const body = await request.json();
-    const { name, quantity } = body;
+    const parseResult = UpdateIngredientRequestSchema.safeParse(body);
+
+    if (!parseResult.success) {
+      return NextResponse.json(
+        { error: parseResult.error.errors },
+        { status: 400 },
+      );
+    }
+
+    const { id } = paramsResult.data;
+    const { name, quantity } = parseResult.data;
 
     const ingredient = await prisma.ingredient.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         ...(name !== undefined && { name }),
         ...(quantity !== undefined && { quantity }),
       },
     });
 
-    return NextResponse.json(ingredient);
+    const validatedIngredient = IngredientSchema.parse(ingredient);
+    return NextResponse.json(validatedIngredient);
   } catch (error) {
     console.error("Failed to update ingredient", error);
     if (error instanceof Error && error.message.includes("P2025")) {
@@ -67,11 +106,23 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const resolvedParams = await params;
+    const parseResult = IngredientIdParamsSchema.safeParse(resolvedParams);
+
+    if (!parseResult.success) {
+      return NextResponse.json(
+        { error: parseResult.error.errors },
+        { status: 400 },
+      );
+    }
+
+    const { id } = parseResult.data;
+
     await prisma.ingredient.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ message: "Ingredient deleted successfully" });

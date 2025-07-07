@@ -1,6 +1,6 @@
 "use client";
 
-import { Ingredient } from "@prisma/client";
+import { Ingredient } from "@/shared/schemas";
 import { IngredientCard } from "./IngredientCard";
 
 interface IngredientsGridProps {

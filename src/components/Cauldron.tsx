@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { Ingredient } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { X } from "lucide-react";
 import { toast } from "sonner";
+import { Ingredient } from "@/schemas";
 import { Button } from "./ui/button";
 
 interface CauldronProps {
