@@ -4,6 +4,7 @@ import React from "react";
 import { Ingredient } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { X } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "./ui/button";
 
 interface CauldronProps {
@@ -39,14 +40,21 @@ export function Cauldron({
       }
       return data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["ingredients"] });
+      // TODO: check if recipe is already discovered
+      if (data.success) {
+        toast.success(`🎉 Recipe discovered: ${data.recipe.name}!`);
+      } else {
+        toast.error("No recipe found with these ingredients");
+      }
       if (onSuccess) {
         onSuccess();
       }
     },
     onError: (error: Error) => {
       console.error(error);
+      toast.error("Failed to brew potion");
     },
   });
 
