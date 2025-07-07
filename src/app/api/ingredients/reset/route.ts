@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { ResetInventoryResponseSchema } from "@/shared/schemas";
+import { ResetInventoryResponseSchema } from "@/schemas";
 
 export async function POST() {
   try {

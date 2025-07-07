@@ -1,6 +1,6 @@
 "use client";
 
-import { Ingredient } from "@/shared/schemas";
+import { Ingredient } from "@/schemas";
 import { IngredientCard } from "./IngredientCard";
 
 interface IngredientsGridProps {

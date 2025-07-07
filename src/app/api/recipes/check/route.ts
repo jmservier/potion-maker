@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { RecipeCheckRequestSchema } from "@/shared/schemas";
+import { RecipeCheckRequestSchema } from "@/schemas";
 
 export async function POST(request: Request) {
   try {
