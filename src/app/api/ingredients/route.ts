@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(ingredient, { status: 201 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to create ingredient" },
       { status: 500 },

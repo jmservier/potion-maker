@@ -1,7 +1,8 @@
 "use client";
 
+import React from "react";
 import { Ingredient } from "@prisma/client";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { X } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -18,7 +19,9 @@ export function Cauldron({
   onSuccess,
   onClear,
 }: CauldronProps) {
-  const { mutate: brewPotion } = useMutation({
+  const queryClient = useQueryClient();
+
+  const { mutate: brewPotion, isPending } = useMutation({
     mutationFn: async (ingredients: Ingredient[]) => {
       const ingredientNames = ingredients.map((ingredient) => ingredient.name);
 
@@ -30,13 +33,20 @@ export function Cauldron({
         body: JSON.stringify({ ingredientNames }),
       });
       const data = await response.json();
-      console.log(" Cauldron.tsx:23 data:", data);
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to brew potion");
+      }
       return data;
     },
-    onSuccess: (data) => {
-      if (data.success && onSuccess) {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["ingredients"] });
+      if (onSuccess) {
         onSuccess();
       }
+    },
+    onError: (error: Error) => {
+      console.error(error);
     },
   });
 
@@ -45,7 +55,6 @@ export function Cauldron({
       <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
         <span>🔮</span> Cauldron
       </h2>
-
       <div className="mb-4">
         <div className="flex flex-wrap gap-2 mb-4 min-h-[60px] p-3 bg-gray-800/50 rounded-lg border-2 border-dashed border-gray-600">
           {selectedIngredients.map((ingredient, index) => (
@@ -69,23 +78,20 @@ export function Cauldron({
             </div>
           )}
         </div>
-
         <div className="text-center text-sm text-amber-200 mb-4">
           {selectedIngredients.length}/3 ingredients selected
         </div>
-
         <div className="space-y-2">
           <Button
             onClick={() => brewPotion(selectedIngredients)}
-            disabled={selectedIngredients.length !== 3}
+            disabled={selectedIngredients.length !== 3 || isPending}
             className="w-full bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Brew Potion
+            {isPending ? "Brewing..." : "Brew Potion"}
           </Button>
-
           <Button
             onClick={onClear}
-            disabled={selectedIngredients.length === 0}
+            disabled={selectedIngredients.length === 0 || isPending}
             variant="outline"
             className="w-full border-amber-500/50 text-amber-200 hover:bg-amber-500/10"
           >

@@ -7,6 +7,7 @@ import { Cauldron } from "@/components/Cauldron";
 import { FoundRecipes } from "@/components/FoundRecipes";
 import { Navigation } from "@/components/Navigation";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useIngredients } from "@/hooks/useIngredients";
 
 async function fetchRecipes(): Promise<Recipe[]> {
   const response = await fetch("/api/recipes");
@@ -27,10 +28,11 @@ async function resetRecipes() {
 }
 
 export default function PotionMakerView({
-  ingredients,
+  ingredients: initialIngredients,
 }: {
   ingredients: Ingredient[];
 }) {
+  const { data: ingredients = [] } = useIngredients(initialIngredients);
   const { data: recipes = [], refetch: refetchRecipes } = useQuery({
     queryKey: ["recipes"],
     queryFn: fetchRecipes,
@@ -91,7 +93,6 @@ export default function PotionMakerView({
             <span>✨</span> Potion Maker<span>✨</span>
           </h1>
         </div>
-        
         <Navigation />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
