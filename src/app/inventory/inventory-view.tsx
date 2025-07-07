@@ -21,6 +21,7 @@ import {
   useResetInventory,
   useUpdateIngredient,
 } from "@/hooks/useIngredients";
+import { Navigation } from "@/components/Navigation";
 
 interface InventoryViewProps {
   initialIngredients: Ingredient[];
@@ -64,7 +65,7 @@ export default function InventoryView({
             <span>📦</span> Magical Inventory <span>📦</span>
           </h1>
         </div>
-
+        <Navigation />
         <div className="space-y-6">
           <div className="bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-amber-500/30">
             <div className="flex justify-between items-center mb-4">
@@ -127,12 +128,10 @@ export default function InventoryView({
               </div>
             </div>
           </div>
-
           <div className="bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-amber-500/30">
             <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
               <span>🧪</span> Ingredients
             </h2>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {ingredients?.map((ingredient) => (
                 <Card
@@ -170,7 +169,6 @@ export default function InventoryView({
                         <div className="bg-gray-700/50 px-3 py-1 rounded text-white font-bold min-w-[3rem] text-center">
                           {ingredient.quantity}
                         </div>
-
                         <Button
                           size="sm"
                           variant="outline"

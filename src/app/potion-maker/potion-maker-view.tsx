@@ -5,6 +5,7 @@ import { Ingredient, Recipe } from "@prisma/client";
 import { IngredientsGrid } from "@/components/IngredientsGrid";
 import { Cauldron } from "@/components/Cauldron";
 import { FoundRecipes } from "@/components/FoundRecipes";
+import { Navigation } from "@/components/Navigation";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 async function fetchRecipes(): Promise<Recipe[]> {
@@ -90,6 +91,8 @@ export default function PotionMakerView({
             <span>✨</span> Potion Maker<span>✨</span>
           </h1>
         </div>
+        
+        <Navigation />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <IngredientsGrid
