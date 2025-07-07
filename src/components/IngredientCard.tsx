@@ -28,6 +28,9 @@ export function IngredientCard({
         <h3 className="font-semibold text-white text-sm mb-1">
           {ingredient.name}
         </h3>
+        <p className="text-gray-400 text-xs">
+          Qty: {ingredient.quantity}
+        </p>
       </CardContent>
     </Card>
   );
