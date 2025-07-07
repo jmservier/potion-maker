@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Ingredient, Recipe } from "@prisma/client";
+import { Ingredient } from "@prisma/client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Cauldron } from "@/components/Cauldron";
 import { FoundRecipes } from "@/components/FoundRecipes";
 import { IngredientsGrid } from "@/components/IngredientsGrid";
 import { Navigation } from "@/components/Navigation";
 import { useIngredients } from "@/hooks/useIngredients";
+import { Recipe } from "@/shared/schemas";
 
 async function fetchRecipes(): Promise<Recipe[]> {
   const response = await fetch("/api/recipes");

@@ -1,15 +1,20 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { RecipeCheckRequestSchema } from "@/shared/schemas";
 
 export async function POST(request: Request) {
   try {
-    const { ingredientNames } = await request.json();
-    if (!Array.isArray(ingredientNames) || ingredientNames.length !== 3) {
+    const body = await request.json();
+    const parseResult = RecipeCheckRequestSchema.safeParse(body);
+
+    if (!parseResult.success) {
       return NextResponse.json(
-        { error: "3 ingredients required" },
+        { error: parseResult.error.errors },
         { status: 400 },
       );
     }
+
+    const { ingredientNames } = parseResult.data;
 
     const ingredients = await prisma.ingredient.findMany({
       where: {
