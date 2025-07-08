@@ -33,7 +33,7 @@ export function RecipeBook({ recipes, onReset }: RecipeBookProps) {
               >
                 <h3 className="mb-2 font-semibold text-white">{recipe.name}</h3>
                 <div className="flex flex-wrap gap-1">
-                  {(recipe.ingredients as string[]).map((ingredient, index) => (
+                  {recipe.ingredients.map((ingredient, index) => (
                     <Badge
                       key={index}
                       variant="secondary"

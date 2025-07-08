@@ -20,10 +20,10 @@ model Ingredient {
 }
 
 model Recipe {
-  id          String  @id @default(cuid())
-  name        String  @unique
-  ingredients Json
-  discovered  Boolean @default(false)
+  id          String   @id @default(cuid())
+  name        String   @unique
+  ingredients String[]
+  discovered  Boolean  @default(false)
 }
 
 model Potion {
@@ -31,3 +31,5 @@ model Potion {
   recipeName String
   success    Boolean @default(true)
 }
+
+// TODO: createdAt, updatedAt fields ? potions in Recipe ?
