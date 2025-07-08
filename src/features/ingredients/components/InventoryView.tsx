@@ -20,7 +20,7 @@ import {
   useIngredients,
   useResetInventory,
   useUpdateIngredient,
-} from "@/hooks/useIngredients";
+} from "@/features/ingredients/hooks/useIngredients";
 import { Ingredient } from "@/schemas";
 
 interface InventoryViewProps {

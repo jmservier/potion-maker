@@ -1,5 +1,5 @@
 import { getAllIngredients } from "@/server/db/queries/ingredients";
-import InventoryView from "./inventory-view";
+import InventoryView from "@/features/ingredients/components/InventoryView";
 
 export default async function InventoryPage() {
   const ingredients = await getAllIngredients();

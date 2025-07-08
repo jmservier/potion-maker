@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Cauldron } from "@/components/Cauldron";
 import { FoundRecipes } from "@/components/FoundRecipes";
-import { IngredientsGrid } from "@/components/IngredientsGrid";
+import { IngredientsGrid } from "@/features/ingredients/components/IngredientsGrid";
 import { Navigation } from "@/components/Navigation";
-import { useIngredients } from "@/hooks/useIngredients";
+import { useIngredients } from "@/features/ingredients/hooks/useIngredients";
 import { Ingredient, Recipe } from "@/schemas";
 
 async function fetchRecipes(): Promise<Recipe[]> {
