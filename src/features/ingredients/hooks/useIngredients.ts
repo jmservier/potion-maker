@@ -11,7 +11,7 @@ export function useIngredients(initialData?: Ingredient[]) {
     queryFn: async () => {
       const response = await fetch("/api/ingredients");
       if (!response.ok) {
-        throw new Error("Failed to fetch ingredients");
+        throw new Error("Échec du chargement des ingrédients");
       }
       return response.json() as Promise<Ingredient[]>;
     },
@@ -31,7 +31,7 @@ export function useCreateIngredient() {
       });
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Failed to create ingredient");
+        throw new Error(error.error || "Échec de la création de l'ingrédient");
       }
       return response.json() as Promise<Ingredient>;
     },
@@ -59,7 +59,7 @@ export function useUpdateIngredient() {
       });
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Failed to update ingredient");
+        throw new Error(error.error || "Échec de la mise à jour de l'ingrédient");
       }
       return response.json() as Promise<Ingredient>;
     },
@@ -79,7 +79,7 @@ export function useDeleteIngredient() {
       });
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Failed to delete ingredient");
+        throw new Error(error.error || "Échec de la suppression de l'ingrédient");
       }
       return response.json();
     },
@@ -98,7 +98,7 @@ export function useResetInventory() {
         method: "POST",
       });
       if (!response.ok) {
-        throw new Error("Failed to reset inventory");
+        throw new Error("Échec de la réinitialisation de l'inventaire");
       }
       return response.json();
     },

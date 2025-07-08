@@ -43,8 +43,8 @@ export function IngredientCard({
             isOutOfStock ? "text-red-400" : "text-gray-400"
           }`}
         >
-          Qty: {ingredient.quantity}
-          {isOutOfStock && " (Out of Stock)"}
+          Qté : {ingredient.quantity}
+          {isOutOfStock && " (En Rupture)"}
         </p>
       </CardContent>
     </Card>

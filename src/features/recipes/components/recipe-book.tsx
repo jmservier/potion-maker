@@ -16,13 +16,13 @@ export function RecipeBook({ recipes, onReset }: RecipeBookProps) {
   return (
     <div className="rounded-xl border border-amber-500/30 bg-black/30 p-6 backdrop-blur-sm">
       <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold text-white">
-        <span>📜</span> Found Recipes
+        <span>📜</span> Recettes Trouvées
       </h2>
 
       <ScrollArea className="h-[300px]">
         {discoveredRecipes.length === 0 ? (
           <div className="py-8 text-center text-sm text-gray-400">
-            No recipes discovered
+            Aucune recette découverte
           </div>
         ) : (
           <div className="space-y-3">
@@ -51,7 +51,7 @@ export function RecipeBook({ recipes, onReset }: RecipeBookProps) {
 
       <div className="mt-4 flex items-center justify-between">
         <div className="text-sm text-amber-200">
-          {discoveredRecipes.length}/{recipes.length} recipes discovered
+          {discoveredRecipes.length}/{recipes.length} recettes découvertes
         </div>
         {onReset && discoveredRecipes.length > 0 && (
           <Button
@@ -60,7 +60,7 @@ export function RecipeBook({ recipes, onReset }: RecipeBookProps) {
             size="sm"
             className="border-red-500/50 text-red-400 hover:bg-red-500/10"
           >
-            Reset History
+            Réinitialiser l'Historique
           </Button>
         )}
       </div>

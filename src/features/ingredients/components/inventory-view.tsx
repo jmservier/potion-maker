@@ -62,7 +62,7 @@ export default function InventoryView({
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 text-center">
           <h1 className="mb-4 text-4xl font-bold text-white">
-            <span>📦</span> Magical Inventory <span>📦</span>
+            <span>📦</span> Inventaire Magique <span>📦</span>
           </h1>
         </div>
         <Navigation />
@@ -70,7 +70,7 @@ export default function InventoryView({
           <div className="rounded-xl border border-amber-500/30 bg-black/30 p-6 backdrop-blur-sm">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-2xl font-bold text-white">
-                Inventory Overview
+                Aperçu de l'Inventaire
               </h2>
               <AlertDialog
                 open={isRestockDialogOpen}
@@ -82,22 +82,22 @@ export default function InventoryView({
                     className="border-gray-600 bg-transparent text-gray-300 hover:bg-gray-700"
                   >
                     <RotateCcw size={16} className="mr-2" />
-                    Restock All
+                    Réapprovisionner Tout
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent className="border-gray-600 bg-gray-800">
                   <AlertDialogHeader>
                     <AlertDialogTitle className="text-white">
-                      Restock Inventory
+                      Réapprovisionner l'Inventaire
                     </AlertDialogTitle>
                     <AlertDialogDescription className="text-gray-300">
-                      Are you sure you want to restock all ingredients to their
-                      default quantities?
+                      Êtes-vous sûr de vouloir réapprovisionner tous les
+                      ingrédients à leurs quantités par défaut ?
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel className="border-gray-600 bg-gray-700 text-gray-300 hover:bg-gray-600">
-                      Cancel
+                      Annuler
                     </AlertDialogCancel>
                     <AlertDialogAction
                       onClick={handleRestockAll}
@@ -105,8 +105,8 @@ export default function InventoryView({
                       className="bg-amber-600 text-white hover:bg-amber-700"
                     >
                       {resetMutation.isPending
-                        ? "Restocking..."
-                        : "Restock All"}
+                        ? "Réapprovisionnement..."
+                        : "Réapprovisionner Tout"}
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
@@ -118,19 +118,19 @@ export default function InventoryView({
                 <div className="text-2xl font-bold text-amber-400">
                   {totalItems}
                 </div>
-                <div className="text-sm text-gray-300">Total Items</div>
+                <div className="text-sm text-gray-300">Articles Totaux</div>
               </div>
               <div className="rounded-lg bg-gray-800/50 p-4">
                 <div className="text-2xl font-bold text-green-400">
                   {availableTypes}
                 </div>
-                <div className="text-sm text-gray-300">Available Types</div>
+                <div className="text-sm text-gray-300">Types Disponibles</div>
               </div>
             </div>
           </div>
           <div className="rounded-xl border border-amber-500/30 bg-black/30 p-6 backdrop-blur-sm">
             <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold text-white">
-              <span>🧪</span> Ingredients
+              <span>🧪</span> Ingrédients
             </h2>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {ingredients?.map((ingredient) => (

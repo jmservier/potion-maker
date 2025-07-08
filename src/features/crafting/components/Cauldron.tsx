@@ -44,9 +44,9 @@ export function Cauldron({
       queryClient.invalidateQueries({ queryKey: ["ingredients"] });
       // TODO: check if recipe is already discovered
       if (data.success) {
-        toast.success(`🎉 Recipe discovered: ${data.recipe.name}!`);
+        toast.success(`🎉 Recette découverte : ${data.recipe.name} !`);
       } else {
-        toast.error("No recipe found with these ingredients");
+        toast.error("Aucune recette trouvée avec ces ingrédients");
       }
       if (onSuccess) {
         onSuccess();
@@ -54,14 +54,14 @@ export function Cauldron({
     },
     onError: (error: Error) => {
       console.error(error);
-      toast.error("Failed to brew potion");
+      toast.error("Échec de la préparation de la potion");
     },
   });
 
   return (
     <div className="rounded-xl border border-amber-500/30 bg-black/30 p-6 backdrop-blur-sm">
       <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold text-white">
-        <span>🔮</span> Cauldron
+        <span>🔮</span> Chaudron
       </h2>
       <div className="mb-4">
         <div className="mb-4 flex min-h-[60px] flex-wrap gap-2 rounded-lg border-2 border-dashed border-gray-600 bg-gray-800/50 p-3">
@@ -82,12 +82,12 @@ export function Cauldron({
           ))}
           {selectedIngredients.length === 0 && (
             <div className="flex w-full items-center justify-center text-sm text-gray-400">
-              Select 3 ingredients
+              Sélectionnez 3 ingrédients
             </div>
           )}
         </div>
         <div className="mb-4 text-center text-sm text-amber-200">
-          {selectedIngredients.length}/3 ingredients selected
+          {selectedIngredients.length}/3 ingrédients sélectionnés
         </div>
         <div className="space-y-2">
           <Button
@@ -95,7 +95,7 @@ export function Cauldron({
             disabled={selectedIngredients.length !== 3 || isPending}
             className="w-full rounded-lg bg-amber-500 py-2 font-semibold text-black hover:bg-amber-600 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {isPending ? "Brewing..." : "Brew Potion"}
+            {isPending ? "Préparation..." : "Préparer la Potion"}
           </Button>
           <Button
             onClick={onClear}
@@ -103,7 +103,7 @@ export function Cauldron({
             variant="outline"
             className="w-full border-amber-500/50 text-amber-200 hover:bg-amber-500/10"
           >
-            Clear Selection
+            Effacer la Sélection
           </Button>
         </div>
       </div>

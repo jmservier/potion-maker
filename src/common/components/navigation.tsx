@@ -11,12 +11,12 @@ export function Navigation() {
   const pages = [
     {
       id: "laboratory",
-      name: "Laboratory",
+      name: "Laboratoire",
       icon: BeakerIcon,
       path: "/crafting",
     },
-    { id: "inventory", name: "Inventory", icon: Package, path: "/inventory" },
-    { id: "recipes", name: "Recipes", icon: BookOpen, path: "/recipes" },
+    { id: "inventory", name: "Inventaire", icon: Package, path: "/inventory" },
+    { id: "recipes", name: "Recettes", icon: BookOpen, path: "/recipes" },
     // { id: "history", name: "History", icon: History, path: "/history" },
   ];
 

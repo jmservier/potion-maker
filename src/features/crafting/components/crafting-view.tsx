@@ -90,7 +90,7 @@ export default function CraftingView({
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 text-center">
           <h1 className="mb-4 text-4xl font-bold text-white">
-            <span>✨</span> Crafting Potions <span>✨</span>
+            <span>✨</span> Préparation de Potions <span>✨</span>
           </h1>
         </div>
         <Navigation />

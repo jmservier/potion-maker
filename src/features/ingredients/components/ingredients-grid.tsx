@@ -17,7 +17,7 @@ export function IngredientsGrid({
   return (
     <div className="rounded-xl border border-amber-500/30 bg-black/30 p-6 backdrop-blur-sm">
       <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold text-white">
-        <span>🧙‍♂️</span> Ingredients
+        <span>🧙‍♂️</span> Ingrédients
       </h2>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
         {ingredients.map((ingredient) => (

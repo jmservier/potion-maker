@@ -48,7 +48,7 @@ export default function RecipesView() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 text-center">
           <h1 className="mb-4 text-4xl font-bold text-white">
-            <span>📜</span> Recipe Book <span>📜</span>
+            <span>📜</span> Livre de Recettes <span>📜</span>
           </h1>
         </div>
         <Navigation />
