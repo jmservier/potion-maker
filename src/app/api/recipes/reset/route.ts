@@ -1,12 +1,9 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { resetAllRecipes } from "@/server/db/queries/recipes";
 
 export async function POST() {
   try {
-    await prisma.recipe.updateMany({
-      where: { discovered: true },
-      data: { discovered: false },
-    });
+    await resetAllRecipes();
 
     return NextResponse.json({
       success: true,

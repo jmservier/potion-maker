@@ -1,4 +1,4 @@
-import { getAllIngredients } from "@/queries/ingredients/getAllIngredients";
+import { getAllIngredients } from "@/server/db/queries/ingredients";
 import CraftingView from "./crafting-view";
 
 export default async function CraftingPage() {

@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
 import {
   IngredientIdParamsSchema,
   IngredientSchema,
   UpdateIngredientRequestSchema,
 } from "@/schemas";
+import {
+  deleteIngredient,
+  getIngredientById,
+  updateIngredient,
+} from "@/server/db/queries/ingredients";
 
 export async function GET(
   request: Request,
@@ -23,9 +27,7 @@ export async function GET(
 
     const { id } = parseResult.data;
 
-    const ingredient = await prisma.ingredient.findUnique({
-      where: { id },
-    });
+    const ingredient = await getIngredientById(id);
 
     if (!ingredient) {
       return NextResponse.json(
@@ -73,13 +75,11 @@ export async function PUT(
     const { id } = paramsResult.data;
     const { name, quantity } = parseResult.data;
 
-    const ingredient = await prisma.ingredient.update({
-      where: { id },
-      data: {
-        ...(name !== undefined && { name }),
-        ...(quantity !== undefined && { quantity }),
-      },
-    });
+    const data: { name?: string; quantity?: number } = {};
+    if (name !== undefined) data.name = name;
+    if (quantity !== undefined) data.quantity = quantity;
+
+    const ingredient = await updateIngredient(id, data);
 
     const validatedIngredient = IngredientSchema.parse(ingredient);
     return NextResponse.json(validatedIngredient);
@@ -121,9 +121,7 @@ export async function DELETE(
 
     const { id } = parseResult.data;
 
-    await prisma.ingredient.delete({
-      where: { id },
-    });
+    await deleteIngredient(id);
 
     return NextResponse.json({ message: "Ingredient deleted successfully" });
   } catch (error) {

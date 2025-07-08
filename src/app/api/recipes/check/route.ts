@@ -1,6 +1,15 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
 import { RecipeCheckRequestSchema } from "@/schemas";
+import prisma from "@/server/db/client";
+import { createPotion } from "@/server/db/queries/crafting";
+import {
+  decrementIngredientQuantity,
+  getIngredientsByNames,
+} from "@/server/db/queries/ingredients";
+import {
+  getAllRecipes,
+  updateRecipeDiscovered,
+} from "@/server/db/queries/recipes";
 
 export async function POST(request: Request) {
   try {
@@ -16,13 +25,7 @@ export async function POST(request: Request) {
 
     const { ingredientNames } = parseResult.data;
 
-    const ingredients = await prisma.ingredient.findMany({
-      where: {
-        name: {
-          in: ingredientNames,
-        },
-      },
-    });
+    const ingredients = await getIngredientsByNames(ingredientNames);
 
     for (const ingredientName of ingredientNames) {
       const ingredient = ingredients.find((i) => i.name === ingredientName);
@@ -47,7 +50,7 @@ export async function POST(request: Request) {
     }
 
     const sortedIngredients = ingredientNames.sort();
-    const recipes = await prisma.recipe.findMany();
+    const recipes = await getAllRecipes();
     const matchingRecipe = recipes.find((recipe) => {
       const recipeIngredients = recipe.ingredients as string[];
       const sortedRecipeIngredients = [...recipeIngredients].sort();
@@ -63,21 +66,11 @@ export async function POST(request: Request) {
     if (matchingRecipe) {
       await prisma.$transaction(async (tx) => {
         if (!matchingRecipe.discovered) {
-          await tx.recipe.update({
-            where: { id: matchingRecipe.id },
-            data: { discovered: true },
-          });
+          await updateRecipeDiscovered(matchingRecipe.id);
         }
 
         for (const ingredientName of ingredientNames) {
-          await tx.ingredient.update({
-            where: { name: ingredientName },
-            data: {
-              quantity: {
-                decrement: 1,
-              },
-            },
-          });
+          await decrementIngredientQuantity(ingredientName);
         }
 
         await tx.potion.create({
@@ -100,15 +93,9 @@ export async function POST(request: Request) {
     } else {
       await prisma.$transaction(async (tx) => {
         for (const ingredientName of ingredientNames) {
-          await tx.ingredient.update({
-            where: { name: ingredientName },
-            data: {
-              quantity: {
-                decrement: 1,
-              },
-            },
-          });
+          await decrementIngredientQuantity(ingredientName);
         }
+        await createPotion(ingredientNames.join(", "), false);
         await tx.potion.create({
           data: {
             recipeName: `Failed attempt: ${ingredientNames.join(", ")}`,

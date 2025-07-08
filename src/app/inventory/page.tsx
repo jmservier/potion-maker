@@ -1,4 +1,4 @@
-import { getAllIngredients } from "@/queries/ingredients/getAllIngredients";
+import { getAllIngredients } from "@/server/db/queries/ingredients";
 import InventoryView from "./inventory-view";
 
 export default async function InventoryPage() {

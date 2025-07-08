@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
 import { CreateIngredientSchema, IngredientSchema } from "@/schemas";
+import {
+  createIngredient,
+  getAllIngredients,
+} from "@/server/db/queries/ingredients";
 
 export async function GET() {
   try {
-    const ingredients = await prisma.ingredient.findMany({
-      orderBy: {
-        name: "asc",
-      },
-    });
+    const ingredients = await getAllIngredients();
     const validatedIngredients = ingredients.map((ingredient) =>
       IngredientSchema.parse(ingredient),
     );
@@ -35,12 +34,7 @@ export async function POST(request: Request) {
 
     const { name, quantity } = parseResult.data;
 
-    const ingredient = await prisma.ingredient.create({
-      data: {
-        name,
-        quantity,
-      },
-    });
+    const ingredient = await createIngredient(name, quantity);
 
     const validatedIngredient = IngredientSchema.parse(ingredient);
     return NextResponse.json(validatedIngredient, { status: 201 });

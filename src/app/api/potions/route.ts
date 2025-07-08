@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
 import { PotionSchema } from "@/schemas";
+import { getAllPotions } from "@/server/db/queries/crafting";
 
 export async function GET() {
   try {
-    const potions = await prisma.potion.findMany();
+    const potions = await getAllPotions();
     const validatedPotions = potions.map((potion) =>
       PotionSchema.parse(potion),
     );

@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
 import { RecipeSchema } from "@/schemas";
+import { getAllRecipes } from "@/server/db/queries/recipes";
 
 export async function GET() {
   try {
-    const recipes = await prisma.recipe.findMany();
+    const recipes = await getAllRecipes();
     const validatedRecipes = recipes.map((recipe) =>
       RecipeSchema.parse(recipe),
     );
