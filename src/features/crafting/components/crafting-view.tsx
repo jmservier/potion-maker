@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Cauldron } from "./Cauldron";
-import { RecipeBook } from "@/features/recipes/components/RecipeBook";
-import { IngredientsGrid } from "@/features/ingredients/components/IngredientsGrid";
-import { Navigation } from "@/components/Navigation";
+import { Navigation } from "@/common/components/navigation";
+import { Cauldron } from "@/features/crafting/components/cauldron";
+import { IngredientsGrid } from "@/features/ingredients/components/ingredients-grid";
 import { useIngredients } from "@/features/ingredients/hooks/useIngredients";
+import { RecipeBook } from "@/features/recipes/components/recipe-book";
 import { Ingredient, Recipe } from "@/schemas";
 
 async function fetchRecipes(): Promise<Recipe[]> {

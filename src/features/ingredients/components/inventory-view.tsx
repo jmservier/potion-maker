@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Minus, Plus, RotateCcw } from "lucide-react";
-import { Navigation } from "@/components/Navigation";
+import { Navigation } from "@/common/components/navigation";
 import {
   AlertDialog,
   AlertDialogAction,

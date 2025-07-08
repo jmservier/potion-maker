@@ -1,9 +1,9 @@
 "use client";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Navigation } from "@/components/Navigation";
-import { RecipeBook } from "./RecipeBook";
+import { Navigation } from "@/common/components/navigation";
 import { Recipe } from "@/schemas";
+import { RecipeBook } from "./recipe-book";
 
 async function fetchRecipes(): Promise<Recipe[]> {
   const response = await fetch("/api/recipes");

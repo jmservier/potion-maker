@@ -1,7 +1,7 @@
 "use client";
 
 import { Ingredient } from "@/schemas";
-import { IngredientCard } from "./IngredientCard";
+import { IngredientCard } from "./ingredient-card";
 
 interface IngredientsGridProps {
   ingredients: Ingredient[];
