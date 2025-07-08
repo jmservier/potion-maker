@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Recipe } from "@/schemas";
 
-interface FoundRecipesProps {
+interface RecipeBookProps {
   recipes: Recipe[];
   onReset?: () => void;
 }
 
-export function FoundRecipes({ recipes, onReset }: FoundRecipesProps) {
+export function RecipeBook({ recipes, onReset }: RecipeBookProps) {
   const discoveredRecipes = recipes.filter((recipe) => recipe.discovered);
 
   return (

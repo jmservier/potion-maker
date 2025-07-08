@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Cauldron } from "./Cauldron";
-import { FoundRecipes } from "@/components/FoundRecipes";
+import { RecipeBook } from "@/features/recipes/components/RecipeBook";
 import { IngredientsGrid } from "@/features/ingredients/components/IngredientsGrid";
 import { Navigation } from "@/components/Navigation";
 import { useIngredients } from "@/features/ingredients/hooks/useIngredients";
@@ -110,7 +110,7 @@ export default function CraftingView({
               onClear={handleClear}
             />
             <div className="mt-4">
-              <FoundRecipes recipes={recipes} onReset={handleResetRecipes} />
+              <RecipeBook recipes={recipes} onReset={handleResetRecipes} />
             </div>
           </div>
         </div>

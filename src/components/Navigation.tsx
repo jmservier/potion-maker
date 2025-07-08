@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { BeakerIcon, Package } from "lucide-react";
+import { BeakerIcon, BookOpen, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Navigation() {
@@ -16,7 +16,7 @@ export function Navigation() {
       path: "/crafting",
     },
     { id: "inventory", name: "Inventory", icon: Package, path: "/inventory" },
-    // { id: "grimoire", name: "Grimoire", icon: BookOpen, path: "/grimoire" },
+    { id: "recipes", name: "Recipes", icon: BookOpen, path: "/recipes" },
     // { id: "history", name: "History", icon: History, path: "/history" },
   ];
 
