@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Cauldron } from "@/components/Cauldron";
+import { Cauldron } from "./Cauldron";
 import { FoundRecipes } from "@/components/FoundRecipes";
 import { IngredientsGrid } from "@/features/ingredients/components/IngredientsGrid";
 import { Navigation } from "@/components/Navigation";

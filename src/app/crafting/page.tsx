@@ -1,5 +1,5 @@
 import { getAllIngredients } from "@/server/db/queries/ingredients";
-import CraftingView from "./crafting-view";
+import CraftingView from "@/features/crafting/components/CraftingView";
 
 export default async function CraftingPage() {
   const ingredients = await getAllIngredients();
