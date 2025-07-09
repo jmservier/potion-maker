@@ -9,7 +9,7 @@ describe("Successful Potion Crafting Flow", () => {
     cy.intercept("POST", "/api/recipes/check").as("brewRequest");
 
     cy.contains("Laboratoire de potions").should("be.visible");
-    cy.contains("Station de Brassage").should("be.visible");
+    cy.contains("Atelier de Potions").should("be.visible");
 
     // Select valid recipe: Potion d'invisibilité
     cy.contains("Noix de coco").click();

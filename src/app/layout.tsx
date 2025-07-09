@@ -1,24 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Crimson_Text, Inter } from "next/font/google";
 import "./globals.css";
 import { Beaker } from "lucide-react";
 import { Navigation } from "@/common/components/navigation";
 import { Toaster } from "@/components/ui/sonner";
 import Providers from "./providers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const crimsonText = Crimson_Text({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-crimson",
   display: "swap",
 });
 
@@ -35,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} ${inter.className} antialiased`}
+        className={`${crimsonText.variable} ${inter.variable} ${inter.className} antialiased`}
       >
         <Providers>
           <div className="min-h-screen">

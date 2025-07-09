@@ -58,20 +58,22 @@ export function PotionMixer({
   return (
     <div className="rounded-2xl p-6 fade-in">
       <h2 className="mb-6 flex items-center gap-3 text-2xl font-bold">
-        <span>🔮</span> Station de Brassage
+        <span>🔮</span> Atelier de Potions
       </h2>
       <div className="mb-6">
         <div className="brewing-area flex min-h-[120px] flex-wrap items-center justify-center gap-3 rounded-xl p-6">
           {selectedIngredients.map((ingredient, index) => (
             <div
               key={`${ingredient.id}-${index}`}
-              className="selected-ingredient flex items-center gap-3 rounded-xl px-4 py-3"
+              className="selected-ingredient flex w-full items-center justify-between rounded-xl px-4 py-3"
             >
-              <span className="text-xl">🔮</span>
-              <span className="font-semibold">{ingredient.name}</span>
+              <div className="flex items-center gap-3">
+                <span className="text-xl">🔮</span>
+                <span className="font-semibold">{ingredient.name}</span>
+              </div>
               <button
                 onClick={() => onRemoveIngredient(index)}
-                className="ml-2 transition-colors"
+                className="ml-2 transition-transform hover:-translate-y-[2px]"
               >
                 <X size={18} />
               </button>

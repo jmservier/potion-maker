@@ -53,7 +53,6 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Subtle magical palette
         sage: {
           light: "#F7F9F7",
           DEFAULT: "#E8F0E8",

@@ -7,7 +7,7 @@ describe("Failed Crafting Attempt", () => {
 
   it("should handle failed crafting attempt correctly", () => {
     cy.contains("Laboratoire de potions").should("be.visible");
-    cy.contains("Station de Brassage").should("be.visible");
+    cy.contains("Atelier de Potions").should("be.visible");
 
     // Select invalid recipe
     cy.contains("Argent").click();
