@@ -8,10 +8,12 @@ datasource db {
 }
 
 model Ingredient {
-  id          String @id @default(cuid())
-  name        String @unique
-  quantity    Int    @default(10)
-  description String @default("")
+  id          String   @id @default(cuid())
+  name        String   @unique
+  quantity    Int      @default(10)
+  description String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Recipe {
@@ -20,12 +22,17 @@ model Recipe {
   ingredients String[]
   discovered  Boolean  @default(false)
   description String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  craftingAttempts CraftingAttempt[]
 }
 
-model Potion {
-  id         String  @id @default(cuid())
+model CraftingAttempt {
+  id         String   @id @default(cuid())
   recipeName String
-  success    Boolean @default(true)
+  success    Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  
+  recipe     Recipe?  @relation(fields: [recipeName], references: [name])
 }
 
-// TODO: createdAt, updatedAt fields ? potions in Recipe ?

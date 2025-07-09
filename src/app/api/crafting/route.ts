@@ -1,18 +1,18 @@
 import { NextResponse } from "next/server";
-import { PotionSchema } from "@/schemas";
-import { getAllPotions } from "@/server/db/queries/crafting";
+import { CraftingAttemptSchema } from "@/schemas";
+import { getAllCraftingAttempts } from "@/server/db/queries/crafting";
 
 export async function GET() {
   try {
-    const potions = await getAllPotions();
-    const validatedPotions = potions.map((potion) =>
-      PotionSchema.parse(potion),
+    const attempts = await getAllCraftingAttempts();
+    const validatedAttempts = attempts.map((attempt) =>
+      CraftingAttemptSchema.parse(attempt),
     );
-    return NextResponse.json(validatedPotions);
+    return NextResponse.json(validatedAttempts);
   } catch (error) {
-    console.error("Failed to fetch potions", error);
+    console.error("Failed to fetch crafting attempts", error);
     return NextResponse.json(
-      { error: "Failed to fetch potions" },
+      { error: "Failed to fetch crafting attempts" },
       { status: 500 },
     );
   }

@@ -128,10 +128,10 @@ async function seedRecipes() {
   console.log(" Recipes seeded successfully");
 }
 
-async function seedSamplePotions() {
-  console.log("<1 Seeding sample potions...");
+async function seedSampleCraftingAttempts() {
+  console.log("<1 Seeding sample crafting attempts...");
 
-  const samplePotions = [
+  const sampleAttempts = [
     {
       recipeName: "Potion de Guérison",
       success: true,
@@ -140,19 +140,15 @@ async function seedSamplePotions() {
       recipeName: "Potion de Force",
       success: true,
     },
-    {
-      recipeName: "Expérience échouée",
-      success: false,
-    },
   ];
 
-  for (const potion of samplePotions) {
-    await prisma.potion.create({
-      data: potion,
+  for (const attempt of sampleAttempts) {
+    await prisma.craftingAttempt.create({
+      data: attempt,
     });
   }
 
-  console.log(" Sample potions seeded successfully");
+  console.log(" Sample crafting attempts seeded successfully");
 }
 
 async function main() {
@@ -161,18 +157,18 @@ async function main() {
   try {
     await seedIngredients();
     await seedRecipes();
-    await seedSamplePotions();
+    await seedSampleCraftingAttempts();
 
     console.log("< Database seeding completed successfully!");
 
     const ingredientCount = await prisma.ingredient.count();
     const recipeCount = await prisma.recipe.count();
-    const potionCount = await prisma.potion.count();
+    const attemptCount = await prisma.craftingAttempt.count();
 
     console.log(`= Database summary:`);
     console.log(`   - ${ingredientCount} ingredients`);
     console.log(`   - ${recipeCount} recipes`);
-    console.log(`   - ${potionCount} potions`);
+    console.log(`   - ${attemptCount} crafting attempts`);
   } catch (error) {
     console.error("Error during seeding:", error);
     throw error;
@@ -182,7 +178,7 @@ async function main() {
 async function cleanup() {
   console.log("> Cleaning up database...");
 
-  await prisma.potion.deleteMany({});
+  await prisma.craftingAttempt.deleteMany({});
   await prisma.recipe.deleteMany({});
   await prisma.ingredient.deleteMany({});
 
@@ -198,4 +194,4 @@ main()
     await prisma.$disconnect();
   });
 
-export { seedIngredients, seedRecipes, seedSamplePotions, cleanup };
+export { seedIngredients, seedRecipes, seedSampleCraftingAttempts, cleanup };

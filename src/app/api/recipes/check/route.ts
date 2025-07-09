@@ -3,7 +3,7 @@ import type { Ingredient } from "@/features/ingredients/schemas/ingredient.schem
 import type { Recipe } from "@/features/recipes/schemas/recipe.schema";
 import { RecipeCheckRequestSchema } from "@/schemas";
 import prisma from "@/server/db/client";
-import { createPotion } from "@/server/db/queries/crafting";
+import { createCraftingAttempt } from "@/server/db/queries/crafting";
 import {
   decrementIngredientQuantity,
   getIngredientsByNames,
@@ -79,7 +79,7 @@ async function processSuccessfulRecipe(
       await decrementIngredientQuantity(ingredientName);
     }
 
-    await tx.potion.create({
+    await tx.craftingAttempt.create({
       data: {
         recipeName: matchingRecipe.name,
         success: true,
@@ -105,8 +105,8 @@ async function processFailedRecipe(
     for (const ingredientName of ingredientNames) {
       await decrementIngredientQuantity(ingredientName);
     }
-    await createPotion(ingredientNames.join(", "), false);
-    await tx.potion.create({
+    await createCraftingAttempt(ingredientNames.join(", "), false);
+    await tx.craftingAttempt.create({
       data: {
         recipeName: `Failed attempt: ${ingredientNames.join(", ")}`,
         success: false,
