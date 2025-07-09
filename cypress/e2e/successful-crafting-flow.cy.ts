@@ -87,7 +87,9 @@ describe("Successful Potion Crafting Flow", () => {
 
     // Cauldron resets
     cy.contains("0/3 ingrédients sélectionnés").should("be.visible");
-    cy.contains("Sélectionnez 3 ingrédients pour commencer").should("be.visible");
+    cy.contains("Sélectionnez 3 ingrédients pour commencer").should(
+      "be.visible",
+    );
 
     // Recipe appears as discovered
     cy.contains("Recettes").click();

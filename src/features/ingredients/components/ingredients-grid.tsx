@@ -1,5 +1,3 @@
-"use client";
-
 import { Ingredient } from "@/schemas";
 import { IngredientCard } from "./ingredient-card";
 

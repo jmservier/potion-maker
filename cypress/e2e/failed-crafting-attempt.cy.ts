@@ -50,7 +50,9 @@ describe("Failed Crafting Attempt", () => {
     cy.contains("Créer la Potion").click();
 
     // Failure notification
-    cy.contains("Aucune recette trouvée avec ces ingrédients").should("be.visible");
+    cy.contains("Aucune recette trouvée avec ces ingrédients").should(
+      "be.visible",
+    );
 
     // Ingredients consumed even on failure
     cy.contains("Argent")
@@ -82,7 +84,9 @@ describe("Failed Crafting Attempt", () => {
 
     // Cauldron resets
     cy.contains("0/3 ingrédients sélectionnés").should("be.visible");
-    cy.contains("Sélectionnez 3 ingrédients pour commencer").should("be.visible");
+    cy.contains("Sélectionnez 3 ingrédients pour commencer").should(
+      "be.visible",
+    );
 
     // No new recipe discovered
     cy.get("body").should("not.contain", "New recipe discovered");
@@ -96,14 +100,18 @@ describe("Failed Crafting Attempt", () => {
     cy.contains("Noix de coco").click();
     cy.contains("Yttrium").click();
     cy.contains("Créer la Potion").click();
-    cy.contains("Aucune recette trouvée avec ces ingrédients").should("be.visible");
+    cy.contains("Aucune recette trouvée avec ces ingrédients").should(
+      "be.visible",
+    );
 
     // Second failed attempt
     cy.contains("Bave de lama").click();
     cy.contains("Épine de hérisson").click();
     cy.contains("Or").click();
     cy.contains("Créer la Potion").click();
-    cy.contains("Aucune recette trouvée avec ces ingrédients").should("be.visible");
+    cy.contains("Aucune recette trouvée avec ces ingrédients").should(
+      "be.visible",
+    );
 
     // Both attempts consumed ingredients
     cy.contains("Argent")
@@ -143,8 +151,7 @@ describe("Failed Crafting Attempt", () => {
         }
 
         // Ingredient now out of stock
-        cy.get("@argentCard")
-          .should("have.class", "cursor-not-allowed");
+        cy.get("@argentCard").should("have.class", "cursor-not-allowed");
 
         // Out of stock ingredient not selectable
         cy.contains("Argent").click();

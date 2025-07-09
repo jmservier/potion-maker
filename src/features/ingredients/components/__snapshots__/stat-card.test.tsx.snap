@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`StatCard should render correctly with sample props 1`] = `
+<div>
+  <div
+    class="stats-card rounded-xl p-6 text-center"
+  >
+    <div
+      class="mb-1 text-3xl font-bold"
+    >
+      42
+    </div>
+    <div
+      class="text-sm"
+    >
+      Total Ingredients
+    </div>
+  </div>
+</div>
+`;
+
+exports[`StatCard should render correctly with string value 1`] = `
+<div>
+  <div
+    class="stats-card rounded-xl p-6 text-center"
+  >
+    <div
+      class="mb-1 text-3xl font-bold"
+    >
+      100%
+    </div>
+    <div
+      class="text-sm"
+    >
+      Success Rate
+    </div>
+  </div>
+</div>
+`;
