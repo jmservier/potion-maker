@@ -61,7 +61,7 @@ export function PotionMixer({
         <span>🔮</span> Atelier de Potions
       </h2>
       <div className="mb-6">
-        <motion.div 
+        <motion.div
           layout
           className="brewing-area flex min-h-[120px] flex-wrap items-center justify-center gap-3 rounded-xl p-6"
         >
@@ -70,14 +70,13 @@ export function PotionMixer({
               <motion.div
                 layout
                 key={`${ingredient.id}-${index}`}
-                initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.8, y: -20 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.15, ease: "easeOut" }}
                 className="selected-ingredient flex w-full items-center justify-between rounded-xl px-4 py-3"
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-xl">🔮</span>
                   <span className="font-semibold">{ingredient.name}</span>
                 </div>
                 <button
@@ -89,7 +88,7 @@ export function PotionMixer({
               </motion.div>
             ))}
             {selectedIngredients.length === 0 && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
