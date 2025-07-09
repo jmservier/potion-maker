@@ -37,11 +37,11 @@ Follow these instructions to get the project up and running on your local machin
 
 3.  **Set up environment variables**
 
-    Create a `.env` file by copying the example:
+    Create a `.env.local` file by copying the example:
     ```bash
-    cp .env.local .env
+    cp .env.local.example .env.local
     ```
-    The default `DATABASE_URL` in `.env.local` should be configured to work with the Docker setup.
+    The default `DATABASE_URL` in the example file is configured to work with the Docker setup.
 
 4.  **Run the setup script**
 
