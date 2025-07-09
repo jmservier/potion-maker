@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { RotateCcw } from "lucide-react";
-import { Navigation } from "@/common/components/navigation";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -59,35 +58,12 @@ export default function InventoryView({
     ingredients?.filter((ingredient) => ingredient.quantity > 0).length || 0;
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#faf8f0" }}>
-      <div className="mx-auto max-w-7xl p-6">
-        <div className="mb-8 text-center">
-          <h1 className="mb-4 text-4xl font-bold text-white">
-            <span>📦</span> Inventaire Magique <span>📦</span>
-          </h1>
-        </div>
-        <Navigation />
-        <div
-          className="space-y-8"
-          style={{ animation: "fade-in 0.3s ease-out" }}
-        >
-          <div
-            className="rounded-2xl p-8"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(255, 248, 240, 0.95) 0%, rgba(245, 230, 211, 0.9) 100%)",
-              backdropFilter: "blur(10px)",
-              border: "1px solid rgba(222, 184, 135, 0.3)",
-              boxShadow: "0 4px 20px rgba(222, 184, 135, 0.3)",
-            }}
-          >
+    <div className="space-y-8 fade-in">
+          <div className="glass-card rounded-2xl p-8 warm-glow">
             <div className="mb-6 flex items-center justify-between">
-              <h1
-                className="font-serif text-3xl font-bold"
-                style={{ color: "#8b4513" }}
-              >
+              <h2 className="font-serif text-3xl font-bold gradient-text">
                 Inventaire
-              </h1>
+              </h2>
               <AlertDialog
                 open={isRestockDialogOpen}
                 onOpenChange={setIsRestockDialogOpen}
@@ -95,36 +71,27 @@ export default function InventoryView({
                 <AlertDialogTrigger asChild>
                   <Button
                     variant="outline"
-                    className="rounded-xl bg-transparent"
-                    style={{
-                      border: "1px solid rgba(222, 184, 135, 0.5)",
-                      color: "#a0522d",
-                      background:
-                        "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 230, 211, 0.7) 100%)",
-                    }}
+                    className="border-orange text-brown hover:bg-orange/10 rounded-xl bg-transparent"
                   >
                     <RotateCcw size={18} className="mr-2" />
                     Réapprovisionner
                   </Button>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="border-gray-600 bg-gray-800">
+                <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle className="text-white">
+                    <AlertDialogTitle>
                       Réapprovisionner l&apos;Inventaire
                     </AlertDialogTitle>
-                    <AlertDialogDescription className="text-gray-300">
+                    <AlertDialogDescription>
                       Êtes-vous sûr de vouloir réapprovisionner tous les
                       ingrédients à leurs quantités par défaut ?
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel className="border-gray-600 bg-gray-700 text-gray-300 hover:bg-gray-600">
-                      Annuler
-                    </AlertDialogCancel>
+                    <AlertDialogCancel>Annuler</AlertDialogCancel>
                     <AlertDialogAction
                       onClick={handleRestockAll}
                       disabled={resetMutation.isPending}
-                      className="bg-amber-600 text-white hover:bg-amber-700"
                     >
                       {resetMutation.isPending
                         ? "Réapprovisionnement..."
@@ -140,20 +107,8 @@ export default function InventoryView({
               <StatCard value={availableTypes} label="Types disponibles" />
             </div>
           </div>
-          <div
-            className="rounded-2xl p-8"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(255, 248, 240, 0.95) 0%, rgba(245, 230, 211, 0.9) 100%)",
-              backdropFilter: "blur(10px)",
-              border: "1px solid rgba(222, 184, 135, 0.3)",
-              boxShadow: "0 4px 20px rgba(222, 184, 135, 0.3)",
-            }}
-          >
-            <h2
-              className="mb-6 font-serif text-2xl font-semibold"
-              style={{ color: "#8b4513" }}
-            >
+          <div className="glass-card rounded-2xl p-8 warm-glow">
+            <h2 className="mb-6 font-serif text-2xl font-semibold">
               Tous les Ingrédients
             </h2>
 
@@ -168,8 +123,6 @@ export default function InventoryView({
               ))}
             </div>
           </div>
-        </div>
-      </div>
     </div>
   );
 }

@@ -14,15 +14,7 @@ export function RecipeCard({ recipe, ingredients }: RecipeCardProps) {
   };
 
   return (
-    <Card
-      style={{
-        background:
-          "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 248, 240, 0.8) 100%)",
-        border: "1px solid rgba(210, 180, 140, 0.4)",
-        transition: "all 0.3s ease",
-      }}
-      className="gap-2 overflow-hidden py-0"
-    >
+    <Card className="ingredient-card gap-2 overflow-hidden py-0">
       <CardHeader className="p-0">
         <div className="relative">
           <Image
@@ -39,15 +31,12 @@ export function RecipeCard({ recipe, ingredients }: RecipeCardProps) {
         </div>
       </CardHeader>
       <CardContent className="p-6">
-        <p
-          className="mb-6 text-sm leading-relaxed"
-          style={{ color: "#a0522d" }}
-        >
+        <p className="mb-6 text-sm leading-relaxed">
           {recipe.description}
         </p>
 
         <div className="space-y-3">
-          <h4 className="text-sm font-bold" style={{ color: "#8b4513" }}>
+          <h4 className="text-sm font-bold">
             Recette :
           </h4>
           <div className="space-y-2">
@@ -55,12 +44,8 @@ export function RecipeCard({ recipe, ingredients }: RecipeCardProps) {
               <div
                 key={idx}
                 className="flex items-center gap-3 text-sm"
-                style={{ color: "#8b4513" }}
               >
-                <span
-                  className="h-2 w-2 rounded-full"
-                  style={{ backgroundColor: "#a0522d" }}
-                ></span>
+                <span className="h-2 w-2 rounded-full"></span>
                 {getIngredientName(ingredientName)}
               </div>
             ))}

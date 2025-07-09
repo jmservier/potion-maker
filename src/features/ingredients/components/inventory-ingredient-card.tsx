@@ -22,15 +22,7 @@ export function InventoryIngredientCard({
   isUpdating,
 }: InventoryIngredientCardProps) {
   return (
-    <Card
-      style={{
-        background:
-          "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 248, 240, 0.8) 100%)",
-        border: "1px solid rgba(210, 180, 140, 0.4)",
-        transition: "all 0.3s ease",
-      }}
-      className="rounded-t-lg py-0"
-    >
+    <Card className="ingredient-card rounded-t-lg py-0">
       <CardHeader className="p-0">
         <div className="relative h-40">
           <Image
@@ -42,10 +34,10 @@ export function InventoryIngredientCard({
           />
         </div>
         <div className="p-4 pb-2">
-          <CardTitle className="text-lg font-bold" style={{ color: "#8b4513" }}>
+          <CardTitle className="text-lg font-bold">
             {ingredient.name}
           </CardTitle>
-          <CardDescription className="text-sm" style={{ color: "#8b4513" }}>
+          <CardDescription className="text-sm">
             {ingredient.description}
           </CardDescription>
         </div>
@@ -64,24 +56,11 @@ export function InventoryIngredientCard({
               }
               disabled={ingredient.quantity <= 0 || isUpdating}
               className="h-10 w-10 rounded-lg p-0 font-bold"
-              style={{
-                border: "1px solid rgba(222, 184, 135, 0.5)",
-                color: "#a0522d",
-                background:
-                  "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 230, 211, 0.7) 100%)",
-              }}
             >
               <Minus size={16} />
             </Button>
 
-            <div
-              className="min-w-[3rem] rounded-lg px-4 py-2 text-center font-bold"
-              style={{
-                background: "#faf8f0",
-                border: "1px solid rgba(222, 184, 135, 0.3)",
-                color: "#8b4513",
-              }}
-            >
+            <div className="min-w-[3rem] rounded-lg px-4 py-2 text-center font-bold">
               {ingredient.quantity}
             </div>
 
@@ -93,12 +72,6 @@ export function InventoryIngredientCard({
               }
               disabled={isUpdating}
               className="h-10 w-10 rounded-lg p-0 font-bold"
-              style={{
-                border: "1px solid rgba(222, 184, 135, 0.5)",
-                color: "#a0522d",
-                background:
-                  "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 230, 211, 0.7) 100%)",
-              }}
             >
               <Plus size={16} />
             </Button>

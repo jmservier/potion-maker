@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Navigation } from "@/common/components/navigation";
 import { Cauldron } from "@/features/crafting/components/cauldron";
+import { RecipeBook } from "@/features/crafting/components/recipe-book";
 import { IngredientsGrid } from "@/features/ingredients/components/ingredients-grid";
 import { useIngredients } from "@/features/ingredients/hooks/useIngredients";
-import { RecipeBook } from "@/features/recipes/components/recipe-book";
 import { Ingredient, Recipe } from "@/schemas";
 
 async function fetchRecipes(): Promise<Recipe[]> {
@@ -86,38 +85,28 @@ export default function CraftingView({
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#faf8f0" }}>
-      <div className="mx-auto max-w-7xl p-6">
-        <div
-          className="mb-12 text-center"
-          style={{ animation: "fade-in 0.3s ease-out" }}
-        >
-          <h1 className="mb-4 flex items-center justify-center gap-4 text-5xl font-bold">
-            <span>✨</span> Préparation de Potions <span>✨</span>
-          </h1>
-        </div>
-        <Navigation />
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <div className="lg:col-span-2">
+    <div className="fade-in grid grid-cols-1 gap-8 lg:grid-cols-3">
+          <div className="glass-card warm-glow rounded-2xl p-8 lg:col-span-2">
             <IngredientsGrid
               ingredients={ingredients}
-              selectedIngredients={selectedIngredients}
               onIngredientSelect={handleIngredientSelect}
+              selectedIngredients={selectedIngredients}
             />
           </div>
-          <div className="lg:col-span-1">
-            <Cauldron
-              selectedIngredients={selectedIngredients}
-              onRemoveIngredient={handleRemoveIngredient}
-              onSuccess={handleSuccess}
-              onClear={handleClear}
-            />
-            <div className="mt-4">
-              <RecipeBook recipes={recipes} onReset={handleResetRecipes} />
+          <div className="space-y-8 lg:col-span-1">
+            <div className="glass-card warm-glow rounded-2xl p-8">
+              <Cauldron
+                selectedIngredients={selectedIngredients}
+                onRemoveIngredient={handleRemoveIngredient}
+                onSuccess={handleSuccess}
+                onClear={handleClear}
+                onReset={handleResetRecipes}
+              />
+            </div>
+            <div className="glass-card warm-glow rounded-2xl p-8">
+              <RecipeBook recipes={recipes} />
             </div>
           </div>
-        </div>
-      </div>
     </div>
   );
 }
