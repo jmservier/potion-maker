@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Ingredient } from "@/schemas";
 
@@ -19,33 +20,45 @@ export function IngredientCard({
   return (
     <Card
       onClick={isOutOfStock ? undefined : onClick}
-      className={`transition-all duration-300 ${
-        isOutOfStock
-          ? "cursor-not-allowed border-gray-700 bg-gray-900/50 opacity-50"
-          : `cursor-pointer hover:scale-105 ${
-              isSelected
-                ? "border-amber-400 bg-amber-500/50 ring-2 ring-amber-400"
-                : "border-gray-600/50 bg-gray-800/50 hover:border-amber-400/50"
-            }`
+      className={`cursor-pointer overflow-hidden py-0 ${
+        isOutOfStock ? "cursor-not-allowed opacity-50" : ""
       }`}
+      style={{
+        background: isSelected
+          ? "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(222, 184, 135, 0.2) 100%)"
+          : "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 248, 240, 0.8) 100%)",
+        border: isSelected
+          ? "1px solid rgba(160, 82, 45, 0.4)"
+          : "1px solid rgba(210, 180, 140, 0.4)",
+        transition: "all 0.3s ease",
+        boxShadow: isSelected
+          ? "0 2px 10px rgba(160, 82, 45, 0.2)"
+          : "0 2px 8px rgba(210, 180, 140, 0.1)",
+      }}
     >
-      <CardContent className="p-4 text-center">
-        <div className="mb-2 text-3xl">🔮</div>
-        <h3
-          className={`mb-1 text-sm font-semibold ${
-            isOutOfStock ? "text-gray-500" : "text-white"
-          }`}
-        >
-          {ingredient.name}
-        </h3>
-        <p
-          className={`text-xs ${
-            isOutOfStock ? "text-red-400" : "text-gray-400"
-          }`}
-        >
-          Qté : {ingredient.quantity}
-          {isOutOfStock && " (En Rupture)"}
-        </p>
+      <CardContent className="p-0">
+        <div className="relative">
+          <Image
+            src="https://i.ibb.co/B2HQXmSm/Screenshot-2025-07-09-at-01-26-55.png"
+            alt={ingredient.name}
+            width={200}
+            height={120}
+            priority={false}
+          />
+          <div className="absolute top-2 right-2 rounded-full bg-white/90 px-2 py-1 backdrop-blur-sm">
+            <span className="text-sm font-bold" style={{ color: "#3d2914" }}>
+              {ingredient.quantity}
+            </span>
+          </div>
+        </div>
+        <div className="p-4">
+          <h3 className="mb-2 text-base font-bold" style={{ color: "#3d2914" }}>
+            {ingredient.name}
+          </h3>
+          <p className="text-xs leading-relaxed" style={{ color: "#8b4513" }}>
+            {isOutOfStock ? "En Rupture" : `Quantité: ${ingredient.quantity}`}
+          </p>
+        </div>
       </CardContent>
     </Card>
   );

@@ -86,10 +86,21 @@ export default function CraftingView({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-950 via-green-900 to-amber-950 p-4">
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-8 text-center">
-          <h1 className="mb-4 text-4xl font-bold text-white">
+    <div className="min-h-screen" style={{ backgroundColor: '#faf8f0' }}>
+      <div className="mx-auto max-w-7xl p-6">
+        <div 
+          className="mb-12 text-center"
+          style={{ animation: 'fade-in 0.3s ease-out' }}
+        >
+          <h1 
+            className="mb-4 text-5xl font-bold flex items-center justify-center gap-4"
+            style={{
+              background: 'linear-gradient(135deg, #a0522d 0%, #8b4513 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}
+          >
             <span>✨</span> Préparation de Potions <span>✨</span>
           </h1>
         </div>

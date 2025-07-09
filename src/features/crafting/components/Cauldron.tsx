@@ -59,53 +59,111 @@ export function Cauldron({
   });
 
   return (
-    <div className="rounded-xl border border-amber-500/30 bg-black/30 p-6 backdrop-blur-sm">
-      <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold text-white">
-        <span>🔮</span> Chaudron
+    <div 
+      className="rounded-2xl p-6"
+      style={{
+        background: 'linear-gradient(135deg, rgba(255, 248, 240, 0.95) 0%, rgba(245, 230, 211, 0.9) 100%)',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(222, 184, 135, 0.3)',
+        boxShadow: '0 4px 20px rgba(222, 184, 135, 0.3)'
+      }}
+    >
+      <h2 className="mb-6 text-2xl font-bold flex items-center gap-3" style={{ color: '#3d2914' }}>
+        <span>🔮</span> Station de Brassage
       </h2>
-      <div className="mb-4">
-        <div className="mb-4 flex min-h-[60px] flex-wrap gap-2 rounded-lg border-2 border-dashed border-gray-600 bg-gray-800/50 p-3">
+      <div className="mb-6">
+        <div 
+          className="rounded-xl p-6 min-h-[120px] flex flex-wrap gap-3 items-center justify-center"
+          style={{
+            background: selectedIngredients.length > 0 
+              ? 'linear-gradient(135deg, rgba(222, 184, 135, 0.15) 0%, rgba(205, 133, 63, 0.1) 100%)'
+              : 'linear-gradient(135deg, rgba(255, 248, 240, 0.8) 0%, rgba(222, 184, 135, 0.1) 100%)',
+            border: selectedIngredients.length > 0 
+              ? '2px dashed rgba(160, 82, 45, 0.6)'
+              : '2px dashed rgba(210, 180, 140, 0.5)',
+            boxShadow: selectedIngredients.length > 0 
+              ? 'inset 0 0 20px rgba(222, 184, 135, 0.2)'
+              : 'none'
+          }}
+        >
           {selectedIngredients.map((ingredient, index) => (
             <div
               key={`${ingredient.id}-${index}`}
-              className="flex items-center gap-1 rounded-full border border-amber-400/50 bg-amber-600/30 px-2 py-1 text-sm text-white"
+              className="flex items-center gap-3 px-4 py-3 rounded-xl"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(222, 184, 135, 0.2) 100%)',
+                border: '1px solid rgba(160, 82, 45, 0.4)',
+                boxShadow: '0 2px 10px rgba(160, 82, 45, 0.2)'
+              }}
             >
-              <span>🔮</span>
-              <span>{ingredient.name}</span>
+              <span className="text-xl">🔮</span>
+              <span className="font-semibold" style={{ color: '#3d2914' }}>{ingredient.name}</span>
               <button
                 onClick={() => onRemoveIngredient(index)}
-                className="ml-1 text-red-400 hover:text-red-300"
+                className="ml-2 transition-colors"
+                style={{ color: '#8b4513' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#3d2914'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#8b4513'}
               >
-                <X size={14} />
+                <X size={18} />
               </button>
             </div>
           ))}
           {selectedIngredients.length === 0 && (
-            <div className="flex w-full items-center justify-center text-sm text-gray-400">
-              Sélectionnez 3 ingrédients
+            <div className="text-center" style={{ color: '#8b4513' }}>
+              <div className="text-5xl mb-3 opacity-50">🧪</div>
+              <div className="text-base font-medium">Sélectionnez 3 ingrédients pour commencer</div>
             </div>
           )}
         </div>
-        <div className="mb-4 text-center text-sm text-amber-200">
+        <div className="text-center text-base mt-4 font-medium" style={{ color: '#8b4513' }}>
           {selectedIngredients.length}/3 ingrédients sélectionnés
         </div>
-        <div className="space-y-2">
-          <Button
-            onClick={() => brewPotion(selectedIngredients)}
-            disabled={selectedIngredients.length !== 3 || isPending}
-            className="w-full rounded-lg bg-amber-500 py-2 font-semibold text-black hover:bg-amber-600 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {isPending ? "Préparation..." : "Préparer la Potion"}
-          </Button>
-          <Button
-            onClick={onClear}
-            disabled={selectedIngredients.length === 0 || isPending}
-            variant="outline"
-            className="w-full border-amber-500/50 text-amber-200 hover:bg-amber-500/10"
-          >
-            Effacer la Sélection
-          </Button>
-        </div>
+      </div>
+      <div className="space-y-4">
+        <Button
+          onClick={() => brewPotion(selectedIngredients)}
+          disabled={selectedIngredients.length !== 3 || isPending}
+          className="w-full text-white font-bold py-4 text-lg rounded-xl transition-all duration-200 disabled:opacity-50"
+          style={{
+            background: 'linear-gradient(135deg, #a0522d 0%, #8b4513 100%)',
+            boxShadow: '0 4px 15px rgba(160, 82, 45, 0.3)'
+          }}
+          onMouseEnter={(e) => {
+            if (!e.currentTarget.disabled) {
+              e.currentTarget.style.background = 'linear-gradient(135deg, #8b4513 0%, #654321 100%)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (!e.currentTarget.disabled) {
+              e.currentTarget.style.background = 'linear-gradient(135deg, #a0522d 0%, #8b4513 100%)';
+            }
+          }}
+        >
+          {isPending ? "Brassage..." : "Brasser la Potion"}
+        </Button>
+        <Button
+          onClick={onClear}
+          disabled={selectedIngredients.length === 0 || isPending}
+          variant="outline"
+          className="w-full rounded-xl bg-transparent font-semibold py-3"
+          style={{
+            border: '1px solid #cd853f',
+            color: '#8b4513'
+          }}
+          onMouseEnter={(e) => {
+            if (!e.currentTarget.disabled) {
+              e.currentTarget.style.backgroundColor = 'rgba(205, 133, 63, 0.1)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (!e.currentTarget.disabled) {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }
+          }}
+        >
+          Effacer la Sélection
+        </Button>
       </div>
     </div>
   );

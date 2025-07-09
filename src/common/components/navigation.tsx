@@ -32,8 +32,16 @@ export function Navigation() {
   const currentPage = getCurrentPage();
 
   return (
-    <div className="mb-8 rounded-xl border border-amber-500/30 bg-black/30 p-4 backdrop-blur-sm">
-      <div className="flex flex-wrap justify-center gap-2">
+    <div 
+      className="rounded-2xl p-6 mb-8"
+      style={{
+        background: 'linear-gradient(135deg, rgba(255, 248, 240, 0.95) 0%, rgba(245, 230, 211, 0.9) 100%)',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(222, 184, 135, 0.3)',
+        boxShadow: '0 4px 20px rgba(222, 184, 135, 0.3)'
+      }}
+    >
+      <div className="flex flex-wrap gap-3 justify-center">
         {pages.map((page) => {
           const Icon = page.icon;
           const isActive = currentPage === page.id;
@@ -41,14 +49,33 @@ export function Navigation() {
             <Button
               key={page.id}
               onClick={() => handlePageChange(page.path)}
-              variant={isActive ? "default" : "outline"}
-              className={`flex items-center gap-2 ${
-                isActive
-                  ? "bg-gradient-to-r from-amber-600 to-green-600 text-white"
-                  : "border-gray-600 bg-transparent text-gray-300 hover:bg-gray-700"
-              }`}
+              className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200"
+              style={{
+                background: isActive 
+                  ? 'linear-gradient(135deg, #a0522d 0%, #8b4513 100%)'
+                  : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 230, 211, 0.7) 100%)',
+                border: isActive 
+                  ? '1px solid #a0522d'
+                  : '1px solid rgba(210, 180, 140, 0.5)',
+                color: isActive ? 'white' : '#a0522d',
+                boxShadow: isActive 
+                  ? '0 4px 15px rgba(160, 82, 45, 0.3)'
+                  : 'none'
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(222, 184, 135, 0.15) 0%, rgba(245, 230, 211, 0.8) 100%)';
+                  e.currentTarget.style.borderColor = 'rgba(160, 82, 45, 0.6)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 230, 211, 0.7) 100%)';
+                  e.currentTarget.style.borderColor = 'rgba(210, 180, 140, 0.5)';
+                }
+              }}
             >
-              <Icon size={16} />
+              <Icon size={18} />
               {page.name}
             </Button>
           );
