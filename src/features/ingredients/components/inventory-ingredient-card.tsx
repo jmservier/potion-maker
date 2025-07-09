@@ -26,7 +26,7 @@ export function InventoryIngredientCard({
       <CardHeader className="p-0">
         <div className="relative h-40">
           <Image
-            src="https://i.ibb.co/B2HQXmSm/Screenshot-2025-07-09-at-01-26-55.png"
+            src="https://geeksui.codescandy.com/geeks/assets/images/placeholder/placeholder-4by3.svg"
             alt={ingredient.name}
             fill
             className="rounded-t-lg object-cover"
@@ -34,9 +34,7 @@ export function InventoryIngredientCard({
           />
         </div>
         <div className="p-4 pb-2">
-          <CardTitle className="text-lg font-bold">
-            {ingredient.name}
-          </CardTitle>
+          <CardTitle className="text-lg font-bold">{ingredient.name}</CardTitle>
           <CardDescription className="text-sm">
             {ingredient.description}
           </CardDescription>

@@ -29,17 +29,24 @@ export function IngredientCard({
           <Image
             src="https://geeksui.codescandy.com/geeks/assets/images/placeholder/placeholder-4by3.svg"
             alt={ingredient.name}
+            className="ingredient-image"
             width={200}
             height={120}
             priority={false}
           />
           <div className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-1 backdrop-blur-sm">
-            <span className="text-sm font-bold">{ingredient.quantity}</span>
+            <span className="text-brown-dark text-sm font-bold">
+              {ingredient.quantity}
+            </span>
           </div>
         </div>
         <div className="p-4">
-          <h3 className="mb-2 text-base font-bold">{ingredient.name}</h3>
-          <p className="text-xs leading-relaxed">{ingredient.description}</p>
+          <h3 className="text-brown-dark mb-2 text-base font-bold">
+            {ingredient.name}
+          </h3>
+          <p className="text-brown text-xs leading-relaxed">
+            {ingredient.description}
+          </p>
         </div>
       </CardContent>
     </Card>
