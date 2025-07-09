@@ -15,6 +15,7 @@ export function IngredientCard({
   isSelected,
   onClick,
 }: IngredientCardProps) {
+  console.log(" ingredient-card.tsx:18 ingredient:", ingredient);
   const isOutOfStock = ingredient.quantity <= 0;
 
   return (
@@ -56,7 +57,7 @@ export function IngredientCard({
             {ingredient.name}
           </h3>
           <p className="text-xs leading-relaxed" style={{ color: "#8b4513" }}>
-            {isOutOfStock ? "En Rupture" : `Quantité: ${ingredient.quantity}`}
+            {ingredient.description}
           </p>
         </div>
       </CardContent>

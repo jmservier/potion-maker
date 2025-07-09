@@ -5,6 +5,7 @@ export const RecipeSchema = z.object({
   name: z.string().min(1),
   ingredients: z.array(z.string()),
   discovered: z.boolean().default(false),
+  description: z.string().default(""),
 });
 
 export type Recipe = z.infer<typeof RecipeSchema>;

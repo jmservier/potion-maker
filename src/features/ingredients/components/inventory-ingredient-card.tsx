@@ -1,7 +1,13 @@
 import Image from "next/image";
 import { Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Ingredient } from "@/schemas";
 
 interface InventoryIngredientCardProps {
@@ -39,6 +45,9 @@ export function InventoryIngredientCard({
           <CardTitle className="text-lg font-bold" style={{ color: "#8b4513" }}>
             {ingredient.name}
           </CardTitle>
+          <CardDescription className="text-sm" style={{ color: "#8b4513" }}>
+            {ingredient.description}
+          </CardDescription>
         </div>
       </CardHeader>
       <CardContent className="px-4 pb-4">
@@ -93,15 +102,6 @@ export function InventoryIngredientCard({
             >
               <Plus size={16} />
             </Button>
-          </div>
-
-          <div className="text-right">
-            <div className="text-sm font-bold" style={{ color: "#8b4513" }}>
-              10 pièces
-            </div>
-            <div className="text-xs" style={{ color: "#a0522d" }}>
-              par unité
-            </div>
           </div>
         </div>
       </CardContent>

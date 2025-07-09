@@ -8,6 +8,7 @@ export const IngredientSchema = z.object({
     .int()
     .min(0, "quantity must be non-negative")
     .default(10),
+  description: z.string().default(""),
 });
 
 export type Ingredient = z.infer<typeof IngredientSchema>;
@@ -29,6 +30,7 @@ export type IngredientIdParams = z.infer<typeof IngredientIdParamsSchema>;
 export const UpdateIngredientRequestSchema = z.object({
   name: z.string().min(1, "name is required").optional(),
   quantity: z.number().int().min(0, "quantity must be non-negative").optional(),
+  description: z.string().optional(),
 });
 
 export type UpdateIngredientRequest = z.infer<

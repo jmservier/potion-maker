@@ -2,6 +2,35 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+export const potionDescriptions: Record<string, string> = {
+  "Potion d'invisibilité": "Rend invisible pendant quelques heures.",
+  "Potion d'amour": "Fait naître un sentiment d'amour immédiat.",
+  "Potion de jeunesse": "Redonne éclat et vitalité au corps.",
+  "Potion d'immortalité": "Stoppe le vieillissement du buveur.",
+  "Potion de Clairvoyance": "Permet de voir passé et futur un court instant.",
+  "Potion de Force": "Multiplie la force physique pendant une heure.",
+  "Potion de Vitesse": "Autorise des déplacements ultra-rapides.",
+  "Potion de Guérison": "Soigne rapidement blessures et maladies.",
+  "Potion de Transformation": "Change d'apparence pour une courte durée.",
+};
+
+export const ingredientDescriptions: Record<string, string> = {
+  "Noix de coco": "Coque dure renfermant une eau sucrée.",
+  Yttrium: "Métal rare à fort potentiel magique.",
+  Mandragore: "Racine vivante prisée en alchimie.",
+  "Bave de lama": "Substance collante aux vertus liantes.",
+  "Plume de griffon": "Plume légère imprégnée d'énergie céleste.",
+  "Hélium liquide": "Gaz ultrafroid utilisé pour alléger les potions.",
+  Or: "Métal précieux, excellent conducteur magique.",
+  "Crin de licorne": "Filament purificateur d'une licorne.",
+  "Azote liquide": "Liquide glacial capable de figer la matière.",
+  "Poil de yéti": "Poil robuste chargé d'énergie brute.",
+  "Jus de Horglup": "Jus visqueux prolongeant la durée des sorts.",
+  Argent: "Métal lunaire qui amplifie la magie.",
+  "Épine de hérisson": "Épine rigide aux propriétés protectrices.",
+  "Queue d'écureuil": "Queue souple, symbole d'agilité.",
+};
+
 const ingredients = [
   "Argent",
   "Bave de lama",
@@ -72,6 +101,7 @@ async function seedIngredients() {
       create: {
         name: ingredientName,
         quantity: getRandomQuantity(),
+        description: ingredientDescriptions[ingredientName] || "",
       },
     });
   }
@@ -90,6 +120,7 @@ async function seedRecipes() {
         name: recipe.name,
         ingredients: recipe.ingredients,
         discovered: false,
+        description: potionDescriptions[recipe.name] || "",
       },
     });
   }

@@ -14,9 +14,10 @@ datasource db {
 }
 
 model Ingredient {
-  id       String @id @default(cuid())
-  name     String @unique
-  quantity Int    @default(10)
+  id          String @id @default(cuid())
+  name        String @unique
+  quantity    Int    @default(10)
+  description String @default("")
 }
 
 model Recipe {
@@ -24,6 +25,7 @@ model Recipe {
   name        String   @unique
   ingredients String[]
   discovered  Boolean  @default(false)
+  description String   @default("")
 }
 
 model Potion {
