@@ -59,70 +59,70 @@ export default function InventoryView({
 
   return (
     <div className="space-y-8 fade-in">
-          <div className="glass-card rounded-2xl p-8 warm-glow">
-            <div className="mb-6 flex items-center justify-between">
-              <h2 className="font-serif text-3xl font-bold gradient-text">
-                Inventaire
-              </h2>
-              <AlertDialog
-                open={isRestockDialogOpen}
-                onOpenChange={setIsRestockDialogOpen}
+      <div className="glass-card warm-glow rounded-2xl p-8">
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="gradient-text font-serif text-3xl font-bold">
+            Inventaire
+          </h2>
+          <AlertDialog
+            open={isRestockDialogOpen}
+            onOpenChange={setIsRestockDialogOpen}
+          >
+            <AlertDialogTrigger asChild>
+              <Button
+                variant="outline"
+                className="border-orange text-brown hover:bg-orange/10 rounded-xl bg-transparent"
               >
-                <AlertDialogTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="border-orange text-brown hover:bg-orange/10 rounded-xl bg-transparent"
-                  >
-                    <RotateCcw size={18} className="mr-2" />
-                    Réapprovisionner
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      Réapprovisionner l&apos;Inventaire
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Êtes-vous sûr de vouloir réapprovisionner tous les
-                      ingrédients à leurs quantités par défaut ?
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Annuler</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={handleRestockAll}
-                      disabled={resetMutation.isPending}
-                    >
-                      {resetMutation.isPending
-                        ? "Réapprovisionnement..."
-                        : "Réapprovisionner Tout"}
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </div>
+                <RotateCcw size={18} className="mr-2" />
+                Réapprovisionner
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  Réapprovisionner l&apos;Inventaire
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  Êtes-vous sûr de vouloir réapprovisionner tous les ingrédients
+                  à leurs quantités par défaut ?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Annuler</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={handleRestockAll}
+                  disabled={resetMutation.isPending}
+                >
+                  {resetMutation.isPending
+                    ? "Réapprovisionnement..."
+                    : "Réapprovisionner Tout"}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <StatCard value={totalItems} label="Total d'objets" />
-              <StatCard value={availableTypes} label="Types disponibles" />
-            </div>
-          </div>
-          <div className="glass-card rounded-2xl p-8 warm-glow">
-            <h2 className="mb-6 font-serif text-2xl font-semibold">
-              Tous les Ingrédients
-            </h2>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <StatCard value={totalItems} label="Total d'objets" />
+          <StatCard value={availableTypes} label="Types disponibles" />
+        </div>
+      </div>
+      <div className="glass-card warm-glow rounded-2xl p-8">
+        <h2 className="mb-6 font-serif text-2xl font-semibold">
+          Tous les Ingrédients
+        </h2>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {ingredients?.map((ingredient) => (
-                <InventoryIngredientCard
-                  key={ingredient.id}
-                  ingredient={ingredient}
-                  onUpdateQuantity={handleUpdateQuantity}
-                  isUpdating={updateMutation.isPending}
-                />
-              ))}
-            </div>
-          </div>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {ingredients?.map((ingredient) => (
+            <InventoryIngredientCard
+              key={ingredient.id}
+              ingredient={ingredient}
+              onUpdateQuantity={handleUpdateQuantity}
+              isUpdating={updateMutation.isPending}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

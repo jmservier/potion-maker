@@ -32,7 +32,7 @@ export function Navigation() {
   const currentPage = getCurrentPage();
 
   return (
-    <div className="glass-card rounded-2xl p-6 mb-8 warm-glow">
+    <div className="glass-card warm-glow mb-8 rounded-2xl p-6">
       <div className="flex flex-wrap justify-center gap-3">
         {pages.map((page) => {
           const Icon = page.icon;
@@ -41,7 +41,7 @@ export function Navigation() {
             <Button
               key={page.id}
               onClick={() => handlePageChange(page.path)}
-              className={`nav-button flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+              className={`nav-button flex items-center gap-2 rounded-xl px-6 py-3 font-medium transition-all duration-200 ${
                 isActive ? "active" : ""
               }`}
             >

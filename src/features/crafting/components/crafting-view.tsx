@@ -85,28 +85,28 @@ export default function CraftingView({
   };
 
   return (
-    <div className="fade-in grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <div className="glass-card warm-glow rounded-2xl p-8 lg:col-span-2">
-            <IngredientsGrid
-              ingredients={ingredients}
-              onIngredientSelect={handleIngredientSelect}
-              selectedIngredients={selectedIngredients}
-            />
-          </div>
-          <div className="space-y-8 lg:col-span-1">
-            <div className="glass-card warm-glow rounded-2xl p-8">
-              <Cauldron
-                selectedIngredients={selectedIngredients}
-                onRemoveIngredient={handleRemoveIngredient}
-                onSuccess={handleSuccess}
-                onClear={handleClear}
-                onReset={handleResetRecipes}
-              />
-            </div>
-            <div className="glass-card warm-glow rounded-2xl p-8">
-              <RecipeBook recipes={recipes} />
-            </div>
-          </div>
+    <div className="grid grid-cols-1 gap-8 fade-in lg:grid-cols-3">
+      <div className="glass-card warm-glow rounded-2xl p-8 lg:col-span-2">
+        <IngredientsGrid
+          ingredients={ingredients}
+          onIngredientSelect={handleIngredientSelect}
+          selectedIngredients={selectedIngredients}
+        />
+      </div>
+      <div className="space-y-8 lg:col-span-1">
+        <div className="glass-card warm-glow rounded-2xl p-8">
+          <Cauldron
+            selectedIngredients={selectedIngredients}
+            onRemoveIngredient={handleRemoveIngredient}
+            onSuccess={handleSuccess}
+            onClear={handleClear}
+            onReset={handleResetRecipes}
+          />
+        </div>
+        <div className="glass-card warm-glow rounded-2xl p-8">
+          <RecipeBook recipes={recipes} />
+        </div>
+      </div>
     </div>
   );
 }
