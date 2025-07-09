@@ -6,83 +6,83 @@ describe("Failed Crafting Attempt", () => {
   });
 
   it("should handle failed crafting attempt correctly", () => {
-    cy.contains("Crafting Potions").should("be.visible");
-    cy.contains("Cauldron").should("be.visible");
+    cy.contains("Laboratoire de potions").should("be.visible");
+    cy.contains("Station de Brassage").should("be.visible");
 
     // Select invalid recipe
     cy.contains("Argent").click();
     cy.contains("Noix de coco").click();
     cy.contains("Yttrium").click();
 
-    cy.get(".rounded-full").should("contain", "Argent");
-    cy.get(".rounded-full").should("contain", "Noix de coco");
-    cy.get(".rounded-full").should("contain", "Yttrium");
-    cy.contains("3/3 ingredients selected").should("be.visible");
+    cy.get(".selected-ingredient").should("contain", "Argent");
+    cy.get(".selected-ingredient").should("contain", "Noix de coco");
+    cy.get(".selected-ingredient").should("contain", "Yttrium");
+    cy.contains("3/3 ingrédients sélectionnés").should("be.visible");
 
     // Store initial quantities
     let initialArgentQuantity: number;
     let initialCoconutQuantity: number;
     let initialYttriumQuantity: number;
     cy.contains("Argent")
-      .closest(".cursor-pointer")
-      .contains(/Qty: \d+/)
+      .closest(".ingredient-card")
+      .find(".absolute")
       .invoke("text")
       .then((text) => {
-        initialArgentQuantity = parseInt(text.match(/\d+/)?.[0] || "0");
+        initialArgentQuantity = parseInt(text.trim() || "0");
       });
 
     cy.contains("Noix de coco")
-      .closest(".cursor-pointer")
-      .contains(/Qty: \d+/)
+      .closest(".ingredient-card")
+      .find(".absolute")
       .invoke("text")
       .then((text) => {
-        initialCoconutQuantity = parseInt(text.match(/\d+/)?.[0] || "0");
+        initialCoconutQuantity = parseInt(text.trim() || "0");
       });
 
     cy.contains("Yttrium")
-      .closest(".cursor-pointer")
-      .contains(/Qty: \d+/)
+      .closest(".ingredient-card")
+      .find(".absolute")
       .invoke("text")
       .then((text) => {
-        initialYttriumQuantity = parseInt(text.match(/\d+/)?.[0] || "0");
+        initialYttriumQuantity = parseInt(text.trim() || "0");
       });
 
-    cy.contains("Brew Potion").click();
+    cy.contains("Créer la Potion").click();
 
     // Failure notification
-    cy.contains("No recipe found with these ingredients").should("be.visible");
+    cy.contains("Aucune recette trouvée avec ces ingrédients").should("be.visible");
 
     // Ingredients consumed even on failure
     cy.contains("Argent")
-      .closest(".cursor-pointer")
-      .contains(/Qty: \d+/)
+      .closest(".ingredient-card")
+      .find(".absolute")
       .invoke("text")
       .then((text) => {
-        const newQuantity = parseInt(text.match(/\d+/)?.[0] || "0");
+        const newQuantity = parseInt(text.trim() || "0");
         expect(newQuantity).to.equal(initialArgentQuantity - 1);
       });
 
     cy.contains("Noix de coco")
-      .closest(".cursor-pointer")
-      .contains(/Qty: \d+/)
+      .closest(".ingredient-card")
+      .find(".absolute")
       .invoke("text")
       .then((text) => {
-        const newQuantity = parseInt(text.match(/\d+/)?.[0] || "0");
+        const newQuantity = parseInt(text.trim() || "0");
         expect(newQuantity).to.equal(initialCoconutQuantity - 1);
       });
 
     cy.contains("Yttrium")
-      .closest(".cursor-pointer")
-      .contains(/Qty: \d+/)
+      .closest(".ingredient-card")
+      .find(".absolute")
       .invoke("text")
       .then((text) => {
-        const newQuantity = parseInt(text.match(/\d+/)?.[0] || "0");
+        const newQuantity = parseInt(text.trim() || "0");
         expect(newQuantity).to.equal(initialYttriumQuantity - 1);
       });
 
     // Cauldron resets
-    cy.contains("0/3 ingredients selected").should("be.visible");
-    cy.contains("Select 3 ingredients").should("be.visible");
+    cy.contains("0/3 ingrédients sélectionnés").should("be.visible");
+    cy.contains("Sélectionnez 3 ingrédients pour commencer").should("be.visible");
 
     // No new recipe discovered
     cy.get("body").should("not.contain", "New recipe discovered");
@@ -95,28 +95,28 @@ describe("Failed Crafting Attempt", () => {
     cy.contains("Argent").click();
     cy.contains("Noix de coco").click();
     cy.contains("Yttrium").click();
-    cy.contains("Brew Potion").click();
-    cy.contains("No recipe found with these ingredients").should("be.visible");
+    cy.contains("Créer la Potion").click();
+    cy.contains("Aucune recette trouvée avec ces ingrédients").should("be.visible");
 
     // Second failed attempt
     cy.contains("Bave de lama").click();
     cy.contains("Épine de hérisson").click();
     cy.contains("Or").click();
-    cy.contains("Brew Potion").click();
-    cy.contains("No recipe found with these ingredients").should("be.visible");
+    cy.contains("Créer la Potion").click();
+    cy.contains("Aucune recette trouvée avec ces ingrédients").should("be.visible");
 
     // Both attempts consumed ingredients
     cy.contains("Argent")
-      .closest(".cursor-pointer")
-      .contains(/Qty: \d+/)
+      .closest(".ingredient-card")
+      .find(".absolute")
       .invoke("text")
-      .should("match", /Qty: [0-9]+/);
+      .should("match", /[0-9]+/);
 
     cy.contains("Bave de lama")
-      .closest(".cursor-pointer")
-      .contains(/Qty: \d+/)
+      .closest(".ingredient-card")
+      .find(".absolute")
       .invoke("text")
-      .should("match", /Qty: [0-9]+/);
+      .should("match", /[0-9]+/);
   });
 
   it("should prevent crafting with insufficient ingredients", () => {
@@ -124,32 +124,31 @@ describe("Failed Crafting Attempt", () => {
     cy.intercept("POST", "/api/recipes/check").as("brewRequest");
 
     let initialQuantity: number;
-    cy.get('h3:contains("Argent")').parent().parent().as("argentCard");
+    cy.contains("Argent").closest(".ingredient-card").as("argentCard");
 
     cy.get("@argentCard")
-      .contains(/Qty: \d+/)
+      .find(".absolute")
       .invoke("text")
       .then((text) => {
-        initialQuantity = parseInt(text.match(/\d+/)?.[0] || "0");
+        initialQuantity = parseInt(text.trim() || "0");
 
         // Exhaust ingredient by crafting multiple times
         for (let i = 0; i < initialQuantity; i++) {
           cy.contains("Argent").click();
           cy.contains("Noix de coco").click();
           cy.contains("Yttrium").click();
-          cy.contains("Brew Potion").click();
+          cy.contains("Créer la Potion").click();
           cy.wait("@brewRequest");
-          cy.contains("0/3 ingredients selected").should("be.visible");
+          cy.contains("0/3 ingrédients sélectionnés").should("be.visible");
         }
 
         // Ingredient now out of stock
         cy.get("@argentCard")
-          .should("contain", "Out of Stock")
           .should("have.class", "cursor-not-allowed");
 
         // Out of stock ingredient not selectable
         cy.contains("Argent").click();
-        cy.contains("0/3 ingredients selected").should("be.visible");
+        cy.contains("0/3 ingrédients sélectionnés").should("be.visible");
       });
   });
 });

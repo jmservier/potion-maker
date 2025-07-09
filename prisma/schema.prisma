@@ -29,7 +29,7 @@ model Recipe {
 
 model CraftingAttempt {
   id         String   @id @default(cuid())
-  recipeName String
+  recipeName String?
   success    Boolean  @default(true)
   createdAt  DateTime @default(now())
   
