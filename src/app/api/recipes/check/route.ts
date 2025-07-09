@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import type { Ingredient } from "@/features/ingredients/schemas/ingredient.schema";
 import type { Recipe } from "@/features/recipes/schemas/recipe.schema";
 import { RecipeCheckRequestSchema } from "@/schemas";
 import prisma from "@/server/db/client";
@@ -11,59 +10,7 @@ import {
   getAllRecipes,
   updateRecipeDiscovered,
 } from "@/server/db/queries/recipes";
-
-// TODO: create service for business logic
-async function validateIngredients(
-  ingredientNames: string[],
-  ingredients: Ingredient[],
-): Promise<{ isValid: boolean; errorResponse?: NextResponse }> {
-  for (const ingredientName of ingredientNames) {
-    const ingredient = ingredients.find((i) => i.name === ingredientName);
-    if (!ingredient) {
-      return {
-        isValid: false,
-        errorResponse: NextResponse.json(
-          {
-            success: false,
-            message: `Ingredient "${ingredientName}" not found in inventory`,
-          },
-          { status: 400 },
-        ),
-      };
-    }
-    if (ingredient.quantity <= 0) {
-      return {
-        isValid: false,
-        errorResponse: NextResponse.json(
-          {
-            success: false,
-            message: `Not enough "${ingredientName}" in inventory`,
-          },
-          { status: 400 },
-        ),
-      };
-    }
-  }
-  return { isValid: true };
-}
-
-function findMatchingRecipe(
-  ingredientNames: string[],
-  recipes: Recipe[],
-): Recipe | undefined {
-  const sortedIngredients = ingredientNames.sort();
-  return recipes.find((recipe) => {
-    const recipeIngredients = recipe.ingredients;
-    const sortedRecipeIngredients = [...recipeIngredients].sort();
-
-    return (
-      sortedIngredients.length === sortedRecipeIngredients.length &&
-      sortedIngredients.every(
-        (ingredient, index) => ingredient === sortedRecipeIngredients[index],
-      )
-    );
-  });
-}
+import * as craftingService from "@/server/services/crafting-services";
 
 async function processSuccessfulRecipe(
   matchingRecipe: Recipe,
@@ -132,14 +79,26 @@ export async function POST(request: Request) {
     const { ingredientNames } = parseResult.data;
 
     const ingredients = await getIngredientsByNames(ingredientNames);
-    const validation = await validateIngredients(ingredientNames, ingredients);
+    const validation = craftingService.validateIngredients(
+      ingredientNames,
+      ingredients,
+    );
 
     if (!validation.isValid) {
-      return validation.errorResponse!;
+      return NextResponse.json(
+        {
+          success: false,
+          message: validation.errorMessage,
+        },
+        { status: 400 },
+      );
     }
 
     const recipes = await getAllRecipes();
-    const matchingRecipe = findMatchingRecipe(ingredientNames, recipes);
+    const matchingRecipe = craftingService.findMatchingRecipe(
+      ingredientNames,
+      recipes,
+    );
 
     if (matchingRecipe) {
       return await processSuccessfulRecipe(matchingRecipe, ingredientNames);
