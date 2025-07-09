@@ -19,7 +19,8 @@
     "db:migrate:prod": "prisma migrate deploy",
     "db:seed:prod": "NODE_ENV=production tsx prisma/seed.ts",
     "setup:local": "npm run db:start && npm run db:migrate:dev && npm run db:seed",
-    "setup:prod": "npm run db:migrate:prod && npm run db:seed:prod"
+    "setup:prod": "npm run db:migrate:prod && npm run db:seed:prod",
+    "postinstall": "prisma generate"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
