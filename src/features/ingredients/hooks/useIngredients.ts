@@ -59,7 +59,9 @@ export function useUpdateIngredient() {
       });
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Échec de la mise à jour de l'ingrédient");
+        throw new Error(
+          error.error || "Échec de la mise à jour de l'ingrédient",
+        );
       }
       return response.json() as Promise<Ingredient>;
     },
@@ -79,7 +81,9 @@ export function useDeleteIngredient() {
       });
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Échec de la suppression de l'ingrédient");
+        throw new Error(
+          error.error || "Échec de la suppression de l'ingrédient",
+        );
       }
       return response.json();
     },

@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import type { Ingredient } from "@/features/ingredients/schemas/ingredient.schema";
+import type { Recipe } from "@/features/recipes/schemas/recipe.schema";
 import { RecipeCheckRequestSchema } from "@/schemas";
 import prisma from "@/server/db/client";
 import { createPotion } from "@/server/db/queries/crafting";
@@ -10,12 +12,10 @@ import {
   getAllRecipes,
   updateRecipeDiscovered,
 } from "@/server/db/queries/recipes";
-import type { Ingredient } from "@/features/ingredients/schemas/ingredient.schema";
-import type { Recipe } from "@/features/recipes/schemas/recipe.schema";
 
 async function validateIngredients(
   ingredientNames: string[],
-  ingredients: Ingredient[]
+  ingredients: Ingredient[],
 ): Promise<{ isValid: boolean; errorResponse?: NextResponse }> {
   for (const ingredientName of ingredientNames) {
     const ingredient = ingredients.find((i) => i.name === ingredientName);
@@ -27,7 +27,7 @@ async function validateIngredients(
             success: false,
             message: `Ingredient "${ingredientName}" not found in inventory`,
           },
-          { status: 400 }
+          { status: 400 },
         ),
       };
     }
@@ -39,7 +39,7 @@ async function validateIngredients(
             success: false,
             message: `Not enough "${ingredientName}" in inventory`,
           },
-          { status: 400 }
+          { status: 400 },
         ),
       };
     }
@@ -49,7 +49,7 @@ async function validateIngredients(
 
 function findMatchingRecipe(
   ingredientNames: string[],
-  recipes: Recipe[]
+  recipes: Recipe[],
 ): Recipe | undefined {
   const sortedIngredients = ingredientNames.sort();
   return recipes.find((recipe) => {
@@ -59,7 +59,7 @@ function findMatchingRecipe(
     return (
       sortedIngredients.length === sortedRecipeIngredients.length &&
       sortedIngredients.every(
-        (ingredient, index) => ingredient === sortedRecipeIngredients[index]
+        (ingredient, index) => ingredient === sortedRecipeIngredients[index],
       )
     );
   });
@@ -67,7 +67,7 @@ function findMatchingRecipe(
 
 async function processSuccessfulRecipe(
   matchingRecipe: Recipe,
-  ingredientNames: string[]
+  ingredientNames: string[],
 ): Promise<NextResponse> {
   await prisma.$transaction(async (tx) => {
     if (!matchingRecipe.discovered) {
@@ -98,7 +98,7 @@ async function processSuccessfulRecipe(
 }
 
 async function processFailedRecipe(
-  ingredientNames: string[]
+  ingredientNames: string[],
 ): Promise<NextResponse> {
   await prisma.$transaction(async (tx) => {
     for (const ingredientName of ingredientNames) {
@@ -127,7 +127,7 @@ export async function POST(request: Request) {
     if (!parseResult.success) {
       return NextResponse.json(
         { error: parseResult.error.errors },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -135,7 +135,7 @@ export async function POST(request: Request) {
 
     const ingredients = await getIngredientsByNames(ingredientNames);
     const validation = await validateIngredients(ingredientNames, ingredients);
-    
+
     if (!validation.isValid) {
       return validation.errorResponse!;
     }
@@ -152,7 +152,7 @@ export async function POST(request: Request) {
     console.error("Error in recipe check:", error);
     return NextResponse.json(
       { error: "Error checking recipe" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
