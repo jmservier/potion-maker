@@ -2,10 +2,12 @@
 
 import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { X, Sparkles, RotateCcw } from "lucide-react";
+import { RotateCcw, Sparkles, X } from "lucide-react";
+import { motion } from "motion/react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Ingredient } from "@/schemas";
+import { brewPotionMutation } from "../mutations";
 
 interface CauldronProps {
   selectedIngredients: Ingredient[];
@@ -23,25 +25,10 @@ export function Cauldron({
   onReset,
 }: CauldronProps) {
   const queryClient = useQueryClient();
+  const [isBrewing, setIsBrewing] = React.useState(false);
 
-  const { mutate: brewPotion, isPending } = useMutation({
-    mutationFn: async (ingredients: Ingredient[]) => {
-      const ingredientNames = ingredients.map((ingredient) => ingredient.name);
-
-      const response = await fetch("/api/recipes/check", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ingredientNames }),
-      });
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to brew potion");
-      }
-      return data;
-    },
+  const { mutate, isPending } = useMutation({
+    mutationFn: brewPotionMutation,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["ingredients"] });
       // TODO: check if recipe is already discovered
@@ -58,7 +45,15 @@ export function Cauldron({
       console.error(error);
       toast.error("Échec de la préparation de la potion");
     },
+    onSettled: () => {
+      setIsBrewing(false);
+    },
   });
+
+  const handleBrewPotion = () => {
+    setIsBrewing(true);
+    mutate(selectedIngredients);
+  };
 
   return (
     <div className="rounded-2xl p-6 fade-in">
@@ -95,9 +90,45 @@ export function Cauldron({
           {selectedIngredients.length}/3 ingrédients sélectionnés
         </div>
       </div>
+
+      {/* Brewing Animation */}
+      {isBrewing && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          className="mb-6 text-center"
+        >
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 1, repeat: Infinity }}
+            className="mb-4 text-6xl"
+          >
+            ⚗️
+          </motion.div>
+          <div className="animate-pulse text-lg font-medium text-slate-600">
+            Brassage en cours...
+          </div>
+          <div className="mt-4 flex justify-center gap-2">
+            {[...Array(3)].map((_, i) => (
+              <motion.div
+                key={i}
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  delay: i * 0.2,
+                }}
+                className="h-3 w-3 rounded-full bg-purple-600"
+              />
+            ))}
+          </div>
+        </motion.div>
+      )}
+
       <div className="space-y-4">
         <Button
-          onClick={() => brewPotion(selectedIngredients)}
+          onClick={handleBrewPotion}
           disabled={selectedIngredients.length !== 3 || isPending}
           className="btn-primary w-full rounded-xl py-4 text-lg font-bold text-white transition-all duration-200 disabled:opacity-50"
         >
@@ -109,7 +140,7 @@ export function Cauldron({
             onClick={onClear}
             disabled={selectedIngredients.length === 0 || isPending}
             variant="outline"
-            className="flex-1 btn-secondary rounded-xl font-semibold py-3 bg-transparent"
+            className="btn-secondary flex-1 rounded-xl bg-transparent py-3 font-semibold"
           >
             Vider
           </Button>
@@ -117,7 +148,7 @@ export function Cauldron({
             <Button
               onClick={onReset}
               variant="outline"
-              className="flex-1 btn-secondary rounded-xl font-semibold py-3 bg-transparent"
+              className="btn-secondary flex-1 rounded-xl bg-transparent py-3 font-semibold"
             >
               <RotateCcw size={18} className="mr-2" />
               Reset
