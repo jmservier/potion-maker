@@ -3,7 +3,7 @@
 import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { RotateCcw, Sparkles, X } from "lucide-react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Ingredient } from "@/schemas";
@@ -56,77 +56,95 @@ export function PotionMixer({
   };
 
   return (
-    <div className="rounded-2xl p-6 fade-in">
+    <motion.div layout className="rounded-2xl p-6 fade-in">
       <h2 className="mb-6 flex items-center gap-3 text-2xl font-bold">
         <span>🔮</span> Atelier de Potions
       </h2>
       <div className="mb-6">
-        <div className="brewing-area flex min-h-[120px] flex-wrap items-center justify-center gap-3 rounded-xl p-6">
-          {selectedIngredients.map((ingredient, index) => (
-            <div
-              key={`${ingredient.id}-${index}`}
-              className="selected-ingredient flex w-full items-center justify-between rounded-xl px-4 py-3"
-            >
-              <div className="flex items-center gap-3">
-                <span className="text-xl">🔮</span>
-                <span className="font-semibold">{ingredient.name}</span>
-              </div>
-              <button
-                onClick={() => onRemoveIngredient(index)}
-                className="ml-2 transition-transform hover:-translate-y-[2px]"
+        <motion.div 
+          layout
+          className="brewing-area flex min-h-[120px] flex-wrap items-center justify-center gap-3 rounded-xl p-6"
+        >
+          <AnimatePresence mode="popLayout">
+            {selectedIngredients.map((ingredient, index) => (
+              <motion.div
+                layout
+                key={`${ingredient.id}-${index}`}
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: -20 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="selected-ingredient flex w-full items-center justify-between rounded-xl px-4 py-3"
               >
-                <X size={18} />
-              </button>
-            </div>
-          ))}
-          {selectedIngredients.length === 0 && (
-            <div className="text-center">
-              <div className="mb-3 text-5xl opacity-50">🧪</div>
-              <div className="text-base font-medium">
-                Sélectionnez 3 ingrédients pour commencer
-              </div>
-            </div>
-          )}
-        </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-xl">🔮</span>
+                  <span className="font-semibold">{ingredient.name}</span>
+                </div>
+                <button
+                  onClick={() => onRemoveIngredient(index)}
+                  className="ml-2 transition-transform hover:-translate-y-[2px]"
+                >
+                  <X size={18} />
+                </button>
+              </motion.div>
+            ))}
+            {selectedIngredients.length === 0 && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-center"
+              >
+                <div className="mb-3 text-5xl opacity-50">🧪</div>
+                <div className="text-base font-medium">
+                  Sélectionnez 3 ingrédients pour commencer
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
         <div className="mt-4 text-center text-base font-medium">
           {selectedIngredients.length}/3 ingrédients sélectionnés
         </div>
       </div>
 
-      {/* Brewing Animation */}
-      {isBrewing && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
-          className="mb-6 text-center"
-        >
+      <AnimatePresence initial={false}>
+        {isBrewing && (
           <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 1, repeat: Infinity }}
-            className="mb-4 text-6xl"
+            initial={{ opacity: 0, scale: 0.8, height: 0 }}
+            animate={{ opacity: 1, scale: 1, height: "auto" }}
+            exit={{ opacity: 0, scale: 0.8, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="mb-6 overflow-hidden text-center"
           >
-            ⚗️
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 1, repeat: Infinity }}
+              className="m-4 text-6xl"
+            >
+              ⚗️
+            </motion.div>
+            <div className="animate-pulse text-lg font-medium text-slate-600">
+              Brassage en cours...
+            </div>
+            <div className="mt-4 flex justify-center gap-2">
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    delay: i * 0.2,
+                  }}
+                  className="h-3 w-3 rounded-full bg-purple-600"
+                />
+              ))}
+            </div>
           </motion.div>
-          <div className="animate-pulse text-lg font-medium text-slate-600">
-            Brassage en cours...
-          </div>
-          <div className="mt-4 flex justify-center gap-2">
-            {[...Array(3)].map((_, i) => (
-              <motion.div
-                key={i}
-                animate={{ opacity: [0.3, 1, 0.3] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                }}
-                className="h-3 w-3 rounded-full bg-purple-600"
-              />
-            ))}
-          </div>
-        </motion.div>
-      )}
+        )}
+      </AnimatePresence>
 
       <div className="space-y-4">
         <Button
@@ -158,6 +176,6 @@ export function PotionMixer({
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
