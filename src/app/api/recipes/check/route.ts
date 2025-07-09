@@ -13,6 +13,7 @@ import {
   updateRecipeDiscovered,
 } from "@/server/db/queries/recipes";
 
+// TODO: create service for business logic
 async function validateIngredients(
   ingredientNames: string[],
   ingredients: Ingredient[],

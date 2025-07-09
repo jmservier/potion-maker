@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Cauldron } from "@/features/crafting/components/cauldron";
+import { PotionMixer } from "@/features/crafting/components/potion-mixer";
 import { RecipeBook } from "@/features/crafting/components/recipe-book";
 import { IngredientsGrid } from "@/features/ingredients/components/ingredients-grid";
 import { useIngredients } from "@/features/ingredients/hooks/useIngredients";
@@ -85,7 +85,7 @@ export default function CraftingView({
   };
 
   return (
-    <div className="grid grid-cols-1 gap-8 fade-in lg:grid-cols-3">
+    <div className="fade-in grid grid-cols-1 gap-8 lg:grid-cols-3">
       <div className="glass-card warm-glow rounded-2xl p-8 lg:col-span-2">
         <IngredientsGrid
           ingredients={ingredients}
@@ -95,7 +95,7 @@ export default function CraftingView({
       </div>
       <div className="space-y-8 lg:col-span-1">
         <div className="glass-card warm-glow rounded-2xl p-8">
-          <Cauldron
+          <PotionMixer
             selectedIngredients={selectedIngredients}
             onRemoveIngredient={handleRemoveIngredient}
             onSuccess={handleSuccess}

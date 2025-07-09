@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Ingredient } from "@/schemas";
 import { brewPotionMutation } from "../mutations";
 
-interface CauldronProps {
+interface PotionMixerProps {
   selectedIngredients: Ingredient[];
   onRemoveIngredient: (index: number) => void;
   onSuccess?: () => void;
@@ -17,13 +17,13 @@ interface CauldronProps {
   onReset?: () => void;
 }
 
-export function Cauldron({
+export function PotionMixer({
   selectedIngredients,
   onRemoveIngredient,
   onSuccess,
   onClear,
   onReset,
-}: CauldronProps) {
+}: PotionMixerProps) {
   const queryClient = useQueryClient();
   const [isBrewing, setIsBrewing] = React.useState(false);
 
