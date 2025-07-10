@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
 import {
+  deleteIngredient,
+  updateIngredient,
+} from "@/features/ingredients/actions";
+import { getIngredientById } from "@/features/ingredients/queries";
+import {
   IngredientIdParamsSchema,
   IngredientSchema,
   UpdateIngredientRequestSchema,
 } from "@/schemas";
-import {
-  deleteIngredient,
-  getIngredientById,
-  updateIngredient,
-} from "@/server/db/queries/ingredients";
 
 export async function GET(
   request: Request,

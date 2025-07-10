@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
+import { createIngredient } from "@/features/ingredients/actions";
+import { getAllIngredients } from "@/features/ingredients/queries";
 import { CreateIngredientSchema, IngredientSchema } from "@/schemas";
-import {
-  createIngredient,
-  getAllIngredients,
-} from "@/server/db/queries/ingredients";
 
 export async function GET() {
   try {

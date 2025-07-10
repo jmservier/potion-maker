@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
+import { resetAllIngredientQuantities } from "@/features/ingredients/actions";
 import { ResetInventoryResponseSchema } from "@/schemas";
-import { resetAllIngredientQuantities } from "@/server/db/queries/ingredients";
 
 export async function POST() {
   try {

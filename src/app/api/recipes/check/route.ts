@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
+import { decrementIngredientQuantity } from "@/features/ingredients/actions";
+import { getIngredientsByNames } from "@/features/ingredients/queries";
 import type { Recipe } from "@/features/recipes/schemas/recipe.schema";
 import prisma from "@/lib/db";
 import { RecipeCheckRequestSchema } from "@/schemas";
-import {
-  decrementIngredientQuantity,
-  getIngredientsByNames,
-} from "@/server/db/queries/ingredients";
 import {
   getAllRecipes,
   updateRecipeDiscovered,
