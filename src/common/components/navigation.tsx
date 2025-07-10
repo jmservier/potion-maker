@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { BeakerIcon, BookOpen, Package } from "lucide-react";
+import { BeakerIcon, BookOpen, History, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Navigation() {
@@ -17,7 +17,7 @@ export function Navigation() {
     },
     { id: "inventory", name: "Inventaire", icon: Package, path: "/inventory" },
     { id: "recipes", name: "Recettes", icon: BookOpen, path: "/recipes" },
-    // { id: "history", name: "History", icon: History, path: "/history" },
+    { id: "history", name: "Historique", icon: History, path: "/history" },
   ];
 
   const getCurrentPage = () => {

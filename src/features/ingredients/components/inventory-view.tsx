@@ -58,7 +58,7 @@ export default function InventoryView({
     ingredients?.filter((ingredient) => ingredient.quantity > 0).length || 0;
 
   return (
-    <div className="fade-in space-y-8">
+    <div className="space-y-8 fade-in">
       <div className="glass-card warm-glow rounded-2xl p-8">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="font-serif text-2xl font-bold">Inventaire</h2>

@@ -32,7 +32,7 @@
     @apply border-border;
   }
   body {
-    @apply text-slate-deeper font-sans;
+    @apply font-sans text-slate-deeper;
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
     min-height: 100vh;
     position: relative;
@@ -98,19 +98,14 @@
 }
 
 .ingredient-card.selected {
-  background: linear-gradient(
-    135deg,
-    rgba(139, 92, 246, 0.1) 0%,
-    rgba(167, 139, 250, 0.05) 100%
-  );
-  border: 2px solid rgba(139, 92, 246, 0.4);
-  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.2);
-  transform: translateY(-2px);
+  border-width: 2px;
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
 }
 
 .ingredient-card.selected:hover {
-  border-color: rgba(139, 92, 246, 0.6);
-  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.3);
+  transform: translateY(-8px) scale(1.07);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
 }
 
 .ingredient-image {
@@ -217,8 +212,8 @@
 
 .selected-ingredient {
   background: rgba(248, 247, 255, 0.9);
-  border: 1px solid rgba(167, 139, 250, 0.4);
-  box-shadow: 0 2px 8px rgba(167, 139, 250, 0.15);
+  /* border: 1px solid rgba(167, 139, 250, 0.4); */
+  /* box-shadow: 0 2px 8px rgba(167, 139, 250, 0.15); */
 }
 
 .btn-primary {
@@ -260,4 +255,385 @@
   50% {
     transform: translateY(-3px);
   }
+}
+
+/* Ingredient type colors */
+.ingredient-card[data-type="tropical"] {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.08) 0%,
+    rgba(22, 163, 74, 0.05) 100%
+  );
+  border-color: rgba(34, 197, 94, 0.2);
+}
+
+.ingredient-card[data-type="tropical"]:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.12) 0%,
+    rgba(22, 163, 74, 0.08) 100%
+  );
+  border-color: rgba(34, 197, 94, 0.4);
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.15);
+}
+
+.ingredient-card[data-type="metal"] {
+  background: linear-gradient(
+    135deg,
+    rgba(148, 163, 184, 0.08) 0%,
+    rgba(100, 116, 139, 0.05) 100%
+  );
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+.ingredient-card[data-type="metal"]:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(148, 163, 184, 0.12) 0%,
+    rgba(100, 116, 139, 0.08) 100%
+  );
+  border-color: rgba(148, 163, 184, 0.5);
+  box-shadow: 0 8px 25px rgba(148, 163, 184, 0.2);
+}
+
+.ingredient-card[data-type="plant"] {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.08) 0%,
+    rgba(22, 163, 74, 0.05) 100%
+  );
+  border-color: rgba(34, 197, 94, 0.2);
+}
+
+.ingredient-card[data-type="plant"]:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.12) 0%,
+    rgba(22, 163, 74, 0.08) 100%
+  );
+  border-color: rgba(34, 197, 94, 0.4);
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.15);
+}
+
+.ingredient-card[data-type="animal"] {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.08) 0%,
+    rgba(217, 119, 6, 0.05) 100%
+  );
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.ingredient-card[data-type="animal"]:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.12) 0%,
+    rgba(217, 119, 6, 0.08) 100%
+  );
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.15);
+}
+
+.ingredient-card[data-type="liquid"] {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.08) 0%,
+    rgba(37, 99, 235, 0.05) 100%
+  );
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.ingredient-card[data-type="liquid"]:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.12) 0%,
+    rgba(37, 99, 235, 0.08) 100%
+  );
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+}
+
+.ingredient-card[data-type="precious"] {
+  background: linear-gradient(
+    135deg,
+    rgba(251, 191, 36, 0.08) 0%,
+    rgba(245, 158, 11, 0.05) 100%
+  );
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+.ingredient-card[data-type="precious"]:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(251, 191, 36, 0.12) 0%,
+    rgba(245, 158, 11, 0.08) 100%
+  );
+  border-color: rgba(251, 191, 36, 0.5);
+  box-shadow: 0 8px 25px rgba(251, 191, 36, 0.2);
+}
+
+.ingredient-card[data-type="magical"] {
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.08) 0%,
+    rgba(147, 51, 234, 0.05) 100%
+  );
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+.ingredient-card[data-type="magical"]:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.12) 0%,
+    rgba(147, 51, 234, 0.08) 100%
+  );
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 8px 25px rgba(168, 85, 247, 0.2);
+}
+
+/* Ingredient emoji container styles */
+.ingredient-emoji-container {
+  width: 100%;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 247, 255, 0.5) 0%,
+    rgba(243, 229, 171, 0.3) 100%
+  );
+  border-radius: 0.75rem;
+  margin-bottom: 0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.ingredient-emoji-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.ingredient-emoji {
+  font-size: 3.5rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: all 0.3s ease;
+  z-index: 1;
+  position: relative;
+}
+
+.ingredient-card:hover .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(248, 247, 255, 0.8) 0%,
+    rgba(243, 229, 171, 0.5) 100%
+  );
+  transform: scale(1.02);
+}
+
+.ingredient-card:hover .ingredient-emoji {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+.ingredient-card.selected .ingredient-emoji-container {
+  transform: scale(1.02);
+  box-shadow:
+    inset 0 0 25px rgba(0, 0, 0, 0.05),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ingredient-card.selected .ingredient-emoji {
+  transform: scale(1.15) rotate(-5deg);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+  animation: gentle-bounce 2s ease-in-out infinite;
+}
+
+/* Type-specific selected states */
+.ingredient-card[data-type="tropical"].selected {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.16) 0%,
+    rgba(22, 163, 74, 0.12) 100%
+  );
+  border-color: rgba(34, 197, 94, 0.6);
+}
+
+.ingredient-card[data-type="metal"].selected {
+  background: linear-gradient(
+    135deg,
+    rgba(148, 163, 184, 0.16) 0%,
+    rgba(100, 116, 139, 0.12) 100%
+  );
+  border-color: rgba(148, 163, 184, 0.7);
+}
+
+.ingredient-card[data-type="plant"].selected {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.16) 0%,
+    rgba(22, 163, 74, 0.12) 100%
+  );
+  border-color: rgba(34, 197, 94, 0.6);
+}
+
+.ingredient-card[data-type="animal"].selected {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.16) 0%,
+    rgba(217, 119, 6, 0.12) 100%
+  );
+  border-color: rgba(245, 158, 11, 0.6);
+}
+
+.ingredient-card[data-type="liquid"].selected {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.16) 0%,
+    rgba(37, 99, 235, 0.12) 100%
+  );
+  border-color: rgba(59, 130, 246, 0.6);
+}
+
+.ingredient-card[data-type="precious"].selected {
+  background: linear-gradient(
+    135deg,
+    rgba(251, 191, 36, 0.16) 0%,
+    rgba(245, 158, 11, 0.12) 100%
+  );
+  border-color: rgba(251, 191, 36, 0.7);
+}
+
+.ingredient-card[data-type="magical"].selected {
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.16) 0%,
+    rgba(147, 51, 234, 0.12) 100%
+  );
+  border-color: rgba(168, 85, 247, 0.7);
+}
+
+/* Type-specific emoji container backgrounds */
+.ingredient-card[data-type="tropical"] .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.1) 0%,
+    rgba(22, 163, 74, 0.05) 100%
+  );
+}
+
+.ingredient-card[data-type="tropical"]:hover .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.15) 0%,
+    rgba(22, 163, 74, 0.08) 100%
+  );
+}
+
+.ingredient-card[data-type="metal"] .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(148, 163, 184, 0.1) 0%,
+    rgba(100, 116, 139, 0.05) 100%
+  );
+}
+
+.ingredient-card[data-type="metal"]:hover .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(148, 163, 184, 0.15) 0%,
+    rgba(100, 116, 139, 0.08) 100%
+  );
+}
+
+.ingredient-card[data-type="plant"] .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.1) 0%,
+    rgba(22, 163, 74, 0.05) 100%
+  );
+}
+
+.ingredient-card[data-type="plant"]:hover .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.15) 0%,
+    rgba(22, 163, 74, 0.08) 100%
+  );
+}
+
+.ingredient-card[data-type="animal"] .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.1) 0%,
+    rgba(217, 119, 6, 0.05) 100%
+  );
+}
+
+.ingredient-card[data-type="animal"]:hover .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.15) 0%,
+    rgba(217, 119, 6, 0.08) 100%
+  );
+}
+
+.ingredient-card[data-type="liquid"] .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.1) 0%,
+    rgba(37, 99, 235, 0.05) 100%
+  );
+}
+
+.ingredient-card[data-type="liquid"]:hover .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.15) 0%,
+    rgba(37, 99, 235, 0.08) 100%
+  );
+}
+
+.ingredient-card[data-type="precious"] .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(251, 191, 36, 0.1) 0%,
+    rgba(245, 158, 11, 0.05) 100%
+  );
+}
+
+.ingredient-card[data-type="precious"]:hover .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(251, 191, 36, 0.15) 0%,
+    rgba(245, 158, 11, 0.08) 100%
+  );
+}
+
+.ingredient-card[data-type="magical"] .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.1) 0%,
+    rgba(147, 51, 234, 0.05) 100%
+  );
+}
+
+.ingredient-card[data-type="magical"]:hover .ingredient-emoji-container {
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.15) 0%,
+    rgba(147, 51, 234, 0.08) 100%
+  );
 }

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const CraftingAttemptSchema = z.object({
   id: z.string().cuid(),
-  recipeName: z.string().min(1, "recipe name is required"),
+  recipeName: z.string().min(1, "recipe name is required").nullable(),
   success: z.boolean().default(true),
   createdAt: z.date(),
 });

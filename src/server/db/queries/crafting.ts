@@ -4,7 +4,7 @@ import prisma from "@/server/db/client";
 export async function getAllCraftingAttempts(): Promise<CraftingAttempt[]> {
   return prisma.craftingAttempt.findMany({
     take: 20,
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: "asc" },
   });
 }
 

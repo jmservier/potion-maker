@@ -22,7 +22,25 @@ Follow these instructions to get the project up and running on your local machin
 - [Node.js](https://nodejs.org/en) (v20 or later recommended)
 - [Docker](https://www.docker.com/products/docker-desktop/) and Docker Compose
 
-### Local Setup Guide
+### Quick Setup
+
+Run the setup script to get started quickly:
+
+```bash
+./setup.sh
+```
+
+This will:
+
+1. Start the PostgreSQL database container
+2. Install all dependencies
+3. Run database migrations
+4. Seed initial data
+5. Provide instructions to start the dev server
+
+### Manual Setup
+
+If you prefer to set up manually:
 
 1.  **Clone the repository**
 
@@ -47,15 +65,20 @@ Follow these instructions to get the project up and running on your local machin
 
     The default `DATABASE_URL` in the example file is configured to work with the Docker setup.
 
-4.  **Run the setup script**
-
-    This single command will start the database, apply migrations, and seed it with initial data.
+4.  **Start the database**
 
     ```bash
-    npm run setup:local
+    docker-compose up -d
     ```
 
-5.  **Run the development server**
+5.  **Run migrations and seed data**
+
+    ```bash
+    npx prisma migrate dev
+    npm run seed
+    ```
+
+6.  **Run the development server**
     ```bash
     npm run dev
     ```

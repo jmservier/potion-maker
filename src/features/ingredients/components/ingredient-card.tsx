@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
+import { getIngredientColor, getIngredientEmoji } from "@/lib/item-assets";
 import { Ingredient } from "@/schemas";
 
 interface IngredientCardProps {
@@ -14,6 +14,8 @@ export function IngredientCard({
   isSelected,
 }: IngredientCardProps) {
   const isOutOfStock = ingredient.quantity <= 0;
+  const ingredientType = getIngredientColor(ingredient.name);
+  const emoji = getIngredientEmoji(ingredient.name);
 
   return (
     <Card
@@ -21,18 +23,14 @@ export function IngredientCard({
       className={`ingredient-card cursor-pointer overflow-hidden py-0 ${
         isOutOfStock ? "cursor-not-allowed opacity-50" : ""
       } ${isSelected ? "selected" : ""}`}
+      data-type={ingredientType}
     >
       <CardContent className="p-0">
         <div className="relative">
-          <Image
-            src="https://geeksui.codescandy.com/geeks/assets/images/placeholder/placeholder-4by3.svg"
-            alt={ingredient.name}
-            className="ingredient-image"
-            width={200}
-            height={120}
-            priority
-          />
-          <div className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-1 backdrop-blur-sm">
+          <div className="ingredient-emoji-container">
+            <span className="ingredient-emoji">{emoji}</span>
+          </div>
+          <div className="absolute right-1 top-1 rounded-full border border-white/20 bg-white/50 px-3 py-1 shadow-sm backdrop-blur-md">
             <span className="text-brown-dark text-sm font-bold">
               {ingredient.quantity}
             </span>
