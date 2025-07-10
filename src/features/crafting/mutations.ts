@@ -1,6 +1,6 @@
 import { Ingredient } from "@/schemas";
 
-const BREWING_ANIMATION_DURATION = 1000; // 1 second for demo
+const BREWING_ANIMATION_DURATION = 2000; // 2 seconds for demo
 
 export const brewPotionMutation = async (ingredients: Ingredient[]) => {
   const ingredientNames = ingredients.map((ingredient) => ingredient.name);
