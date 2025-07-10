@@ -6,7 +6,7 @@ import { RotateCcw, Sparkles, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { getIngredientEmoji } from "@/lib/item-assets";
+import { getIngredientColor, getIngredientEmoji } from "@/lib/item-assets";
 import { Ingredient } from "@/schemas";
 import { brewPotionMutation } from "../mutations";
 
@@ -89,6 +89,7 @@ export function PotionMixer({
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.15, ease: "easeOut" }}
                 className="selected-ingredient flex w-full items-center justify-between rounded-xl px-4 py-3"
+                data-type={getIngredientColor(ingredient.name)}
               >
                 <div className="flex items-center gap-3">
                   <span className="text-2xl" aria-hidden="true">
