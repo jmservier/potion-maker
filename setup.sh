@@ -24,6 +24,13 @@ fi
 echo -e "${GREEN}✓ Prerequisites checked${NC}"
 echo ""
 
+# Check if .env file exists, if not copy from .env.example
+if [ ! -f .env ]; then
+    echo -e "${BLUE}📋 Creating .env file from .env.example...${NC}"
+    cp .env.example .env
+    echo -e "${GREEN}✓ .env file created${NC}"
+fi
+
 # Start PostgreSQL container
 echo -e "${BLUE}🐘 Starting PostgreSQL database...${NC}"
 docker-compose up -d
