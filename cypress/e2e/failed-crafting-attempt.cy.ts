@@ -9,13 +9,16 @@ describe("Failed Crafting Attempt", () => {
     cy.contains("Laboratoire de potions").should("be.visible");
     cy.contains("Atelier de Potions").should("be.visible");
 
+    // Wait for ingredients to be loaded
+    cy.get(".ingredient-card").should("have.length.at.least", 3);
+
     cy.contains("Argent").click();
     cy.contains("Noix de coco").click();
     cy.contains("Yttrium").click();
 
     // Wait for ingredients to appear in the potion mixer
-    cy.get(".brewing-area").should("exist");
-    cy.get(".selected-ingredient").should("have.length", 3);
+    cy.get(".brewing-area", { timeout: 10000 }).should("exist");
+    cy.get(".selected-ingredient", { timeout: 10000 }).should("have.length", 3);
     cy.get(".selected-ingredient").should("contain", "Argent");
     cy.get(".selected-ingredient").should("contain", "Noix de coco");
     cy.get(".selected-ingredient").should("contain", "Yttrium");
