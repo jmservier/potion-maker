@@ -64,22 +64,27 @@ export async function checkRecipeAndCraft(ingredientNames: string[]) {
     const matchingRecipe = findMatchingRecipe(ingredientNames, recipes);
 
     if (matchingRecipe) {
-      await prisma.$transaction(async (tx) => {
-        if (!matchingRecipe.discovered) {
-          await updateRecipeDiscovered(matchingRecipe.id);
-        }
+      await prisma.$transaction(
+        async (tx) => {
+          if (!matchingRecipe.discovered) {
+            await updateRecipeDiscovered(matchingRecipe.id);
+          }
 
-        for (const ingredientName of ingredientNames) {
-          await decrementIngredientQuantity(ingredientName);
-        }
+          for (const ingredientName of ingredientNames) {
+            await decrementIngredientQuantity(ingredientName);
+          }
 
-        await tx.craftingAttempt.create({
-          data: {
-            recipeName: matchingRecipe.name,
-            success: true,
-          },
-        });
-      });
+          await tx.craftingAttempt.create({
+            data: {
+              recipeName: matchingRecipe.name,
+              success: true,
+            },
+          });
+        },
+        {
+          timeout: 15000, // Increase timeout to 15 seconds
+        },
+      );
 
       return {
         success: true,
@@ -91,16 +96,21 @@ export async function checkRecipeAndCraft(ingredientNames: string[]) {
         message: `Success! Created ${matchingRecipe.name}!`,
       };
     } else {
-      await prisma.$transaction(async (tx) => {
-        for (const ingredientName of ingredientNames) {
-          await decrementIngredientQuantity(ingredientName);
-        }
-        await tx.craftingAttempt.create({
-          data: {
-            success: false,
-          },
-        });
-      });
+      await prisma.$transaction(
+        async (tx) => {
+          for (const ingredientName of ingredientNames) {
+            await decrementIngredientQuantity(ingredientName);
+          }
+          await tx.craftingAttempt.create({
+            data: {
+              success: false,
+            },
+          });
+        },
+        {
+          timeout: 15000, // Increase timeout to 15 seconds
+        },
+      );
 
       return {
         success: false,
