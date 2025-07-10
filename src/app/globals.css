@@ -722,3 +722,34 @@
 .ingredient-badge[data-type="magical"] {
   @apply border-purple-300 bg-purple-50 text-purple-800;
 }
+
+/* Accessibility */
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900;
+}
+
+@media (prefers-contrast: high) {
+  .focus-ring {
+    @apply focus-visible:ring-4 focus-visible:ring-white focus-visible:ring-offset-4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

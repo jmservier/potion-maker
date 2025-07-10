@@ -85,7 +85,11 @@ export default function CraftingView({
   };
 
   return (
-    <div className="grid grid-cols-1 gap-8 fade-in lg:grid-cols-3">
+    <main
+      className="grid grid-cols-1 gap-8 fade-in lg:grid-cols-3"
+      role="main"
+      aria-label="Potion crafting workspace"
+    >
       <div className="glass-card warm-glow rounded-2xl p-8 lg:col-span-2">
         <IngredientsGrid
           ingredients={ingredients}
@@ -93,7 +97,7 @@ export default function CraftingView({
           selectedIngredients={selectedIngredients}
         />
       </div>
-      <div className="space-y-8 lg:col-span-1">
+      <aside className="space-y-8 lg:col-span-1" aria-label="Crafting tools">
         <div className="glass-card warm-glow rounded-2xl p-8">
           <PotionMixer
             selectedIngredients={selectedIngredients}
@@ -106,7 +110,7 @@ export default function CraftingView({
         <div className="glass-card warm-glow rounded-2xl p-8">
           <RecipeBook recipes={recipes} />
         </div>
-      </div>
-    </div>
+      </aside>
+    </main>
   );
 }

@@ -57,14 +57,27 @@ export function PotionMixer({
   };
 
   return (
-    <motion.div layout className="rounded-2xl p-6 fade-in">
+    <motion.div
+      layout
+      className="rounded-2xl fade-in"
+      role="region"
+      aria-label="Potion mixer"
+    >
       <h2 className="mb-6 flex items-center gap-3 text-2xl font-bold">
-        <span>🔮</span> Atelier de Potions
+        <span aria-hidden="true">🔮</span> Atelier de Potions
       </h2>
       <div className="mb-6">
+        <div className="sr-only" aria-live="polite" aria-atomic="true">
+          {isBrewing && "Brewing potion, please wait"}
+          {!isBrewing &&
+            selectedIngredients.length === 3 &&
+            "Ready to brew potion"}
+        </div>
         <motion.div
           layout
           className="brewing-area flex min-h-[120px] flex-wrap items-center justify-center gap-3 rounded-xl p-6"
+          role="group"
+          aria-label="Selected ingredients"
         >
           <AnimatePresence mode="popLayout">
             {selectedIngredients.map((ingredient, index) => (
@@ -78,16 +91,17 @@ export function PotionMixer({
                 className="selected-ingredient flex w-full items-center justify-between rounded-xl px-4 py-3"
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl">
+                  <span className="text-2xl" aria-hidden="true">
                     {getIngredientEmoji(ingredient.name)}
                   </span>
                   <span className="font-semibold">{ingredient.name}</span>
                 </div>
                 <button
                   onClick={() => onRemoveIngredient(index)}
-                  className="ml-2 transition-transform hover:-translate-y-[2px]"
+                  className="focus-ring ml-2 rounded-md p-1 transition-transform hover:-translate-y-[2px]"
+                  aria-label={`Remove ${ingredient.name} from slot ${index + 1}`}
                 >
-                  <X size={18} />
+                  <X size={18} aria-hidden="true" />
                 </button>
               </motion.div>
             ))}
@@ -99,7 +113,9 @@ export function PotionMixer({
                 transition={{ duration: 0.3 }}
                 className="text-center"
               >
-                <div className="mb-3 text-5xl opacity-50">🧪</div>
+                <div className="mb-3 text-5xl opacity-50" aria-hidden="true">
+                  🧪
+                </div>
                 <div className="text-base font-medium">
                   Sélectionnez 3 ingrédients pour commencer
                 </div>
@@ -107,7 +123,10 @@ export function PotionMixer({
             )}
           </AnimatePresence>
         </motion.div>
-        <div className="mt-4 text-center text-base font-medium">
+        <div
+          className="mt-4 text-center text-base font-medium"
+          aria-live="polite"
+        >
           {selectedIngredients.length}/3 ingrédients sélectionnés
         </div>
       </div>
@@ -131,6 +150,7 @@ export function PotionMixer({
                 repeat: Number.POSITIVE_INFINITY,
                 ease: "easeInOut",
               }}
+              aria-hidden="true"
             >
               ⚗️
             </motion.div>
@@ -162,9 +182,10 @@ export function PotionMixer({
         <Button
           onClick={handleBrewPotion}
           disabled={selectedIngredients.length !== 3 || isPending}
-          className="btn-primary w-full rounded-xl py-4 text-lg font-bold text-white transition-all duration-200 disabled:opacity-50"
+          className="btn-primary focus-ring w-full rounded-xl py-4 text-lg font-bold text-white transition-all duration-200 disabled:opacity-50"
+          aria-label="Create potion with selected ingredients"
         >
-          <Sparkles className="mr-3" size={24} />
+          <Sparkles className="mr-3" size={24} aria-hidden="true" />
           {isPending ? "Création en cours..." : "Créer la Potion"}
         </Button>
         <div className="flex gap-4">
@@ -172,7 +193,8 @@ export function PotionMixer({
             onClick={onClear}
             disabled={selectedIngredients.length === 0 || isPending}
             variant="outline"
-            className="btn-secondary flex-1 rounded-xl bg-transparent py-3 font-semibold"
+            className="btn-secondary focus-ring flex-1 rounded-xl bg-transparent py-3 font-semibold"
+            aria-label="Clear all selected ingredients"
           >
             Vider
           </Button>
@@ -180,9 +202,10 @@ export function PotionMixer({
             <Button
               onClick={onReset}
               variant="outline"
-              className="btn-secondary flex-1 rounded-xl bg-transparent py-3 font-semibold"
+              className="btn-secondary focus-ring flex-1 rounded-xl bg-transparent py-3 font-semibold"
+              aria-label="Reset all recipes"
             >
-              <RotateCcw size={18} className="mr-2" />
+              <RotateCcw size={18} className="mr-2" aria-hidden="true" />
               Reset
             </Button>
           )}
