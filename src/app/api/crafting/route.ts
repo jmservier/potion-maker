@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
+import { getAllCraftingAttempts } from "@/features/history/queries";
 import { CraftingAttemptSchema } from "@/schemas";
-import { getAllCraftingAttempts } from "@/server/db/queries/crafting";
 
 export async function GET() {
   try {
