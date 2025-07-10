@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model Ingredient {
@@ -17,13 +18,13 @@ model Ingredient {
 }
 
 model Recipe {
-  id          String   @id @default(cuid())
-  name        String   @unique
-  ingredients String[]
-  discovered  Boolean  @default(false)
-  description String   @default("")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               String            @id @default(cuid())
+  name             String            @unique
+  ingredients      String[]
+  discovered       Boolean           @default(false)
+  description      String            @default("")
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
   craftingAttempts CraftingAttempt[]
 }
 
@@ -32,7 +33,6 @@ model CraftingAttempt {
   recipeName String?
   success    Boolean  @default(true)
   createdAt  DateTime @default(now())
-  
-  recipe     Recipe?  @relation(fields: [recipeName], references: [name])
-}
 
+  recipe Recipe? @relation(fields: [recipeName], references: [name])
+}
