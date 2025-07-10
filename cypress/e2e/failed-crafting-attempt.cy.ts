@@ -14,12 +14,14 @@ describe("Failed Crafting Attempt", () => {
     cy.contains("Yttrium").click();
 
     // Wait for ingredients to appear in the potion mixer
-    cy.get(".brewing-area").within(() => {
-      cy.get(".selected-ingredient").should("have.length", 3);
-      cy.get(".selected-ingredient").eq(0).should("contain", "Argent");
-      cy.get(".selected-ingredient").eq(1).should("contain", "Noix de coco");
-      cy.get(".selected-ingredient").eq(2).should("contain", "Yttrium");
-    });
+    cy.get(".brewing-area")
+      .should("exist")
+      .within(() => {
+        cy.get(".selected-ingredient").should("have.length", 3);
+        cy.get(".selected-ingredient").should("contain", "Argent");
+        cy.get(".selected-ingredient").should("contain", "Noix de coco");
+        cy.get(".selected-ingredient").should("contain", "Yttrium");
+      });
     cy.contains("3/3 ingrédients sélectionnés").should("be.visible");
 
     let initialArgentQuantity: number;

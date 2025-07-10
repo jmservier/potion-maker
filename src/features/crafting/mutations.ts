@@ -1,6 +1,6 @@
 import { Ingredient } from "@/schemas";
 
-const BREWING_ANIMATION_DURATION = 3000; // 3 seconds for demo
+const BREWING_ANIMATION_DURATION = 1000; // 3 seconds for demo
 
 export const brewPotionMutation = async (ingredients: Ingredient[]) => {
   const ingredientNames = ingredients.map((ingredient) => ingredient.name);
@@ -17,11 +17,11 @@ export const brewPotionMutation = async (ingredients: Ingredient[]) => {
     new Promise((resolve) => setTimeout(resolve, BREWING_ANIMATION_DURATION)),
   ]);
 
-  const data = await response.json();
-
   if (!response.ok) {
-    throw new Error(data.message || "Failed to brew potion");
+    const errorData = await response.json();
+    throw new Error(errorData.error || "Failed to brew potion");
   }
 
+  const data = await response.json();
   return data;
 };
