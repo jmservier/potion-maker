@@ -58,12 +58,10 @@ export default function InventoryView({
     ingredients?.filter((ingredient) => ingredient.quantity > 0).length || 0;
 
   return (
-    <div className="space-y-8 fade-in">
+    <div className="fade-in space-y-8">
       <div className="glass-card warm-glow rounded-2xl p-8">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="gradient-text font-serif text-3xl font-bold">
-            Inventaire
-          </h2>
+          <h2 className="font-serif text-2xl font-bold">Inventaire</h2>
           <AlertDialog
             open={isRestockDialogOpen}
             onOpenChange={setIsRestockDialogOpen}
@@ -108,10 +106,7 @@ export default function InventoryView({
         </div>
       </div>
       <div className="glass-card warm-glow rounded-2xl p-8">
-        <h2 className="mb-6 font-serif text-2xl font-semibold">
-          Tous les Ingrédients
-        </h2>
-
+        <h2 className="mb-6 text-2xl font-bold">Tous les Ingrédients</h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {ingredients?.map((ingredient) => (
             <InventoryIngredientCard

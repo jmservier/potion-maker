@@ -1,5 +1,11 @@
 import Image from "next/image";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Ingredient, Recipe } from "@/schemas";
 
 interface RecipeCardProps {
@@ -14,33 +20,37 @@ export function RecipeCard({ recipe, ingredients }: RecipeCardProps) {
   };
 
   return (
-    <Card className="ingredient-card gap-2 overflow-hidden py-0">
+    <Card className="ingredient-card rounded-t-lg py-0">
       <CardHeader className="p-0">
-        <div className="relative">
+        <div className="relative h-40">
           <Image
             src="https://geeksui.codescandy.com/geeks/assets/images/placeholder/placeholder-4by3.svg"
             alt={recipe.name}
-            width={400}
-            height={240}
-            className="h-48 w-full object-cover"
+            fill
+            className="rounded-t-lg object-cover"
             priority={false}
           />
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-            <h3 className="text-xl font-bold text-white">{recipe.name}</h3>
-          </div>
+        </div>
+        <div className="p-4 pb-2">
+          <CardTitle className="text-lg font-bold">{recipe.name}</CardTitle>
+          <CardDescription className="text-sm">
+            {recipe.description}
+          </CardDescription>
         </div>
       </CardHeader>
-      <CardContent className="p-6">
-        <p className="mb-6 text-sm leading-relaxed">{recipe.description}</p>
-
+      <CardContent className="px-4 pb-4">
         <div className="space-y-3">
-          <h4 className="text-sm font-bold">Recette :</h4>
-          <div className="space-y-2">
+          <h4 className="text-sm font-semibold text-muted-foreground">
+            Ingrédients:
+          </h4>
+          <div className="flex flex-wrap gap-2">
             {recipe.ingredients.map((ingredientName, idx) => (
-              <div key={idx} className="flex items-center gap-3 text-sm">
-                <span className="h-2 w-2 rounded-full"></span>
+              <span
+                key={idx}
+                className="rounded-lg bg-secondary px-3 py-1.5 text-sm font-medium"
+              >
                 {getIngredientName(ingredientName)}
-              </div>
+              </span>
             ))}
           </div>
         </div>

@@ -16,9 +16,9 @@ export default function RecipesView({
   const undiscoveredPotions = recipes.filter((potion) => !potion.discovered);
 
   return (
-    <div className="space-y-8 fade-in">
+    <div className="fade-in space-y-8">
       <div className="glass-card warm-glow rounded-2xl p-8">
-        <h2 className="gradient-text mb-6 flex items-center gap-4 text-4xl font-bold">
+        <h2 className="mb-6 flex items-center gap-4 text-2xl font-bold">
           <BookOpen size={40} />
           Collection de Recettes
         </h2>
@@ -54,7 +54,7 @@ export default function RecipesView({
 
       {discoveredPotions.length > 0 && (
         <div className="glass-card warm-glow rounded-2xl p-8">
-          <h2 className="mb-6 flex items-center gap-3 text-3xl font-bold">
+          <h2 className="mb-6 flex items-center gap-3 text-2xl font-bold">
             <Sparkles />
             Recettes Découvertes
           </h2>
@@ -72,7 +72,7 @@ export default function RecipesView({
       )}
 
       <div className="glass-card warm-glow rounded-2xl p-8">
-        <h2 className="mb-6 flex items-center gap-3 text-3xl font-bold">
+        <h2 className="mb-6 flex items-center gap-3 text-2xl font-bold">
           <Lock />
           Recettes Inconnues
         </h2>

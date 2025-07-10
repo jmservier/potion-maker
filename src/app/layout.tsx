@@ -39,7 +39,10 @@ export default function RootLayout({
             <div className="mx-auto max-w-7xl p-6">
               <div className="mb-12 text-center">
                 <h1 className="gradient-text mb-4 flex items-center justify-center gap-4 text-5xl font-bold">
-                  <Beaker className="text-magical-purple" size={42} />
+                  <Beaker
+                    className="hidden text-magical-purple sm:block"
+                    size={42}
+                  />
                   Laboratoire de potions
                 </h1>
               </div>

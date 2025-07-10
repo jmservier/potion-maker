@@ -65,7 +65,31 @@ export function useUpdateIngredient() {
       }
       return response.json() as Promise<Ingredient>;
     },
-    onSuccess: () => {
+    onMutate: async ({ id, data }) => {
+      await queryClient.cancelQueries({ queryKey: ["ingredients"] });
+
+      const previousIngredients = queryClient.getQueryData<Ingredient[]>([
+        "ingredients",
+      ]);
+
+      if (previousIngredients) {
+        queryClient.setQueryData<Ingredient[]>(
+          ["ingredients"],
+          (old) =>
+            old?.map((ingredient) =>
+              ingredient.id === id ? { ...ingredient, ...data } : ingredient,
+            ) || [],
+        );
+      }
+
+      return { previousIngredients };
+    },
+    onError: (err, variables, context) => {
+      if (context?.previousIngredients) {
+        queryClient.setQueryData(["ingredients"], context.previousIngredients);
+      }
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["ingredients"] });
     },
   });

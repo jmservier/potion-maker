@@ -30,7 +30,7 @@ export function IngredientCard({
             className="ingredient-image"
             width={200}
             height={120}
-            priority={false}
+            priority
           />
           <div className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-1 backdrop-blur-sm">
             <span className="text-brown-dark text-sm font-bold">
