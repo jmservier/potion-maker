@@ -1,5 +1,5 @@
 import { CraftingAttempt } from "@prisma/client";
-import prisma from "@/server/db/client";
+import prisma from "@/lib/db";
 
 export async function getAllCraftingAttempts(): Promise<CraftingAttempt[]> {
   return prisma.craftingAttempt.findMany({

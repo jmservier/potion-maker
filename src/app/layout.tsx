@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Crimson_Text, Inter } from "next/font/google";
 import "./globals.css";
-import { Navigation } from "@/common/components/navigation";
+import { Navigation } from "@/components/layout/navigation";
 import { Toaster } from "@/components/ui/sonner";
 import Providers from "./providers";
 

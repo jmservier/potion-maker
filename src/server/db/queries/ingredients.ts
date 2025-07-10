@@ -1,5 +1,5 @@
 import { Ingredient } from "@prisma/client";
-import prisma from "@/server/db/client";
+import prisma from "@/lib/db";
 
 export async function getAllIngredients(): Promise<Ingredient[]> {
   const ingredients = await prisma.ingredient.findMany({

@@ -1,5 +1,5 @@
 // Mock Prisma Client
-jest.mock("@/server/db/client", () => ({
+jest.mock("@/lib/db", () => ({
   __esModule: true,
   default: {
     recipe: {

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { Recipe } from "@/features/recipes/schemas/recipe.schema";
+import prisma from "@/lib/db";
 import { RecipeCheckRequestSchema } from "@/schemas";
-import prisma from "@/server/db/client";
 import {
   decrementIngredientQuantity,
   getIngredientsByNames,
