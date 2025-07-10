@@ -10,7 +10,7 @@ export function RecipeBook({ recipes }: RecipeBookProps) {
 
   return (
     <section className="rounded-2xl" aria-labelledby="recipe-book-heading">
-      <h2 id="recipe-book-heading" className="mb-4 text-xl font-bold">
+      <h2 id="recipe-book-heading" className="mb-4 text-2xl font-bold">
         Potions récentes
       </h2>
 

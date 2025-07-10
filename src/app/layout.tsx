@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Crimson_Text, Inter } from "next/font/google";
 import "./globals.css";
-import { Beaker } from "lucide-react";
 import { Navigation } from "@/common/components/navigation";
 import { Toaster } from "@/components/ui/sonner";
 import Providers from "./providers";
@@ -39,10 +38,6 @@ export default function RootLayout({
             <div className="mx-auto max-w-7xl p-6">
               <div className="mb-12 text-center">
                 <h1 className="gradient-text mb-4 flex items-center justify-center gap-4 text-5xl font-bold">
-                  <Beaker
-                    className="hidden text-magical-purple sm:block"
-                    size={42}
-                  />
                   Laboratoire de potions
                 </h1>
               </div>

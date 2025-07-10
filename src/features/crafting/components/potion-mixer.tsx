@@ -64,7 +64,7 @@ export function PotionMixer({
       aria-label="Potion mixer"
     >
       <h2 className="mb-6 flex items-center gap-3 text-2xl font-bold">
-        <span aria-hidden="true">🔮</span> Atelier de Potions
+        Atelier de Potions
       </h2>
       <div className="mb-6">
         <div className="sr-only" aria-live="polite" aria-atomic="true">
@@ -156,7 +156,7 @@ export function PotionMixer({
               ⚗️
             </motion.div>
             <div className="animate-pulse text-lg font-medium text-slate">
-              Brassage en cours...
+              Mixage en cours...
             </div>
             <div className="mt-4 flex justify-center gap-2">
               {[...Array(3)].map((_, i) => (

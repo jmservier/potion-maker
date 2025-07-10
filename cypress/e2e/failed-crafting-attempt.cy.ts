@@ -9,7 +9,6 @@ describe("Failed Crafting Attempt", () => {
     cy.contains("Laboratoire de potions").should("be.visible");
     cy.contains("Atelier de Potions").should("be.visible");
 
-    // Select invalid recipe
     cy.contains("Argent").click();
     cy.contains("Noix de coco").click();
     cy.contains("Yttrium").click();
@@ -19,7 +18,6 @@ describe("Failed Crafting Attempt", () => {
     cy.get(".selected-ingredient").should("contain", "Yttrium");
     cy.contains("3/3 ingrédients sélectionnés").should("be.visible");
 
-    // Store initial quantities
     let initialArgentQuantity: number;
     let initialCoconutQuantity: number;
     let initialYttriumQuantity: number;
@@ -49,12 +47,10 @@ describe("Failed Crafting Attempt", () => {
 
     cy.contains("Créer la Potion").click();
 
-    // Failure notification
     cy.contains("Aucune recette trouvée avec ces ingrédients").should(
       "be.visible",
     );
 
-    // Ingredients consumed even on failure
     cy.contains("Argent")
       .closest(".ingredient-card")
       .find(".absolute")
@@ -82,20 +78,17 @@ describe("Failed Crafting Attempt", () => {
         expect(newQuantity).to.equal(initialYttriumQuantity - 1);
       });
 
-    // Cauldron resets
     cy.contains("0/3 ingrédients sélectionnés").should("be.visible");
     cy.contains("Sélectionnez 3 ingrédients pour commencer").should(
       "be.visible",
     );
 
-    // No new recipe discovered
     cy.get("body").should("not.contain", "New recipe discovered");
   });
 
   it("should handle multiple failed attempts correctly", () => {
     cy.visit("/crafting");
 
-    // First failed attempt
     cy.contains("Argent").click();
     cy.contains("Noix de coco").click();
     cy.contains("Yttrium").click();
@@ -104,7 +97,6 @@ describe("Failed Crafting Attempt", () => {
       "be.visible",
     );
 
-    // Second failed attempt
     cy.contains("Bave de lama").click();
     cy.contains("Épine de hérisson").click();
     cy.contains("Or").click();
@@ -113,7 +105,6 @@ describe("Failed Crafting Attempt", () => {
       "be.visible",
     );
 
-    // Both attempts consumed ingredients
     cy.contains("Argent")
       .closest(".ingredient-card")
       .find(".absolute")
@@ -128,34 +119,38 @@ describe("Failed Crafting Attempt", () => {
   });
 
   it("should prevent crafting with insufficient ingredients", () => {
-    cy.visit("/crafting");
-    cy.intercept("POST", "/api/recipes/check").as("brewRequest");
+    cy.request("GET", "/api/ingredients").then((response) => {
+      const argentIngredient = response.body.find(
+        (ing: { name: string }) => ing.name === "Argent",
+      );
 
-    let initialQuantity: number;
-    cy.contains("Argent").closest(".ingredient-card").as("argentCard");
-
-    cy.get("@argentCard")
-      .find(".absolute")
-      .invoke("text")
-      .then((text) => {
-        initialQuantity = parseInt(text.trim() || "0");
-
-        // Exhaust ingredient by crafting multiple times
-        for (let i = 0; i < initialQuantity; i++) {
-          cy.contains("Argent").click();
-          cy.contains("Noix de coco").click();
-          cy.contains("Yttrium").click();
-          cy.contains("Créer la Potion").click();
-          cy.wait("@brewRequest");
-          cy.contains("0/3 ingrédients sélectionnés").should("be.visible");
-        }
-
-        // Ingredient now out of stock
-        cy.get("@argentCard").should("have.class", "cursor-not-allowed");
-
-        // Out of stock ingredient not selectable
-        cy.contains("Argent").click();
-        cy.contains("0/3 ingrédients sélectionnés").should("be.visible");
+      cy.request("PUT", `/api/ingredients/${argentIngredient.id}`, {
+        quantity: 0,
       });
+
+      cy.visit("/crafting");
+
+      cy.contains("Argent").closest(".ingredient-card").as("argentCard");
+
+      cy.get("@argentCard").find(".absolute").should("have.text", "0");
+
+      cy.get("@argentCard").should("have.class", "cursor-not-allowed");
+      cy.get("@argentCard").should("have.class", "opacity-50");
+
+      cy.contains("Argent").click();
+
+      cy.contains("0/3 ingrédients sélectionnés").should("be.visible");
+
+      cy.contains("Noix de coco").click();
+      cy.contains("Yttrium").click();
+
+      cy.contains("2/3 ingrédients sélectionnés").should("be.visible");
+
+      cy.get("button").contains("Créer la Potion").should("be.disabled");
+
+      cy.contains("Argent").click();
+
+      cy.contains("2/3 ingrédients sélectionnés").should("be.visible");
+    });
   });
 });

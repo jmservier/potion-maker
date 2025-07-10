@@ -77,7 +77,7 @@ export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
         <div className="mb-6 flex items-center justify-between">
           <h1 className="flex items-center gap-4 text-3xl font-bold">
             <History className="text-brown" size={40} />
-            Historique de Brassage
+            Historique de mixage
           </h1>
           {attempts.length > 0 && (
             <Button
@@ -93,7 +93,7 @@ export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
         </div>
 
         <p className="text-brown mb-6 text-lg">
-          Suivez vos progrès de brassage et apprenez de vos tentatives passées.
+          Suivez vos progrès de mixage et apprenez de vos tentatives passées.
         </p>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
@@ -229,7 +229,7 @@ export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div>
-              <h3 className="mb-4 text-xl font-bold">Taux de Réussite</h3>
+              <h3 className="mb-4 text-xl font-bold">Taux de réussite</h3>
               <div className="border-orange/30 rounded-xl border bg-white p-6">
                 <div className="mb-3 flex items-center justify-between">
                   <span className="text-brown">Taux de réussite global</span>
@@ -259,7 +259,7 @@ export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
 
             <div>
               <h3 className="mb-4 text-xl font-bold">
-                Ingrédients les Plus Utilisés
+                Ingrédients les plus utilisés
               </h3>
               <div className="border-orange/30 rounded-xl border bg-white p-6">
                 {(() => {
