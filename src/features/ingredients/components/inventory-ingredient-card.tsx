@@ -50,7 +50,7 @@ export function InventoryIngredientCard({
               <Minus size={16} />
             </Button>
 
-            <div className="flex items-center text-center font-bold">
+            <div className="flex items-center rounded-lg bg-gray-100/60 px-3 py-1.5 text-center font-bold">
               {ingredient.quantity}
             </div>
 

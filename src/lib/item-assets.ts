@@ -20,7 +20,7 @@ interface IngredientAsset {
 
 interface RecipeAsset {
   emoji: string;
-  type: PotionType;
+  color: IngredientType;
 }
 
 export const INGREDIENT_ASSETS: Record<string, IngredientAsset> = {
@@ -47,15 +47,15 @@ export const INGREDIENT_ASSETS: Record<string, IngredientAsset> = {
 };
 
 export const RECIPE_ASSETS: Record<string, RecipeAsset> = {
-  "Potion d'invisibilité": { emoji: "👻", type: "utility" },
-  "Potion d'amour": { emoji: "💕", type: "transformation" },
-  "Potion de jeunesse": { emoji: "✨", type: "enhancement" },
-  "Potion d'immortalité": { emoji: "♾️", type: "protection" },
-  "Potion de Clairvoyance": { emoji: "🔮", type: "utility" },
-  "Potion de Force": { emoji: "💪", type: "enhancement" },
-  "Potion de Vitesse": { emoji: "⚡", type: "enhancement" },
-  "Potion de Guérison": { emoji: "❤️‍🩹", type: "protection" },
-  "Potion de Transformation": { emoji: "🦋", type: "transformation" },
+  "Potion d'invisibilité": { emoji: "👻", color: "magical" },
+  "Potion d'amour": { emoji: "💕", color: "precious" },
+  "Potion de jeunesse": { emoji: "✨", color: "liquid" },
+  "Potion d'immortalité": { emoji: "♾️", color: "metal" },
+  "Potion de Clairvoyance": { emoji: "🔮", color: "magical" },
+  "Potion de Force": { emoji: "💪", color: "animal" },
+  "Potion de Vitesse": { emoji: "⚡", color: "liquid" },
+  "Potion de Guérison": { emoji: "❤️‍🩹", color: "plant" },
+  "Potion de Transformation": { emoji: "🦋", color: "magical" },
 };
 
 export function getIngredientEmoji(name: string): string {
@@ -70,6 +70,6 @@ export function getRecipeEmoji(name: string): string {
   return RECIPE_ASSETS[name]?.emoji || "🧪";
 }
 
-export function getRecipeType(name: string): PotionType {
-  return RECIPE_ASSETS[name]?.type || "utility";
+export function getRecipeColor(name: string): IngredientType {
+  return RECIPE_ASSETS[name]?.color || "magical";
 }

@@ -8,15 +8,12 @@ interface RecipesViewProps {
   ingredients: Ingredient[];
 }
 
-export default function RecipesView({
-  recipes,
-  ingredients,
-}: RecipesViewProps) {
+export default function RecipesView({ recipes }: RecipesViewProps) {
   const discoveredPotions = recipes.filter((potion) => potion.discovered);
   const undiscoveredPotions = recipes.filter((potion) => !potion.discovered);
 
   return (
-    <div className="fade-in space-y-8">
+    <div className="space-y-8 fade-in">
       <div className="glass-card warm-glow rounded-2xl p-8">
         <h2 className="mb-6 flex items-center gap-4 text-2xl font-bold">
           <BookOpen size={40} />
@@ -61,11 +58,7 @@ export default function RecipesView({
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {discoveredPotions.map((potion, index) => (
-              <RecipeCard
-                key={index}
-                recipe={potion}
-                ingredients={ingredients}
-              />
+              <RecipeCard key={index} recipe={potion} />
             ))}
           </div>
         </div>

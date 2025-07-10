@@ -1,57 +1,60 @@
-import Image from "next/image";
+import { Card, CardContent } from "@/components/ui/card";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Ingredient, Recipe } from "@/schemas";
+  getIngredientColor,
+  getIngredientEmoji,
+  getRecipeColor,
+  getRecipeEmoji,
+} from "@/lib/item-assets";
+import { Recipe } from "@/schemas";
 
 interface RecipeCardProps {
   recipe: Recipe;
-  ingredients: Ingredient[];
 }
 
-export function RecipeCard({ recipe, ingredients }: RecipeCardProps) {
-  const getIngredientName = (ingredientName: string) => {
-    const ingredient = ingredients.find((i) => i.name === ingredientName);
-    return ingredient ? ingredient.name : ingredientName;
-  };
+export function RecipeCard({ recipe }: RecipeCardProps) {
+  const recipeEmoji = getRecipeEmoji(recipe.name);
+  const recipeColor = getRecipeColor(recipe.name);
 
   return (
-    <Card className="ingredient-card rounded-t-lg py-0">
-      <CardHeader className="p-0">
-        <div className="relative h-40">
-          <Image
-            src="https://geeksui.codescandy.com/geeks/assets/images/placeholder/placeholder-4by3.svg"
-            alt={recipe.name}
-            fill
-            className="rounded-t-lg object-cover"
-            priority={false}
-          />
+    <Card
+      className={`ingredient-card cursor-default overflow-hidden py-0 ${
+        recipe.discovered ? "" : "opacity-50"
+      }`}
+      data-type={recipeColor}
+    >
+      <CardContent className="p-0">
+        <div className="relative">
+          <div className="ingredient-emoji-container">
+            <span className="ingredient-emoji">{recipeEmoji}</span>
+          </div>
         </div>
-        <div className="p-4 pb-2">
-          <CardTitle className="text-lg font-bold">{recipe.name}</CardTitle>
-          <CardDescription className="text-sm">
+        <div className="p-4">
+          <h3 className="text-brown-dark mb-2 text-base font-bold">
+            {recipe.name}
+          </h3>
+          <p className="text-brown mb-4 min-h-[2.5rem] text-xs leading-relaxed">
             {recipe.description}
-          </CardDescription>
-        </div>
-      </CardHeader>
-      <CardContent className="px-4 pb-4">
-        <div className="space-y-3">
-          <h4 className="text-sm font-semibold text-muted-foreground">
-            Ingrédients:
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {recipe.ingredients.map((ingredientName, idx) => (
-              <span
-                key={idx}
-                className="rounded-lg bg-secondary px-3 py-1.5 text-sm font-medium"
-              >
-                {getIngredientName(ingredientName)}
-              </span>
-            ))}
+          </p>
+          <div className="space-y-2">
+            <h4 className="text-brown-dark text-xs font-semibold">
+              Ingrédients:
+            </h4>
+            <div className="flex flex-wrap gap-1.5">
+              {recipe.ingredients.map((ingredientName, idx) => {
+                const ingredientType = getIngredientColor(ingredientName);
+                const ingredientEmoji = getIngredientEmoji(ingredientName);
+                return (
+                  <span
+                    key={idx}
+                    className="ingredient-badge"
+                    data-type={ingredientType}
+                  >
+                    <span className="text-xs">{ingredientEmoji}</span>
+                    {ingredientName}
+                  </span>
+                );
+              })}
+            </div>
           </div>
         </div>
       </CardContent>

@@ -689,3 +689,36 @@
     rgba(147, 51, 234, 0.08) 100%
   );
 }
+
+/* Ingredient badge styles */
+.ingredient-badge {
+  @apply inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium transition-all duration-200;
+}
+
+.ingredient-badge[data-type="tropical"] {
+  @apply border-green-300 bg-green-50 text-green-800;
+}
+
+.ingredient-badge[data-type="metal"] {
+  @apply border-gray-300 bg-gray-50 text-gray-800;
+}
+
+.ingredient-badge[data-type="plant"] {
+  @apply border-green-300 bg-green-50 text-green-800;
+}
+
+.ingredient-badge[data-type="animal"] {
+  @apply border-orange-300 bg-orange-50 text-orange-800;
+}
+
+.ingredient-badge[data-type="liquid"] {
+  @apply border-blue-300 bg-blue-50 text-blue-800;
+}
+
+.ingredient-badge[data-type="precious"] {
+  @apply border-yellow-300 bg-yellow-50 text-yellow-800;
+}
+
+.ingredient-badge[data-type="magical"] {
+  @apply border-purple-300 bg-purple-50 text-purple-800;
+}
