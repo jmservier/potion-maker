@@ -59,7 +59,7 @@ export function IngredientCard({
           <h3 className="mb-2 text-base font-bold">{ingredient.name}</h3>
           <p
             id={`${ingredient.id}-description`}
-            className="text-brown text-xs leading-relaxed"
+            className="text-xs leading-relaxed"
           >
             {ingredient.description}
           </p>

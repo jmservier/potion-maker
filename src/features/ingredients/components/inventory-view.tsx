@@ -69,7 +69,7 @@ export default function InventoryView({
             <AlertDialogTrigger asChild>
               <Button
                 variant="outline"
-                className="border-orange text-brown hover:bg-orange/10 rounded-xl bg-transparent"
+                className="border-orange hover:bg-orange/10 rounded-xl bg-transparent"
               >
                 <RotateCcw size={18} className="mr-2" />
                 Réapprovisionner

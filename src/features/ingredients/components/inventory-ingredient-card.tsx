@@ -31,7 +31,7 @@ export function InventoryIngredientCard({
         </div>
         <div className="p-4">
           <h3 className="mb-2 text-base font-bold">{ingredient.name}</h3>
-          <p className="text-brown mb-4 min-h-[2.5rem] text-xs leading-relaxed">
+          <p className="mb-4 min-h-[2.5rem] text-xs leading-relaxed">
             {ingredient.description}
           </p>
           <div className="flex items-center justify-center gap-3">

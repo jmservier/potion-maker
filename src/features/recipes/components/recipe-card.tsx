@@ -29,16 +29,12 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
           </div>
         </div>
         <div className="p-4">
-          <h3 className="text-brown-dark mb-2 text-base font-bold">
-            {recipe.name}
-          </h3>
-          <p className="text-brown mb-4 min-h-[2.5rem] text-xs leading-relaxed">
+          <h3 className="-dark mb-2 text-base font-bold">{recipe.name}</h3>
+          <p className="mb-4 min-h-[2.5rem] text-xs leading-relaxed">
             {recipe.description}
           </p>
           <div className="space-y-2">
-            <h4 className="text-brown-dark text-xs font-semibold">
-              Ingrédients:
-            </h4>
+            <h4 className="-dark text-xs font-semibold">Ingrédients:</h4>
             <div className="flex flex-wrap gap-1.5">
               {recipe.ingredients.map((ingredientName, idx) => {
                 const ingredientType = getIngredientColor(ingredientName);
