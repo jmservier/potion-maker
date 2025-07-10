@@ -6,6 +6,7 @@ import { RotateCcw, Sparkles, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { getIngredientEmoji } from "@/lib/item-assets";
 import { Ingredient } from "@/schemas";
 import { brewPotionMutation } from "../mutations";
 
@@ -77,6 +78,9 @@ export function PotionMixer({
                 className="selected-ingredient flex w-full items-center justify-between rounded-xl px-4 py-3"
               >
                 <div className="flex items-center gap-3">
+                  <span className="text-2xl">
+                    {getIngredientEmoji(ingredient.name)}
+                  </span>
                   <span className="font-semibold">{ingredient.name}</span>
                 </div>
                 <button
@@ -111,33 +115,42 @@ export function PotionMixer({
       <AnimatePresence initial={false}>
         {isBrewing && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, height: 0 }}
-            animate={{ opacity: 1, scale: 1, height: "auto" }}
-            exit={{ opacity: 0, scale: 0.8, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="mb-6 overflow-hidden text-center"
+            className="mb-6 text-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
           >
             <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 1, repeat: Infinity }}
-              className="m-4 text-6xl"
+              className="mb-4 text-6xl"
+              animate={{
+                y: [0, -10, 0],
+                rotate: [0, 5, -5, 0],
+              }}
+              transition={{
+                duration: 1,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
             >
               ⚗️
             </motion.div>
-            <div className="animate-pulse text-lg font-medium text-slate-600">
+            <div className="animate-pulse text-lg font-medium text-slate">
               Brassage en cours...
             </div>
             <div className="mt-4 flex justify-center gap-2">
               {[...Array(3)].map((_, i) => (
                 <motion.div
                   key={i}
-                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  className="bg-brown h-3 w-3 rounded-full"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.5, 1, 0.5],
+                  }}
                   transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
+                    duration: 0.8,
+                    repeat: Number.POSITIVE_INFINITY,
                     delay: i * 0.2,
                   }}
-                  className="h-3 w-3 rounded-full bg-purple-600"
                 />
               ))}
             </div>
