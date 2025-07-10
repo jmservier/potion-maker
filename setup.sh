@@ -54,7 +54,17 @@ npm run db:seed
 echo ""
 echo -e "${GREEN}✅ Setup complete!${NC}"
 echo ""
-echo -e "${BLUE}To start the development server, run:${NC}"
-echo -e "${GREEN}npm run dev${NC}"
-echo ""
-echo -e "The app will be available at ${BLUE}http://localhost:3000${NC}"
+
+# Ask if user wants to start the dev server
+echo -e "${BLUE}Would you like to start the development server now? (y/n)${NC}"
+read -r response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+    echo -e "${GREEN}Starting development server...${NC}"
+    echo -e "The app will be available at ${BLUE}http://localhost:3000${NC}"
+    npm run dev
+else
+    echo -e "${BLUE}To start the development server later, run:${NC}"
+    echo -e "${GREEN}npm run dev${NC}"
+    echo ""
+    echo -e "The app will be available at ${BLUE}http://localhost:3000${NC}"
+fi
