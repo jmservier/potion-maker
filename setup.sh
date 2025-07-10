@@ -42,7 +42,7 @@ npx prisma migrate dev
 
 # Seed the database
 echo -e "${BLUE}🌱 Seeding database with initial data...${NC}"
-npm run seed
+npm run db:seed
 
 echo ""
 echo -e "${GREEN}✅ Setup complete!${NC}"
