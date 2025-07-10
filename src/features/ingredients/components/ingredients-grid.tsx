@@ -13,7 +13,7 @@ export function IngredientsGrid({
   selectedIngredients,
 }: IngredientsGridProps) {
   return (
-    <div className="rounded-2xl p-8 shadow-lg">
+    <div className="rounded-2xl p-8">
       <h2 className="mb-8 text-3xl font-bold">Ingrédients Disponibles</h2>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         {ingredients.map((ingredient) => (

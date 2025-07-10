@@ -31,15 +31,11 @@ export function IngredientCard({
             <span className="ingredient-emoji">{emoji}</span>
           </div>
           <div className="absolute right-1 top-1 rounded-full border border-white/20 bg-white/50 px-3 py-1 shadow-sm backdrop-blur-md">
-            <span className="text-brown-dark text-sm font-bold">
-              {ingredient.quantity}
-            </span>
+            <span className="text-sm font-bold">{ingredient.quantity}</span>
           </div>
         </div>
         <div className="p-4">
-          <h3 className="text-brown-dark mb-2 text-base font-bold">
-            {ingredient.name}
-          </h3>
+          <h3 className="mb-2 text-base font-bold">{ingredient.name}</h3>
           <p className="text-brown text-xs leading-relaxed">
             {ingredient.description}
           </p>

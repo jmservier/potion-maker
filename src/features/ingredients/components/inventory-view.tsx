@@ -101,13 +101,13 @@ export default function InventoryView({
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <StatCard value={totalItems} label="Total d'objets" />
+          <StatCard value={totalItems} label="Total d'ingrédients" />
           <StatCard value={availableTypes} label="Types disponibles" />
         </div>
       </div>
       <div className="glass-card warm-glow rounded-2xl p-8">
         <h2 className="mb-6 text-2xl font-bold">Tous les Ingrédients</h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {ingredients?.map((ingredient) => (
             <InventoryIngredientCard
               key={ingredient.id}

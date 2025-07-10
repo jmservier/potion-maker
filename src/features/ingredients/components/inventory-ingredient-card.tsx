@@ -1,13 +1,7 @@
-import Image from "next/image";
 import { Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
+import { getIngredientColor, getIngredientEmoji } from "@/lib/item-assets";
 import { Ingredient } from "@/schemas";
 
 interface InventoryIngredientCardProps {
@@ -21,28 +15,26 @@ export function InventoryIngredientCard({
   onUpdateQuantity,
   isUpdating,
 }: InventoryIngredientCardProps) {
+  const ingredientType = getIngredientColor(ingredient.name);
+  const emoji = getIngredientEmoji(ingredient.name);
+
   return (
-    <Card className="ingredient-card rounded-t-lg py-0">
-      <CardHeader className="p-0">
-        <div className="relative h-40">
-          <Image
-            src="https://geeksui.codescandy.com/geeks/assets/images/placeholder/placeholder-4by3.svg"
-            alt={ingredient.name}
-            fill
-            className="rounded-t-lg object-cover"
-            priority={false}
-          />
+    <Card
+      className="ingredient-card cursor-default overflow-hidden py-0"
+      data-type={ingredientType}
+    >
+      <CardContent className="p-0">
+        <div className="relative">
+          <div className="ingredient-emoji-container">
+            <span className="ingredient-emoji">{emoji}</span>
+          </div>
         </div>
-        <div className="p-4 pb-2">
-          <CardTitle className="text-lg font-bold">{ingredient.name}</CardTitle>
-          <CardDescription className="text-sm">
+        <div className="p-4">
+          <h3 className="mb-2 text-base font-bold">{ingredient.name}</h3>
+          <p className="text-brown mb-4 min-h-[2.5rem] text-xs leading-relaxed">
             {ingredient.description}
-          </CardDescription>
-        </div>
-      </CardHeader>
-      <CardContent className="px-4 pb-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          </p>
+          <div className="flex items-center justify-center gap-3">
             <Button
               size="sm"
               variant="outline"
@@ -53,12 +45,12 @@ export function InventoryIngredientCard({
                 )
               }
               disabled={ingredient.quantity <= 0 || isUpdating}
-              className="h-10 w-10 rounded-lg p-0 font-bold"
+              className="border-brown/20 hover:bg-brown/5 h-9 w-9 rounded-lg p-0 font-bold"
             >
               <Minus size={16} />
             </Button>
 
-            <div className="min-w-[3rem] rounded-lg px-4 py-2 text-center font-bold">
+            <div className="flex items-center text-center font-bold">
               {ingredient.quantity}
             </div>
 
@@ -69,7 +61,7 @@ export function InventoryIngredientCard({
                 onUpdateQuantity(ingredient.id, ingredient.quantity + 1)
               }
               disabled={isUpdating}
-              className="h-10 w-10 rounded-lg p-0 font-bold"
+              className="border-brown/20 hover:bg-brown/5 h-9 w-9 rounded-lg p-0 font-bold"
             >
               <Plus size={16} />
             </Button>

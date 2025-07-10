@@ -1,3 +1,4 @@
+import { getRecipeEmoji } from "@/lib/item-assets";
 import { Recipe } from "@/schemas";
 
 interface RecipeBookProps {
@@ -23,9 +24,9 @@ export function RecipeBook({ recipes }: RecipeBookProps) {
                 key={recipe.id}
                 className="potion-bottle flex items-center gap-4 rounded-lg p-4"
               >
-                <div className="text-3xl">🧪</div>
+                <div className="text-3xl">{getRecipeEmoji(recipe.name)}</div>
                 <div className="flex-1">
-                  <div className="text-brown-dark font-bold">{recipe.name}</div>
+                  <div className="font-bold">{recipe.name}</div>
                 </div>
               </div>
             ))}

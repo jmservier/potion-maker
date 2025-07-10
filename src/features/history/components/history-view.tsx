@@ -98,9 +98,7 @@ export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
           <div className="stats-card rounded-xl p-6 text-center">
-            <div className="text-brown-dark mb-1 text-3xl font-bold">
-              {attempts.length}
-            </div>
+            <div className="mb-1 text-3xl font-bold">{attempts.length}</div>
             <div className="text-brown text-sm">Tentatives totales</div>
           </div>
           <div className="stats-card rounded-xl p-6 text-center">
@@ -126,9 +124,7 @@ export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
 
       {attempts.length > 0 ? (
         <div className="glass-card warm-glow rounded-2xl p-8">
-          <h2 className="text-brown-dark mb-6 text-3xl font-bold">
-            Activité Récente
-          </h2>
+          <h2 className="mb-6 text-3xl font-bold">Activité Récente</h2>
 
           <ScrollArea className="border-orange/20 h-[500px] rounded-xl border bg-white/50">
             <div className="space-y-3 p-4">
@@ -164,12 +160,12 @@ export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
                                   <span className="animate__animated animate__heartBeat animate__slower text-xl">
                                     {attempt.potionEmoji}
                                   </span>
-                                  <span className="text-brown-dark text-sm font-bold">
+                                  <span className="text-sm font-bold">
                                     {attempt.potionName}
                                   </span>
                                 </div>
                               ) : (
-                                <span className="text-brown-dark text-sm font-semibold">
+                                <span className="text-sm font-semibold">
                                   Tentative échouée
                                 </span>
                               )}
@@ -217,7 +213,7 @@ export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
       ) : (
         <div className="glass-card warm-glow rounded-2xl p-8 text-center">
           <div className="mb-4 text-6xl opacity-50">📋</div>
-          <h2 className="text-brown-dark mb-3 text-2xl font-semibold">
+          <h2 className="mb-3 text-2xl font-semibold">
             Pas d&apos;historique encore
           </h2>
           <p className="text-brown">
@@ -229,15 +225,11 @@ export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
 
       {attempts.length > 0 && (
         <div className="glass-card warm-glow rounded-2xl p-8">
-          <h2 className="text-brown-dark mb-6 text-3xl font-bold">
-            Statistiques
-          </h2>
+          <h2 className="mb-6 text-3xl font-bold">Statistiques</h2>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div>
-              <h3 className="text-brown-dark mb-4 text-xl font-bold">
-                Taux de Réussite
-              </h3>
+              <h3 className="mb-4 text-xl font-bold">Taux de Réussite</h3>
               <div className="border-orange/30 rounded-xl border bg-white p-6">
                 <div className="mb-3 flex items-center justify-between">
                   <span className="text-brown">Taux de réussite global</span>
@@ -266,7 +258,7 @@ export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
             </div>
 
             <div>
-              <h3 className="text-brown-dark mb-4 text-xl font-bold">
+              <h3 className="mb-4 text-xl font-bold">
                 Ingrédients les Plus Utilisés
               </h3>
               <div className="border-orange/30 rounded-xl border bg-white p-6">
