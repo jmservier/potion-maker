@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
+import { getAllRecipes } from "@/features/recipes/queries";
 import { RecipeSchema } from "@/schemas";
-import { getAllRecipes } from "@/server/db/queries/recipes";
 
 export async function GET() {
   try {

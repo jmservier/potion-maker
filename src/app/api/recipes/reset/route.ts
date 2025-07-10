@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { resetAllRecipes } from "@/server/db/queries/recipes";
+import { resetAllRecipes } from "@/features/recipes/actions";
 
 export async function POST() {
   try {

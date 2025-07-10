@@ -1,6 +1,6 @@
 import { HistoryView } from "@/features/history/components/history-view";
+import { getAllRecipes } from "@/features/recipes/queries";
 import { getAllCraftingAttempts } from "@/server/db/queries/crafting";
-import { getAllRecipes } from "@/server/db/queries/recipes";
 
 export default async function HistoryPage() {
   const [attempts, recipes] = await Promise.all([

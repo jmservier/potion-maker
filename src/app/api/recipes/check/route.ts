@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
 import { decrementIngredientQuantity } from "@/features/ingredients/actions";
 import { getIngredientsByNames } from "@/features/ingredients/queries";
+import { updateRecipeDiscovered } from "@/features/recipes/actions";
+import { getAllRecipes } from "@/features/recipes/queries";
 import type { Recipe } from "@/features/recipes/schemas/recipe.schema";
 import prisma from "@/lib/db";
 import { RecipeCheckRequestSchema } from "@/schemas";
-import {
-  getAllRecipes,
-  updateRecipeDiscovered,
-} from "@/server/db/queries/recipes";
 import * as craftingService from "@/server/services/crafting-services";
 
 async function processSuccessfulRecipe(
