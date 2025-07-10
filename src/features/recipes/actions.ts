@@ -1,8 +1,12 @@
-import { Recipe } from "@prisma/client";
+import { Prisma, Recipe } from "@prisma/client";
 import prisma from "@/lib/db";
 
-export async function updateRecipeDiscovered(id: string): Promise<Recipe> {
-  return prisma.recipe.update({
+export async function updateRecipeDiscovered(
+  id: string,
+  tx?: Prisma.TransactionClient,
+): Promise<Recipe> {
+  const client = tx || prisma;
+  return client.recipe.update({
     where: { id },
     data: {
       discovered: true,

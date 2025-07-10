@@ -1,4 +1,4 @@
-import { Ingredient } from "@prisma/client";
+import { Ingredient, Prisma } from "@prisma/client";
 import prisma from "@/lib/db";
 
 export async function createIngredient(
@@ -25,8 +25,10 @@ export async function updateIngredient(
 
 export async function decrementIngredientQuantity(
   name: string,
+  tx?: Prisma.TransactionClient,
 ): Promise<Ingredient> {
-  return prisma.ingredient.update({
+  const client = tx || prisma;
+  return client.ingredient.update({
     where: { name },
     data: {
       quantity: {
