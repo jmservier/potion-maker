@@ -5,6 +5,7 @@ import { History, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { getRecipeEmoji } from "@/lib/item-assets";
 import type { CraftingAttempt, Recipe } from "@/schemas";
 import { AttemptCard } from "./attempt-card";
 import { HistoryStats } from "./history-stats";
@@ -62,7 +63,7 @@ export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
         ...attempt,
         ingredients: recipe?.ingredients || [],
         potionName: recipe?.name,
-        potionEmoji: "🧪",
+        potionEmoji: recipe?.name ? getRecipeEmoji(recipe.name) : "🧪",
       };
       return extendedAttempt;
     });

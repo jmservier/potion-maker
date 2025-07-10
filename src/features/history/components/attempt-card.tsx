@@ -13,12 +13,20 @@ interface AttemptCardProps {
 }
 
 export function AttemptCard({ attempt }: AttemptCardProps) {
+  // Mock ingredients for failed attempts (For Demo)
+  const displayIngredients =
+    attempt.ingredients.length > 0
+      ? attempt.ingredients
+      : attempt.success
+        ? []
+        : ["Mandragore", "Plume de griffon", "Hélium liquide"];
+
   return (
     <Card
       className={`transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg ${
         attempt.success
-          ? "border-green-200 bg-green-50/30"
-          : "border-red-200 bg-red-50/30"
+          ? "border-green-200 bg-gradient-to-br from-green-50/40 to-green-100/30"
+          : "border-red-200 bg-gradient-to-br from-red-50/40 to-red-100/30"
       }`}
     >
       <CardContent className="p-4">
@@ -48,7 +56,7 @@ export function AttemptCard({ attempt }: AttemptCardProps) {
                   </span>
                 )}
               </div>
-              <span className="text-xs">
+              <span className="text-xs text-muted-foreground">
                 {new Date(attempt.createdAt).toLocaleString("fr-FR", {
                   day: "numeric",
                   month: "short",
@@ -58,16 +66,16 @@ export function AttemptCard({ attempt }: AttemptCardProps) {
               </span>
             </div>
 
-            {attempt.ingredients.length > 0 && (
-              <div className="bg-orange/5 rounded-lg p-2">
-                <div className="mb-1.5 text-xs font-semibold">
+            {displayIngredients.length > 0 && (
+              <div className="rounded-lg p-2">
+                <div className="mb-1.5 text-xs font-semibold text-muted-foreground">
                   Ingrédients utilisés :
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  {attempt.ingredients.map((ingredientName, idx) => (
+                  {displayIngredients.map((ingredientName, idx) => (
                     <span
                       key={idx}
-                      className="border-orange/30 from-orange/10 to-yellow/10 hover:from-orange/20 hover:to-yellow/20 cursor-default rounded-full border bg-gradient-to-r px-2 py-1 text-xs font-medium transition-all duration-200"
+                      className="rounded-full border border-gray-200 bg-white/80 px-2 py-1 text-xs font-medium transition-all duration-200 hover:bg-white"
                     >
                       {ingredientName}
                     </span>
