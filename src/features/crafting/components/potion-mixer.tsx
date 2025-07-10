@@ -162,7 +162,7 @@ export function PotionMixer({
               {[...Array(3)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="bg-brown h-3 w-3 rounded-full"
+                  className="h-3 w-3 rounded-full"
                   animate={{
                     scale: [1, 1.2, 1],
                     opacity: [0.5, 1, 0.5],

@@ -45,7 +45,7 @@ export function InventoryIngredientCard({
                 )
               }
               disabled={ingredient.quantity <= 0 || isUpdating}
-              className="border-brown/20 hover:bg-brown/5 h-9 w-9 rounded-lg p-0 font-bold"
+              className="h-9 w-9 rounded-lg p-0 font-bold"
             >
               <Minus size={16} />
             </Button>
@@ -61,7 +61,7 @@ export function InventoryIngredientCard({
                 onUpdateQuantity(ingredient.id, ingredient.quantity + 1)
               }
               disabled={isUpdating}
-              className="border-brown/20 hover:bg-brown/5 h-9 w-9 rounded-lg p-0 font-bold"
+              className="h-9 w-9 rounded-lg p-0 font-bold"
             >
               <Plus size={16} />
             </Button>
