@@ -67,12 +67,14 @@ export async function checkRecipeAndCraft(ingredientNames: string[]) {
       await prisma.$transaction(
         async (tx) => {
           if (!matchingRecipe.discovered) {
-            await updateRecipeDiscovered(matchingRecipe.id);
+            await updateRecipeDiscovered(matchingRecipe.id, tx);
           }
 
-          for (const ingredientName of ingredientNames) {
-            await decrementIngredientQuantity(ingredientName);
-          }
+          await Promise.all(
+            ingredientNames.map((ingredientName) =>
+              decrementIngredientQuantity(ingredientName, tx),
+            ),
+          );
 
           await tx.craftingAttempt.create({
             data: {
@@ -98,9 +100,11 @@ export async function checkRecipeAndCraft(ingredientNames: string[]) {
     } else {
       await prisma.$transaction(
         async (tx) => {
-          for (const ingredientName of ingredientNames) {
-            await decrementIngredientQuantity(ingredientName);
-          }
+          await Promise.all(
+            ingredientNames.map((ingredientName) =>
+              decrementIngredientQuantity(ingredientName, tx),
+            ),
+          );
           await tx.craftingAttempt.create({
             data: {
               success: false,
