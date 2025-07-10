@@ -23,28 +23,50 @@ interface ExtendedCraftingAttempt extends CraftingAttempt {
   potionEmoji?: string;
 }
 
+async function fetchCraftingAttempts(): Promise<CraftingAttempt[]> {
+  const response = await fetch("/api/crafting");
+  if (!response.ok) throw new Error("Failed to fetch attempts");
+  return response.json();
+}
+
+async function clearCraftingHistory() {
+  const response = await fetch("/api/crafting/clear", {
+    method: "POST",
+  });
+  if (!response.ok) throw new Error("Failed to clear history");
+  return response.json();
+}
+
+function extendAttemptsWithIngredients(
+  attempts: CraftingAttempt[],
+  recipes: Recipe[],
+): ExtendedCraftingAttempt[] {
+  return attempts.map((attempt) => {
+    const recipe = recipes.find((r) => r.name === attempt.recipeName);
+    const extendedAttempt: ExtendedCraftingAttempt = {
+      ...attempt,
+      ingredients: recipe?.ingredients || [],
+      potionName: recipe?.name,
+      potionEmoji: recipe?.name ? getRecipeEmoji(recipe.name) : "🧪",
+    };
+    return extendedAttempt;
+  });
+}
+
 export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
   const queryClient = useQueryClient();
 
   const { data: attempts = [] } = useQuery({
     queryKey: ["crafting-attempts"],
     queryFn: async () => {
-      const response = await fetch("/api/crafting");
-      if (!response.ok) throw new Error("Failed to fetch attempts");
-      const data = await response.json();
-      return extendAttemptsWithIngredients(data);
+      const data = await fetchCraftingAttempts();
+      return extendAttemptsWithIngredients(data, recipes);
     },
-    initialData: () => extendAttemptsWithIngredients(initialAttempts),
+    initialData: () => extendAttemptsWithIngredients(initialAttempts, recipes),
   });
 
   const clearHistoryMutation = useMutation({
-    mutationFn: async () => {
-      const response = await fetch("/api/crafting/clear", {
-        method: "POST",
-      });
-      if (!response.ok) throw new Error("Failed to clear history");
-      return response.json();
-    },
+    mutationFn: clearCraftingHistory,
     onSuccess: () => {
       queryClient.setQueryData(["crafting-attempts"], []);
       toast.success("Historique effacé");
@@ -53,21 +75,6 @@ export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
       toast.error("Échec de l'effacement de l'historique");
     },
   });
-
-  function extendAttemptsWithIngredients(
-    attempts: CraftingAttempt[],
-  ): ExtendedCraftingAttempt[] {
-    return attempts.map((attempt) => {
-      const recipe = recipes.find((r) => r.name === attempt.recipeName);
-      const extendedAttempt: ExtendedCraftingAttempt = {
-        ...attempt,
-        ingredients: recipe?.ingredients || [],
-        potionName: recipe?.name,
-        potionEmoji: recipe?.name ? getRecipeEmoji(recipe.name) : "🧪",
-      };
-      return extendedAttempt;
-    });
-  }
 
   const successfulAttempts = attempts.filter((attempt) => attempt.success);
   const failedAttempts = attempts.filter((attempt) => !attempt.success);
@@ -114,12 +121,9 @@ export function HistoryView({ initialAttempts, recipes }: HistoryViewProps) {
 
           <ScrollArea className="border-orange/20 h-[500px] rounded-xl border bg-white/50">
             <div className="space-y-3 p-4">
-              {attempts
-                .slice()
-                .reverse()
-                .map((attempt) => (
-                  <AttemptCard key={attempt.id} attempt={attempt} />
-                ))}
+              {attempts.map((attempt) => (
+                <AttemptCard key={attempt.id} attempt={attempt} />
+              ))}
             </div>
           </ScrollArea>
         </div>
